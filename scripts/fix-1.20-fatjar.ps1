@@ -49,7 +49,7 @@ try {
     Write-Output "cleared META-INF/jars"
 
     # 3. for each module: extract, patch fabric.mod.json, re-zip into META-INF/jars
-    $patchPattern = '"minecraft"\s*:\s*"(?:\\u003d|=)1\.20\.1"'
+    $patchPattern = '"minecraft"\s*:\s*"(?:\\u003d|=|>=|>)[^"]*"'
     $moduleJars = Get-ChildItem $LibDir -Filter *.jar | Sort-Object Name
     foreach ($m in $moduleJars) {
         $mdir = Join-Path $work ("m-" + [guid]::NewGuid().ToString('N'))
@@ -57,7 +57,7 @@ try {
         $fmj = Join-Path $mdir 'fabric.mod.json'
         if (Test-Path $fmj) {
             $t = [System.IO.File]::ReadAllText($fmj)
-            $n = [regex]::Replace($t, $patchPattern, '"minecraft": ">=1.20 <1.20.2"')
+            $n = [regex]::Replace($t, $patchPattern, '"minecraft": "*"')
             if ($n -ne $t) {
                 [System.IO.File]::WriteAllText($fmj, $n, (New-Object System.Text.UTF8Encoding($false)))
             }
