@@ -1,4 +1,4 @@
-package com.voxelutopia.ultramarine.world.block;
+﻿package com.voxelutopia.ultramarine.world.block;
 
 import com.voxelutopia.ultramarine.data.shape.BlockShapes;
 import com.voxelutopia.ultramarine.data.shape.ShapeFunction;
@@ -11,7 +11,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.RenderShape;
@@ -32,6 +34,10 @@ import org.jetbrains.annotations.NotNull;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class DecorativeBlock extends HorizontalDirectionalBlock implements BaseBlockPropertyHolder, DiagonallyPlaceable {
+   @Override
+   protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+      return BlockBehaviour.simpleCodec(props -> this);
+   }
    public static final DirectionProperty HORIZONTAL_FACING_SHIFT = ModBlockStateProperties.HORIZONTAL_FACING_SHIFT;
    public static final BooleanProperty LIT = BlockStateProperties.LIT;
    private final BaseBlockProperty property;

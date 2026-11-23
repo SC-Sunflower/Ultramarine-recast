@@ -1,4 +1,4 @@
-package com.voxelutopia.ultramarine.world.block;
+﻿package com.voxelutopia.ultramarine.world.block;
 
 import com.voxelutopia.ultramarine.data.registry.BlockEntityRegistry;
 import com.voxelutopia.ultramarine.world.block.entity.BottleGourdBlockEntity;
@@ -75,7 +75,7 @@ public class BottleGourd extends DecorativeBlock implements EntityBlock {
       return InteractionResult.PASS;
    }
 
-   public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
+   public BlockState playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
       super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
       pLevel.getBlockEntity(pPos, BlockEntityRegistry.BOTTLE_GOURD).ifPresent(entity -> {
          if (entity.hasCharges() && !pLevel.isClientSide()) {
@@ -97,8 +97,8 @@ public class BottleGourd extends DecorativeBlock implements EntityBlock {
             }
          }
       });
+      return pState;
    }
-
    @Nullable
    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
       return new BottleGourdBlockEntity(pPos, pState);
