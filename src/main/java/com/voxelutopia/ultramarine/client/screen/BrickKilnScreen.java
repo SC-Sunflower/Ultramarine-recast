@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class BrickKilnScreen extends AbstractContainerScreen<BrickKilnMenu> {
-   private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath("ultramarine", "container/brick_kiln");
+   private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath("ultramarine", "textures/gui/sprites/container/brick_kiln.png");
 
    public BrickKilnScreen(BrickKilnMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
       super(pMenu, pPlayerInventory, pTitle);
@@ -21,7 +21,7 @@ public class BrickKilnScreen extends AbstractContainerScreen<BrickKilnMenu> {
    }
 
    protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-      guiGraphics.blitSprite(RenderType::guiTextured, BACKGROUND, this.leftPos, this.topPos, this.imageWidth, this.imageHeight);
+      guiGraphics.blit(RenderType::guiTextured, BACKGROUND, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
       if (((BrickKilnMenu)this.menu).isLit()) {
          int k = ((BrickKilnMenu)this.menu).getLitProgress();
          guiGraphics.blit(RenderType::guiTextured, BACKGROUND, this.leftPos + 56, this.topPos + 36 + 12 - k, 176, 12 - k, 14, k + 1, 256, 256);
