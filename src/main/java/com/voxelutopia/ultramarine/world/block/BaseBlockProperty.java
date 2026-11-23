@@ -2,6 +2,7 @@ package com.voxelutopia.ultramarine.world.block;
 
 import com.voxelutopia.ultramarine.data.ModBlockTags;
 import com.voxelutopia.ultramarine.data.registry.SoundRegistry;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -106,7 +107,12 @@ public final class BaseBlockProperty {
    }
 
    public BaseBlockProperty copy() {
-      Properties properties1 = Properties.copy(new BlockBehaviour(this.properties) {
+      Properties properties1 = Properties.ofFullCopy(new BlockBehaviour(this.properties) {
+         @Override
+         protected MapCodec<? extends Block> codec() {
+            return BlockBehaviour.simpleCodec(props -> new Block(props));
+         }
+
          public Item asItem() {
             return Items.AIR;
          }
