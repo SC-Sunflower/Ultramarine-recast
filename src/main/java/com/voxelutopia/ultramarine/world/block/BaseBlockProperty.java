@@ -8,8 +8,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -111,7 +111,7 @@ public final class BaseBlockProperty {
 
    public BaseBlockProperty copy() {
       // 1.20.6 起 Properties.copy 接受 Block（不再接受 BlockBehaviour），且匿名方块需实现 codec()。
-      BlockBehaviour dummy = new BlockBehaviour(this.properties.copy().setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("ultramarine", "dummy")))) {
+      BlockBehaviour dummy = new BlockBehaviour(this.properties.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("ultramarine", "dummy")))) {
          @Override
          protected MapCodec<? extends Block> codec() {
             return BlockBehaviour.simpleCodec(props -> new Block(props));
