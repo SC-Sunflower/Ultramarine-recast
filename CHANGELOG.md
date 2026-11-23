@@ -5,6 +5,14 @@
 First public release of **Ultramarine: Recast** — Ultramarine 0.7 content ported to
 Minecraft 1.20.1 / Fabric.
 
+### Minecraft 1.20 support
+
+- The same jar now also runs on Minecraft 1.20: 1.20 and 1.20.1 share identical Fabric
+  intermediary mappings, so the build is binary-compatible.
+- `scripts/patch-mc-version.ps1` rewrites the bundled Porting Lib version declarations
+  from `= 1.20.1` to `>=1.20 <1.20.2` so Fabric Loader accepts the jar on 1.20.
+- 1.20 requires Fabric API 0.83.0+1.20; 1.20.1 uses the regular 1.20.1 Fabric API.
+
 ### Added
 
 - 18 wooden rafters and rafter ends (oak, spruce, birch, jungle, acacia, crimson,

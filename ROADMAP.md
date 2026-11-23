@@ -10,7 +10,7 @@ Current release: **0.7.0 content, Minecraft 1.20.1 / Fabric** (this repository's
 | Phase | Versions | Loader | Difficulty | Notes |
 | --- | --- | --- | --- | --- |
 | ✅ Done | 1.20.1 | Fabric | — | Baseline, content = Ultramarine 0.7 |
-| 1 | 1.20 | Fabric | Very low | 1.20.1 build works as-is (same data pack format) |
+| ✅ Done | 1.20 | Fabric | Very low | Same jar + `scripts/patch-mc-version.ps1`; 1.20 uses Fabric API 0.83.0+1.20 |
 | 2 | 26.1, 26.1.1, 26.1.2 | Fabric | Low–medium | Official `fabric/1.20`-era 26.1 Fabric sources exist in Flechazo's fork branches |
 | 2 | 26.2, 26.3 | Fabric | Medium | Iterate forward from the 26.1 port |
 | 3 | 1.21, 1.21.1, 1.21.2 – 1.21.11 | Fabric | Medium–high | Data components (1.20.5+), item/recipe format changes, new render pipeline in 1.21.11+ |

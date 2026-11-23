@@ -31,14 +31,27 @@ original authors.
 
 | Component | Version |
 | --- | --- |
-| Minecraft | 1.20.1 |
+| Minecraft | 1.20 / 1.20.1 (same jar) |
 | Fabric Loader | >= 0.15.7 |
-| Fabric API | any recent 1.20.1 build |
+| Fabric API | 1.20.1: any recent build · 1.20: **0.83.0+1.20** |
 
 Porting Lib is bundled inside the jar (matching the original authors' fat jar layout),
 so players do not need to install it separately.
 
 Optional integrations: JEI, Jade, Patchouli.
+
+### Minecraft 1.20 support
+
+1.20 and 1.20.1 share identical Fabric intermediary mappings, so a single build runs on
+both. Fabric Loader treats the bundled Porting Lib's `minecraft = 1.20.1` declaration as
+a hard dependency, so after building run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/patch-mc-version.ps1
+```
+
+This rewrites the bundled dependency declarations to `>=1.20 <1.20.2`. On 1.20 use
+Fabric API 0.83.0+1.20; on 1.20.1 use the newer 1.20.1 Fabric API.
 
 ## Building
 
