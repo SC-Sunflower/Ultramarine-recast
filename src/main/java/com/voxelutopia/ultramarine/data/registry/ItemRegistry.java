@@ -19,7 +19,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BlockItem;
@@ -795,9 +795,9 @@ public class ItemRegistry {
 
       private static Item registerItem(String name, Function<Item.Properties, Item> factory) {
       Item.Properties properties = new Item.Properties();
-      properties.setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("ultramarine", name)));
+      properties.setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", name)));
       Item item = factory.apply(properties);
-      return Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath("ultramarine", name), item);
+      return Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", name), item);
    }
 
    public static void registerModItems() {

@@ -1,5 +1,9 @@
 package com.voxelutopia.ultramarine.data.registry;
 
+import net.minecraft.Util;
+
+import net.minecraft.world.level.block.state.BlockBehaviour;
+
 import com.voxelutopia.ultramarine.mixin.BlockBehaviourMixin;
 import com.voxelutopia.ultramarine.mixin.ItemMixin;
 
@@ -1967,12 +1971,16 @@ public class BlockRegistry {
    );
 
       public static Block registerBlock(String name, Block block) {
+      block.properties = BlockBehaviour.Properties.ofFullCopy(block);
       block.properties.setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("ultramarine", name)));
+      block.descriptionId = Util.makeDescriptionId("block", Identifier.fromNamespaceAndPath("ultramarine", name));
       return Registry.register(BuiltInRegistries.BLOCK, Identifier.fromNamespaceAndPath("ultramarine", name), block);
    }
 
       public static void registerBlockItem(String name, Block block) {
-      Item item = new BlockItem(block, new Properties());
+      Item.Properties itemProperties = new Item.Properties();
+      itemProperties.setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", name)));
+      Item item = new BlockItem(block, itemProperties);
       Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", name), item);
    }
 
