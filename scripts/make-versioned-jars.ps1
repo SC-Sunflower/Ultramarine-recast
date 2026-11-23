@@ -11,7 +11,9 @@ New-Item -ItemType Directory -Force -Path $OutDir | Out-Null
 # branch -> (base jar name in build/libs, target game versions)
 $plan = [ordered]@{
     "main"           = @("ultramarine-recast-fabric-1.20.1-0.7.0.jar", @("1.20", "1.20.1"))
-    "fabric/1.20.2"  = @("ultramarine-recast-fabric-1.20.2-0.7.0.jar", @("1.20.2", "1.20.3", "1.20.4"))
+    "fabric/1.20.2"  = @("ultramarine-recast-fabric-1.20.2-0.7.0.jar", @("1.20.2"))
+    "fabric/1.20.3"  = @("ultramarine-recast-fabric-1.20.3-0.7.0.jar", @("1.20.3"))
+    "fabric/1.20.4"  = @("ultramarine-recast-fabric-1.20.4-0.7.0.jar", @("1.20.4"))
     "fabric/1.20.5"  = @("ultramarine-recast-fabric-1.20.5-0.7.0.jar", @("1.20.5"))
     "fabric/1.20.6"  = @("ultramarine-recast-fabric-1.20.6-0.7.0.jar", @("1.20.6"))
     "fabric/1.21.1"  = @("ultramarine-recast-fabric-1.21.1-0.7.0.jar", @("1.21", "1.21.1"))
