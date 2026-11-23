@@ -6,7 +6,8 @@
   "mixins": [
     "ItemEntityMixin",
     "SnowLayerBlockMixin",
-    "BlockBehaviourMixin"
+    "BlockBehaviourMixin",
+    "ItemMixin"
   ],
   "client": [],
   "minVersion": "0.8.5"
