@@ -6,5 +6,5 @@
       "item": "ultramarine:jade_block"
     }
   ],
-  "result": { "item": "ultramarine:jade", "count": 9 }
+  "result": { "id": "ultramarine:jade", "count": 9 }
 }

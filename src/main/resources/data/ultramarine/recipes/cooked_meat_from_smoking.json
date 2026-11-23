@@ -6,5 +6,5 @@
   "ingredient": {
     "item": "ultramarine:raw_meat"
   },
-  "result": { "item": "ultramarine:cooked_meat", "count": 1 }
+  "result": { "id": "ultramarine:cooked_meat", "count": 1 }
 }

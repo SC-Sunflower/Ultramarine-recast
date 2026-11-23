@@ -5,6 +5,7 @@ import java.util.List;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.item.ItemStack;
@@ -63,7 +64,7 @@ public class ItemStackHandler implements SlottedStackStorage {
     }
 
     public int getStackLimit(int slot, ItemVariant resource) {
-        return Math.min(this.getSlotLimit(slot), (int) resource.getItem().getMaxStackSize());
+        return Math.min(this.getSlotLimit(slot), (int) resource.toStack(1).getMaxStackSize());
     }
 
     @Override
@@ -123,7 +124,7 @@ public class ItemStackHandler implements SlottedStackStorage {
         return extracted;
     }
 
-    public CompoundTag serializeNBT() {
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         CompoundTag nbt = new CompoundTag();
         nbt.putInt("Size", this.slots.size());
         ListTag items = new ListTag();
@@ -131,7 +132,7 @@ public class ItemStackHandler implements SlottedStackStorage {
             if (!slot.getStack().isEmpty()) {
                 CompoundTag tag = new CompoundTag();
                 tag.putInt("Slot", slot.getIndex());
-                slot.getStack().save(tag);
+                slot.getStack().save(provider, tag);
                 items.add(tag);
             }
         }
@@ -139,14 +140,14 @@ public class ItemStackHandler implements SlottedStackStorage {
         return nbt;
     }
 
-    public void deserializeNBT(CompoundTag nbt) {
+    public void deserializeNBT(CompoundTag nbt, HolderLookup.Provider provider) {
         this.setSize(nbt.contains("Size") ? nbt.getInt("Size") : this.slots.size());
         ListTag items = nbt.getList("Items", 10);
         for (int i = 0; i < items.size(); i++) {
             CompoundTag tag = items.getCompound(i);
             int index = tag.getInt("Slot");
             if (index >= 0 && index < this.slots.size()) {
-                this.slots.get(index).setStack(ItemStack.of(tag));
+                this.slots.get(index).setStack(ItemStack.parseOptional(provider, tag));
             }
         }
         this.onLoad();

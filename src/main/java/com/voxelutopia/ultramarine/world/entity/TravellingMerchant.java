@@ -15,6 +15,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
@@ -53,26 +54,26 @@ public class TravellingMerchant extends WanderingTrader {
    static {
       TRADE_OPTIONS.addAll(
          List.of(
-            new MerchantOffer(new ItemStack(ItemRegistry.COPPER_CASH_COIN, 10), new ItemStack(ItemRegistry.INCENSE), 8, 5, 0.05F),
-            new MerchantOffer(new ItemStack(ItemRegistry.COPPER_CASH_COIN, 4), new ItemStack(ItemRegistry.XUAN_PAPER), 20, 5, 0.05F),
-            new MerchantOffer(new ItemStack(ItemRegistry.COPPER_CASH_COIN, 6), new ItemStack(ItemRegistry.SILK), 20, 5, 0.05F),
-            new MerchantOffer(new ItemStack(ItemRegistry.COPPER_CASH_COIN, 8), new ItemStack(Items.LAPIS_LAZULI), 10, 5, 0.05F),
-            new MerchantOffer(new ItemStack(ItemRegistry.COPPER_CASH_COIN, 8), new ItemStack(Items.PRISMARINE_SHARD), 10, 5, 0.05F),
-            new MerchantOffer(new ItemStack(ItemRegistry.COPPER_CASH_COIN, 15), new ItemStack(ItemRegistry.RED_SILK_FABRIC_ROLL), 5, 5, 0.05F),
-            new MerchantOffer(new ItemStack(ItemRegistry.COPPER_CASH_COIN, 15), new ItemStack(ItemRegistry.GREEN_SILK_FABRIC_ROLL), 5, 5, 0.05F),
-            new MerchantOffer(new ItemStack(ItemRegistry.COPPER_CASH_COIN, 15), new ItemStack(ItemRegistry.PURPLE_SILK_FABRIC_ROLL), 5, 5, 0.05F),
-            new MerchantOffer(new ItemStack(ItemRegistry.COPPER_CASH_COIN, 20), new ItemStack(ItemRegistry.CLAY_DOLL_MALE), 5, 5, 0.05F),
-            new MerchantOffer(new ItemStack(ItemRegistry.COPPER_CASH_COIN, 20), new ItemStack(ItemRegistry.CLAY_DOLL_FEMALE), 5, 5, 0.05F),
-            new MerchantOffer(new ItemStack(ItemRegistry.COPPER_CASH_COIN, 30), new ItemStack(ItemRegistry.PAINTING_SCROLL), 5, 5, 0.05F),
-            new MerchantOffer(new ItemStack(ItemRegistry.COPPER_CASH_COIN, 10), new ItemStack(ItemRegistry.CHINESE_HERBS_BAG), 5, 5, 0.05F),
-            new MerchantOffer(new ItemStack(Items.AMETHYST_SHARD), new ItemStack(ItemRegistry.COPPER_CASH_COIN, 6), 8, 5, 0.05F),
-            new MerchantOffer(new ItemStack(Items.ENDER_PEARL), new ItemStack(ItemRegistry.COPPER_CASH_COIN, 3), 10, 5, 0.05F),
-            new MerchantOffer(new ItemStack(Items.BOOK), new ItemStack(ItemRegistry.COPPER_CASH_COIN, 3), 5, 5, 0.05F),
-            new MerchantOffer(new ItemStack(Items.NAUTILUS_SHELL), new ItemStack(ItemRegistry.COPPER_CASH_COIN, 20), 2, 5, 0.05F),
-            new MerchantOffer(new ItemStack(ItemRegistry.POLISHED_EBONY_PLANK), new ItemStack(ItemRegistry.COPPER_CASH_COIN, 4), 10, 5, 0.05F),
-            new MerchantOffer(new ItemStack(ItemRegistry.POLISHED_ROSEWOOD_PLANK), new ItemStack(ItemRegistry.COPPER_CASH_COIN, 4), 10, 5, 0.05F),
-            new MerchantOffer(new ItemStack(ItemRegistry.BLUE_AND_WHITE_PORCELAIN_PIECE), new ItemStack(ItemRegistry.COPPER_CASH_COIN, 6), 8, 5, 0.05F),
-            new MerchantOffer(new ItemStack(ItemRegistry.JADE), new ItemStack(ItemRegistry.COPPER_CASH_COIN, 15), 2, 5, 0.05F)
+            new MerchantOffer(new ItemCost((ItemRegistry.COPPER_CASH_COIN), 10), new ItemStack(ItemRegistry.INCENSE), 8, 5, 0.05F),
+            new MerchantOffer(new ItemCost((ItemRegistry.COPPER_CASH_COIN), 4), new ItemStack(ItemRegistry.XUAN_PAPER), 20, 5, 0.05F),
+            new MerchantOffer(new ItemCost((ItemRegistry.COPPER_CASH_COIN), 6), new ItemStack(ItemRegistry.SILK), 20, 5, 0.05F),
+            new MerchantOffer(new ItemCost((ItemRegistry.COPPER_CASH_COIN), 8), new ItemStack(Items.LAPIS_LAZULI), 10, 5, 0.05F),
+            new MerchantOffer(new ItemCost((ItemRegistry.COPPER_CASH_COIN), 8), new ItemStack(Items.PRISMARINE_SHARD), 10, 5, 0.05F),
+            new MerchantOffer(new ItemCost((ItemRegistry.COPPER_CASH_COIN), 15), new ItemStack(ItemRegistry.RED_SILK_FABRIC_ROLL), 5, 5, 0.05F),
+            new MerchantOffer(new ItemCost((ItemRegistry.COPPER_CASH_COIN), 15), new ItemStack(ItemRegistry.GREEN_SILK_FABRIC_ROLL), 5, 5, 0.05F),
+            new MerchantOffer(new ItemCost((ItemRegistry.COPPER_CASH_COIN), 15), new ItemStack(ItemRegistry.PURPLE_SILK_FABRIC_ROLL), 5, 5, 0.05F),
+            new MerchantOffer(new ItemCost((ItemRegistry.COPPER_CASH_COIN), 20), new ItemStack(ItemRegistry.CLAY_DOLL_MALE), 5, 5, 0.05F),
+            new MerchantOffer(new ItemCost((ItemRegistry.COPPER_CASH_COIN), 20), new ItemStack(ItemRegistry.CLAY_DOLL_FEMALE), 5, 5, 0.05F),
+            new MerchantOffer(new ItemCost((ItemRegistry.COPPER_CASH_COIN), 30), new ItemStack(ItemRegistry.PAINTING_SCROLL), 5, 5, 0.05F),
+            new MerchantOffer(new ItemCost((ItemRegistry.COPPER_CASH_COIN), 10), new ItemStack(ItemRegistry.CHINESE_HERBS_BAG), 5, 5, 0.05F),
+            new MerchantOffer(new ItemCost((Items.AMETHYST_SHARD), 1), new ItemStack(ItemRegistry.COPPER_CASH_COIN, 6), 8, 5, 0.05F),
+            new MerchantOffer(new ItemCost((Items.ENDER_PEARL), 1), new ItemStack(ItemRegistry.COPPER_CASH_COIN, 3), 10, 5, 0.05F),
+            new MerchantOffer(new ItemCost((Items.BOOK), 1), new ItemStack(ItemRegistry.COPPER_CASH_COIN, 3), 5, 5, 0.05F),
+            new MerchantOffer(new ItemCost((Items.NAUTILUS_SHELL), 1), new ItemStack(ItemRegistry.COPPER_CASH_COIN, 20), 2, 5, 0.05F),
+            new MerchantOffer(new ItemCost((ItemRegistry.POLISHED_EBONY_PLANK), 1), new ItemStack(ItemRegistry.COPPER_CASH_COIN, 4), 10, 5, 0.05F),
+            new MerchantOffer(new ItemCost((ItemRegistry.POLISHED_ROSEWOOD_PLANK), 1), new ItemStack(ItemRegistry.COPPER_CASH_COIN, 4), 10, 5, 0.05F),
+            new MerchantOffer(new ItemCost((ItemRegistry.BLUE_AND_WHITE_PORCELAIN_PIECE), 1), new ItemStack(ItemRegistry.COPPER_CASH_COIN, 6), 8, 5, 0.05F),
+            new MerchantOffer(new ItemCost((ItemRegistry.JADE), 1), new ItemStack(ItemRegistry.COPPER_CASH_COIN, 15), 2, 5, 0.05F)
          )
       );
    }

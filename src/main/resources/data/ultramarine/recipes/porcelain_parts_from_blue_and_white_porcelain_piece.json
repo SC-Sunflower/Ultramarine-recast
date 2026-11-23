@@ -3,5 +3,5 @@
   "ingredient": {
     "item": "ultramarine:blue_and_white_porcelain_piece"
   },
-  "result": { "item": "ultramarine:porcelain_parts", "count": 1 }
+  "result": { "id": "ultramarine:porcelain_parts", "count": 1 }
 }

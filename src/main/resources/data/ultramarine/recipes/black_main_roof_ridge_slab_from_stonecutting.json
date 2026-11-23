@@ -1,8 +1,7 @@
 {
   "type": "minecraft:stonecutting",
-  "count": 2,
-  "ingredient": {
+    "ingredient": {
     "item": "ultramarine:black_main_roof_ridge_connection"
   },
-  "result": "ultramarine:black_main_roof_ridge_slab"
+  "result": {"id": "ultramarine:black_main_roof_ridge_slab", "count": 2}
 }

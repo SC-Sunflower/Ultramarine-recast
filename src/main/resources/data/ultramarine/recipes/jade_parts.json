@@ -1,8 +1,7 @@
 {
   "type": "minecraft:stonecutting",
-  "count": 2,
-  "ingredient": {
+    "ingredient": {
     "item": "ultramarine:jade"
   },
-  "result": "ultramarine:jade_parts"
+  "result": {"id": "ultramarine:jade_parts", "count": 2}
 }

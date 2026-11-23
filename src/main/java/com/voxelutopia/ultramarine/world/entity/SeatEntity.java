@@ -48,8 +48,8 @@ public class SeatEntity extends Entity {
       return true;
    }
 
-   protected void defineSynchedData() {
-      this.entityData.define(LIFE, 0);
+   protected void defineSynchedData(SynchedEntityData.Builder builder) {
+      builder.define(LIFE, 0);
    }
 
    protected void readAdditionalSaveData(CompoundTag pCompound) {

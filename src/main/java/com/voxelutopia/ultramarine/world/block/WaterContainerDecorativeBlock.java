@@ -6,6 +6,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
@@ -34,8 +35,7 @@ public class WaterContainerDecorativeBlock extends DecorativeBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        ItemStack stack = player.getItemInHand(hand);
+    public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         boolean isClientSide = level.isClientSide();
         if (stack.is(Items.BUCKET) && state.getValue(FILLED)) {
             if (!isClientSide) {
@@ -43,16 +43,16 @@ public class WaterContainerDecorativeBlock extends DecorativeBlock {
                 level.setBlock(pos, state.setValue(FILLED, false), 3);
                 level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
-            return InteractionResult.sidedSuccess(isClientSide);
+            return ItemInteractionResult.sidedSuccess(isClientSide);
         } else if (stack.is(Items.WATER_BUCKET) && !state.getValue(FILLED)) {
             if (!isClientSide) {
                 player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.BUCKET)));
                 level.setBlock(pos, state.setValue(FILLED, true), 3);
                 level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
-            return InteractionResult.sidedSuccess(isClientSide);
+            return ItemInteractionResult.sidedSuccess(isClientSide);
         } else {
-            return super.use(state, level, pos, player, hand, hitResult);
+            return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
         }
     }
 

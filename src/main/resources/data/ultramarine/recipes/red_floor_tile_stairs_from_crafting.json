@@ -11,5 +11,5 @@
     "BB ",
     "BBB"
   ],
-  "result": { "item": "ultramarine:red_floor_tile_stairs", "count": 4 }
+  "result": { "id": "ultramarine:red_floor_tile_stairs", "count": 4 }
 }

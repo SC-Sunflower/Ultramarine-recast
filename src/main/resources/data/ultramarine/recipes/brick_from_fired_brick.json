@@ -6,5 +6,5 @@
       "item": "ultramarine:fired_brick"
     }
   ],
-  "result": { "item": "minecraft:brick", "count": 1 }
+  "result": { "id": "minecraft:brick", "count": 1 }
 }

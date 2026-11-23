@@ -1,8 +1,7 @@
 {
   "type": "minecraft:stonecutting",
-  "count": 2,
-  "ingredient": {
+    "ingredient": {
     "item": "ultramarine:white_and_pink_mixed_bricks"
   },
-  "result": "ultramarine:white_and_pink_mixed_brick_slab"
+  "result": {"id": "ultramarine:white_and_pink_mixed_brick_slab", "count": 2}
 }

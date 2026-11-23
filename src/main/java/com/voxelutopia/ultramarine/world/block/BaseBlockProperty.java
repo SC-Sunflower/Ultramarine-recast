@@ -2,6 +2,7 @@ package com.voxelutopia.ultramarine.world.block;
 
 import com.voxelutopia.ultramarine.data.ModBlockTags;
 import com.voxelutopia.ultramarine.data.registry.SoundRegistry;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -106,15 +107,24 @@ public final class BaseBlockProperty {
    }
 
    public BaseBlockProperty copy() {
-      Properties properties1 = Properties.copy(new BlockBehaviour(this.properties) {
+      // 1.20.6 起 Properties.copy 接受 Block（不再接受 BlockBehaviour），且匿名方块需实现 codec()。
+      BlockBehaviour dummy = new BlockBehaviour(this.properties) {
+         @Override
+         protected MapCodec<? extends Block> codec() {
+            return BlockBehaviour.simpleCodec(props -> new Block(props));
+         }
+
+         @Override
          public Item asItem() {
             return Items.AIR;
          }
 
+         @Override
          protected Block asBlock() {
             return Blocks.AIR;
          }
-      });
+      };
+      Properties properties1 = Properties.ofFullCopy(dummy);
       return new BaseBlockProperty(properties1, this.material);
    }
 

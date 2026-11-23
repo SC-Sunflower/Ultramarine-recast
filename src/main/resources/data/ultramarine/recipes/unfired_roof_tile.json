@@ -12,7 +12,7 @@
   ],
   "result": {
     "count": 2,
-    "item": "ultramarine:unfired_roof_tile"
+    "id": "ultramarine:unfired_roof_tile"
   },
   "show_notification": true
 }

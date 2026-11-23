@@ -8,7 +8,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
@@ -127,7 +130,7 @@ public class RoofTiles extends ShiftableBlock {
       }
    }
 
-   public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+   public ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
       ItemStack item = pPlayer.getItemInHand(pHand);
       if (item.is(Items.SNOWBALL)) {
          this.handleSnow(pState, pLevel, pPos);
@@ -135,16 +138,16 @@ public class RoofTiles extends ShiftableBlock {
             item.shrink(1);
          }
 
-         return InteractionResult.sidedSuccess(pLevel.isClientSide);
+         return ItemInteractionResult.sidedSuccess(pLevel.isClientSide);
       } else if (item.getItem() instanceof ShovelItem) {
          this.removeSnow(pState, pLevel, pPos);
          if (!pPlayer.isCreative()) {
-            item.hurtAndBreak(1, pPlayer, p -> p.broadcastBreakEvent(pHand));
+            item.hurtAndBreak(1, pPlayer, EquipmentSlot.MAINHAND);
          }
 
-         return InteractionResult.sidedSuccess(pLevel.isClientSide);
+         return ItemInteractionResult.sidedSuccess(pLevel.isClientSide);
       } else {
-         return InteractionResult.PASS;
+         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
       }
    }
 

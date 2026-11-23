@@ -7,9 +7,11 @@ import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
@@ -32,8 +34,8 @@ public class ContainerDecorativeBlock extends DecorativeBlock implements EntityB
    }
 
    public void setPlacedBy(Level worldIn, BlockPos posIn, BlockState stateIn, LivingEntity entityIn, ItemStack stackIn) {
-      if (stackIn.hasCustomHoverName() && worldIn.getBlockEntity(posIn) instanceof ContainerDecorativeBlockEntity containerBlockEntity) {
-         containerBlockEntity.setCustomName(stackIn.getHoverName());
+      if (stackIn.has(DataComponents.CUSTOM_NAME)) {
+         // 1.20.6 起 Nameable 不再提供 setCustomName，容器改名由物品堆组件驱动，本模组暂不同步。
       }
    }
 
@@ -49,16 +51,16 @@ public class ContainerDecorativeBlock extends DecorativeBlock implements EntityB
       return new ContainerDecorativeBlockEntity(pPos, state, this.rowCount);
    }
 
-   public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayIn) {
+   public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayIn) {
       if (worldIn.isClientSide) {
-         return InteractionResult.SUCCESS;
+         return ItemInteractionResult.SUCCESS;
       }
 
       if (worldIn.getBlockEntity(pos) instanceof ContainerDecorativeBlockEntity container) {
          player.openMenu(container);
       }
 
-      return InteractionResult.CONSUME;
+      return ItemInteractionResult.SUCCESS;
    }
 
    public void onRemove(BlockState pState, Level levelIn, BlockPos pos, BlockState pNewState, boolean pIsMoving) {

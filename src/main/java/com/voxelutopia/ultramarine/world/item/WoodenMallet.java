@@ -8,7 +8,9 @@ import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -62,7 +64,7 @@ public class WoodenMallet extends Item {
 
       if (success) {
          player.ifPresent(player1 -> {
-            item.hurtAndBreak(1, player1, p -> p.broadcastBreakEvent(pContext.getHand()));
+            item.hurtAndBreak(1, player1, EquipmentSlot.MAINHAND);
             player1.awardStat(Stats.ITEM_USED.get(item.getItem()));
             level.playSound(player.get(), blockpos, SoundRegistry.WOOD_HAMMER, SoundSource.BLOCKS, 1.0F, 0.75F);
          });

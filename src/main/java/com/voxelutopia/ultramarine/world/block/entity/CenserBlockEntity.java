@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.voxelutopia.ultramarine.data.registry.BlockEntityRegistry;
 import com.voxelutopia.ultramarine.world.block.DecorativeBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -67,13 +68,13 @@ public class CenserBlockEntity extends BlockEntity {
       return this.remainingTime;
    }
 
-   public void load(CompoundTag pTag) {
-      super.load(pTag);
+   protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
+      super.loadAdditional(pTag, provider);
       this.remainingTime = pTag.getInt("BurnTime");
    }
 
-   protected void saveAdditional(CompoundTag pTag) {
-      super.saveAdditional(pTag);
+   protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
+      super.saveAdditional(pTag, provider);
       pTag.putInt("BurnTime", this.remainingTime);
    }
 }

@@ -3,5 +3,5 @@
   "ingredient": {
     "tag": "minecraft:cherry_logs"
   },
-  "result": { "item": "ultramarine:cherry_rafter", "count": 1 }
+  "result": { "id": "ultramarine:cherry_rafter", "count": 1 }
 }

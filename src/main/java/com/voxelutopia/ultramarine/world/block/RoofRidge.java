@@ -3,7 +3,9 @@ package com.voxelutopia.ultramarine.world.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -24,8 +26,8 @@ public class RoofRidge extends BaseBlock implements SnowRoofRidge {
    }
 
    @Override
-   public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-      return SnowRoofRidge.super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+   public ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+      return SnowRoofRidge.super.useItemOn(stack, pState, pLevel, pPos, pPlayer, pHand, pHit);
    }
 
    protected void createBlockStateDefinition(Builder<Block, BlockState> pBuilder) {

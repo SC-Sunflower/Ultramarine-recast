@@ -9,5 +9,5 @@
   "pattern": [
     "BBB"
   ],
-  "result": { "item": "ultramarine:red_floor_tile_slab", "count": 6 }
+  "result": { "id": "ultramarine:red_floor_tile_slab", "count": 6 }
 }

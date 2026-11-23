@@ -4,7 +4,10 @@ import com.voxelutopia.ultramarine.data.registry.ItemRegistry;
 import java.util.function.Supplier;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.Tier;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.ItemLike;
 
 public enum ModTiers implements Tier {
@@ -48,5 +51,9 @@ public enum ModTiers implements Tier {
 
    public Ingredient getRepairIngredient() {
       return (Ingredient)this.repairIngredient.get();
+   }
+
+   public TagKey<Block> getIncorrectBlocksForDrops() {
+      return BlockTags.INCORRECT_FOR_DIAMOND_TOOL;
    }
 }

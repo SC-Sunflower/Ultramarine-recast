@@ -6,9 +6,10 @@ import com.voxelutopia.ultramarine.data.registry.BlockEntityRegistry;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -53,12 +54,12 @@ public class BottleGourdBlockEntity extends BlockEntity {
    }
 
    public Optional<Potion> takePotionCharge() {
-      if (this.filled && this.charges > 0 && !this.potion.equals(Potions.EMPTY)) {
+      if (this.filled && this.charges > 0 && this.potion != null) {
          Potion charge = this.potion;
          this.charges--;
          if (this.charges <= 0) {
             this.filled = false;
-            this.potion = Potions.EMPTY;
+            this.potion = null;
          }
 
          return Optional.of(charge);
@@ -68,7 +69,7 @@ public class BottleGourdBlockEntity extends BlockEntity {
    }
 
    public boolean hasCharges() {
-      return this.filled && this.charges > 0 && !this.potion.equals(Potions.EMPTY);
+      return this.filled && this.charges > 0 && this.potion != null;
    }
 
    public int getCharges() {
@@ -79,15 +80,15 @@ public class BottleGourdBlockEntity extends BlockEntity {
       return this.potion;
    }
 
-   public void load(CompoundTag pTag) {
-      super.load(pTag);
-      this.potion = Potion.byName(pTag.getString("Potion"));
+   protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
+      super.loadAdditional(pTag, provider);
+      this.potion = BuiltInRegistries.POTION.get(ResourceLocation.tryParse(pTag.getString("Potion")));
       this.charges = pTag.getInt("Charges");
       this.filled = pTag.getBoolean("Filled");
    }
 
-   protected void saveAdditional(CompoundTag pTag) {
-      super.saveAdditional(pTag);
+   protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
+      super.saveAdditional(pTag, provider);
       pTag.putString("Potion", BuiltInRegistries.POTION.getKey(this.potion).toString());
       pTag.putInt("Charges", this.charges);
       pTag.putBoolean("Filled", this.filled);

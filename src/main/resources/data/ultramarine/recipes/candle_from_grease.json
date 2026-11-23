@@ -13,5 +13,5 @@
     "S",
     "G"
   ],
-  "result": { "item": "minecraft:candle", "count": 1 }
+  "result": { "id": "minecraft:candle", "count": 1 }
 }

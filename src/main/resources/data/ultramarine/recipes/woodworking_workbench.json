@@ -14,7 +14,7 @@
     "C"
   ],
   "result": {
-    "item": "ultramarine:woodworking_workbench"
+    "id": "ultramarine:woodworking_workbench"
   },
   "show_notification": true
 }

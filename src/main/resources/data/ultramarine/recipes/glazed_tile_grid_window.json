@@ -15,7 +15,7 @@
     "GGG"
   ],
   "result": {
-    "item": "ultramarine:glazed_tile_grid_window"
+    "id": "ultramarine:glazed_tile_grid_window"
   },
   "show_notification": true
 }

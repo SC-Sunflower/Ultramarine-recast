@@ -21,7 +21,7 @@
     "PCP"
   ],
   "result": {
-    "item": "ultramarine:food_hamper"
+    "id": "ultramarine:food_hamper"
   },
   "show_notification": true
 }

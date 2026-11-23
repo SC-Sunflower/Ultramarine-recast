@@ -10,5 +10,5 @@
     "AA",
     "AA"
   ],
-  "result": { "item": "ultramarine:red_floor_tile", "count": 4 }
+  "result": { "id": "ultramarine:red_floor_tile", "count": 4 }
 }

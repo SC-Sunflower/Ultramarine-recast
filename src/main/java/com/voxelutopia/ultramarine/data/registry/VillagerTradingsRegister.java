@@ -17,6 +17,7 @@ import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.npc.VillagerTrades.ItemListing;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 
 public class VillagerTradingsRegister {
@@ -34,11 +35,11 @@ public class VillagerTradingsRegister {
    // wandering trader. Must be called before the server starts (from the mod initializer).
    public static void registerWandererTrades() {
       List<ItemListing> rareTrades = new ArrayList<>(Arrays.asList(WANDERER_TRADES.get(2)));
-      rareTrades.add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 6), new ItemStack(ItemRegistry.INCENSE, 1), 6, 30, 0.05F));
-      rareTrades.add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 6), new ItemStack(ItemRegistry.SILK, 1), 8, 30, 0.05F));
-      rareTrades.add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 10), new ItemStack(ItemRegistry.JADE, 1), 2, 30, 0.05F));
-      rareTrades.add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 12), new ItemStack(ItemRegistry.PAINTING_SCROLL, 1), 1, 30, 0.05F));
-      rareTrades.add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 20), new ItemStack(ItemRegistry.BLUE_AND_WHITE_PORCELAIN_VASE, 1), 1, 30, 0.05F));
+      rareTrades.add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 6), new ItemStack(ItemRegistry.INCENSE, 1), 6, 30, 0.05F));
+      rareTrades.add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 6), new ItemStack(ItemRegistry.SILK, 1), 8, 30, 0.05F));
+      rareTrades.add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 10), new ItemStack(ItemRegistry.JADE, 1), 2, 30, 0.05F));
+      rareTrades.add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 12), new ItemStack(ItemRegistry.PAINTING_SCROLL, 1), 1, 30, 0.05F));
+      rareTrades.add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 20), new ItemStack(ItemRegistry.BLUE_AND_WHITE_PORCELAIN_VASE, 1), 1, 30, 0.05F));
       WANDERER_TRADES.put(2, rareTrades.toArray(new ItemListing[0]));
    }
 

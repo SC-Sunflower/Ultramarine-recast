@@ -11,5 +11,5 @@
     "###",
     "###"
   ],
-  "result": { "item": "ultramarine:bronze_block", "count": 1 }
+  "result": { "id": "ultramarine:bronze_block", "count": 1 }
 }

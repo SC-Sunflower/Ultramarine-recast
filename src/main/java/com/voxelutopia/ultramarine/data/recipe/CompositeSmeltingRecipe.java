@@ -1,11 +1,14 @@
 package com.voxelutopia.ultramarine.data.recipe;
 
+import net.minecraft.core.HolderLookup;
+
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import com.voxelutopia.ultramarine.data.registry.RecipeSerializerRegistry;
 import com.voxelutopia.ultramarine.data.registry.RecipeTypeRegistry;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -22,7 +25,7 @@ public class CompositeSmeltingRecipe implements Recipe<Container> {
     protected final float experience;
     protected final int cookingTime;
 
-    public static final Codec<CompositeSmeltingRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<CompositeSmeltingRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
             Ingredient.CODEC.fieldOf("primary_ingredient").forGetter(recipe -> recipe.primaryIngredient),
             Ingredient.CODEC.fieldOf("secondary_ingredient").forGetter(recipe -> recipe.secondaryIngredient),
@@ -51,7 +54,7 @@ public class CompositeSmeltingRecipe implements Recipe<Container> {
         return this.primaryIngredient.or(this.secondaryIngredient).test(pContainer.getItem(0));
     }
 
-    public ItemStack assemble(Container pContainer, RegistryAccess registryAccess) {
+    public ItemStack assemble(Container pContainer, HolderLookup.Provider provider) {
         return this.result.copy();
     }
 
@@ -67,7 +70,7 @@ public class CompositeSmeltingRecipe implements Recipe<Container> {
         return this.secondaryIngredient;
     }
 
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider provider) {
         return this.result.copy();
     }
 
@@ -94,29 +97,32 @@ public class CompositeSmeltingRecipe implements Recipe<Container> {
         }
 
         @Override
-        public Codec<CompositeSmeltingRecipe> codec() {
+        public MapCodec<CompositeSmeltingRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public CompositeSmeltingRecipe fromNetwork(FriendlyByteBuf pBuffer) {
-            String group = pBuffer.readUtf();
-            Ingredient primary = Ingredient.fromNetwork(pBuffer);
-            Ingredient secondary = Ingredient.fromNetwork(pBuffer);
-            ItemStack result = pBuffer.readItem();
-            float exp = pBuffer.readFloat();
-            int cookingTime = pBuffer.readVarInt();
+        public StreamCodec<RegistryFriendlyByteBuf, CompositeSmeltingRecipe> streamCodec() {
+            return StreamCodec.of(this::toNetwork, this::fromNetwork);
+        }
+
+        private CompositeSmeltingRecipe fromNetwork(RegistryFriendlyByteBuf buf) {
+            String group = buf.readUtf();
+            Ingredient primary = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
+            Ingredient secondary = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
+            ItemStack result = ItemStack.STREAM_CODEC.decode(buf);
+            float exp = buf.readFloat();
+            int cookingTime = buf.readVarInt();
             return new CompositeSmeltingRecipe(group, primary, secondary, result, exp, cookingTime);
         }
 
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, CompositeSmeltingRecipe pRecipe) {
-            pBuffer.writeUtf(pRecipe.group);
-            pRecipe.primaryIngredient.toNetwork(pBuffer);
-            pRecipe.secondaryIngredient.toNetwork(pBuffer);
-            pBuffer.writeItem(pRecipe.result);
-            pBuffer.writeFloat(pRecipe.experience);
-            pBuffer.writeVarInt(pRecipe.cookingTime);
+        private void toNetwork(RegistryFriendlyByteBuf buf, CompositeSmeltingRecipe recipe) {
+            buf.writeUtf(recipe.group);
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.primaryIngredient);
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.secondaryIngredient);
+            ItemStack.STREAM_CODEC.encode(buf, recipe.result);
+            buf.writeFloat(recipe.experience);
+            buf.writeVarInt(recipe.cookingTime);
         }
     }
 }

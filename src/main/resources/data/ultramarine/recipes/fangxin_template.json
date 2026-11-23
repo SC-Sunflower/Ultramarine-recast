@@ -1,8 +1,7 @@
 {
   "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
+    "ingredient": {
     "item": "minecraft:polished_blackstone"
   },
-  "result": "ultramarine:fangxin_template"
+  "result": {"id": "ultramarine:fangxin_template", "count": 1}
 }

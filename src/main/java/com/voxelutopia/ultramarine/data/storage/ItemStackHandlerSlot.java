@@ -69,7 +69,7 @@ public class ItemStackHandlerSlot implements SingleSlotStorage<ItemVariant> {
             }
             slotLimit -= this.stack.getCount();
         }
-        long toInsert = Math.min(maxAmount, Math.min(slotLimit, resource.getItem().getMaxStackSize()));
+        long toInsert = Math.min(maxAmount, Math.min(slotLimit, resource.toStack(1).getMaxStackSize()));
         if (toInsert <= 0) {
             return 0;
         }

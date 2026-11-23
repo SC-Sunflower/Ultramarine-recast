@@ -1,8 +1,7 @@
 {
   "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
+    "ingredient": {
     "item": "minecraft:ice"
   },
-  "result": "ultramarine:icicle"
+  "result": {"id": "ultramarine:icicle", "count": 1}
 }

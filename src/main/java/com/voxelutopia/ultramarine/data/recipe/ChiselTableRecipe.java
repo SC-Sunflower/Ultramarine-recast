@@ -1,7 +1,12 @@
 package com.voxelutopia.ultramarine.data.recipe;
 
+import net.minecraft.core.HolderLookup;
+
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import com.voxelutopia.ultramarine.data.registry.RecipeSerializerRegistry;
 import com.voxelutopia.ultramarine.data.registry.RecipeTypeRegistry;
 import java.util.ArrayList;
@@ -9,8 +14,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -26,7 +29,7 @@ public class ChiselTableRecipe implements Recipe<Container> {
     protected final List<Ingredient> colors;
     protected final ItemStack result;
 
-    public static final Codec<ChiselTableRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<ChiselTableRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
             Ingredient.CODEC.fieldOf("material").forGetter(recipe -> recipe.material),
             Ingredient.CODEC.fieldOf("template").forGetter(recipe -> recipe.template),
@@ -59,7 +62,7 @@ public class ChiselTableRecipe implements Recipe<Container> {
         return this.material.test(usedMaterial) && this.template.test(usedTemplate) && compareColors(this.colors, usedColors);
     }
 
-    public ItemStack assemble(Container pContainer, RegistryAccess registryAccess) {
+    public ItemStack assemble(Container pContainer, HolderLookup.Provider provider) {
         return this.result.copy();
     }
 
@@ -67,7 +70,7 @@ public class ChiselTableRecipe implements Recipe<Container> {
         return true;
     }
 
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider provider) {
         return this.result.copy();
     }
 
@@ -116,42 +119,40 @@ public class ChiselTableRecipe implements Recipe<Container> {
         }
 
         @Override
-        public Codec<ChiselTableRecipe> codec() {
+        public MapCodec<ChiselTableRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public ChiselTableRecipe fromNetwork(FriendlyByteBuf pBuffer) {
-            String group = pBuffer.readUtf();
-            Ingredient material = Ingredient.fromNetwork(pBuffer);
-            Ingredient template = Ingredient.fromNetwork(pBuffer);
+        public StreamCodec<RegistryFriendlyByteBuf, ChiselTableRecipe> streamCodec() {
+            return StreamCodec.of(this::toNetwork, this::fromNetwork);
+        }
+
+        private ChiselTableRecipe fromNetwork(RegistryFriendlyByteBuf buf) {
+            String group = buf.readUtf();
+            Ingredient material = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
+            Ingredient template = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
             Ingredient[] colors = new Ingredient[4];
-
             for (int i = 0; i < 4; i++) {
-                colors[i] = Ingredient.fromNetwork(pBuffer);
+                colors[i] = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
             }
-
             colors = Arrays.stream(colors).filter(i -> !i.isEmpty()).toList().toArray(new Ingredient[0]);
-            ItemStack result = pBuffer.readItem();
+            ItemStack result = ItemStack.STREAM_CODEC.decode(buf);
             return new ChiselTableRecipe(group, material, template, colors, result);
         }
 
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, ChiselTableRecipe pRecipe) {
-            pBuffer.writeUtf(pRecipe.group);
-            pRecipe.material.toNetwork(pBuffer);
-            pRecipe.template.toNetwork(pBuffer);
+        private void toNetwork(RegistryFriendlyByteBuf buf, ChiselTableRecipe recipe) {
+            buf.writeUtf(recipe.group);
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.material);
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.template);
             Ingredient[] colors = new Ingredient[4];
-
             for (int i = 0; i < 4; i++) {
-                colors[i] = i < pRecipe.colors.size() ? pRecipe.colors.get(i) : Ingredient.EMPTY;
+                colors[i] = i < recipe.colors.size() ? recipe.colors.get(i) : Ingredient.EMPTY;
             }
-
             for (int i = 0; i < 4; i++) {
-                colors[i].toNetwork(pBuffer);
+                Ingredient.CONTENTS_STREAM_CODEC.encode(buf, colors[i]);
             }
-
-            pBuffer.writeItem(pRecipe.result);
+            ItemStack.STREAM_CODEC.encode(buf, recipe.result);
         }
     }
 }

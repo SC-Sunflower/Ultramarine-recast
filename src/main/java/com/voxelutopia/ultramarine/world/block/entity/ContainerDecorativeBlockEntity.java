@@ -6,6 +6,7 @@ import com.voxelutopia.ultramarine.data.registry.BlockEntityRegistry;
 import com.voxelutopia.ultramarine.world.block.ContainerDecorativeBlock;
 import com.voxelutopia.ultramarine.world.block.menu.ContainerDecorativeBlockMenu;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -71,22 +72,22 @@ public class ContainerDecorativeBlockEntity extends RandomizableContainerBlockEn
       return this.rows * 9;
    }
 
-   protected void saveAdditional(CompoundTag nbt) {
-      super.saveAdditional(nbt);
+   protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider provider) {
+      super.saveAdditional(nbt, provider);
       nbt.putString("Block", BuiltInRegistries.BLOCK.getKey(this.block).toString());
       nbt.putByte("Rows", (byte)this.rows);
       if (!this.trySaveLootTable(nbt)) {
-         ContainerHelper.saveAllItems(nbt, this.items);
+         ContainerHelper.saveAllItems(nbt, this.items, provider);
       }
    }
 
-   public void load(CompoundTag nbt) {
-      super.load(nbt);
+   protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider provider) {
+      super.loadAdditional(nbt, provider);
       this.block = (Block)BuiltInRegistries.BLOCK.get(ResourceLocation.tryParse(nbt.getString("Block")));
       this.rows = nbt.getByte("Rows");
       this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
       if (!this.tryLoadLootTable(nbt)) {
-         ContainerHelper.loadAllItems(nbt, this.items);
+         ContainerHelper.loadAllItems(nbt, this.items, provider);
       }
    }
 }

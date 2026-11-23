@@ -1,8 +1,7 @@
 {
   "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
+    "ingredient": {
     "item": "ultramarine:black_bricks"
   },
-  "result": "ultramarine:black_brick_wall"
+  "result": {"id": "ultramarine:black_brick_wall", "count": 1}
 }

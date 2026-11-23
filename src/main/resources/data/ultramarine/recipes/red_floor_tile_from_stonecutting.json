@@ -3,5 +3,5 @@
   "ingredient": {
     "item": "ultramarine:weathered_red_stone_tile"
   },
-  "result": { "item": "ultramarine:red_floor_tile", "count": 1 }
+  "result": { "id": "ultramarine:red_floor_tile", "count": 1 }
 }

@@ -1,11 +1,14 @@
 package com.voxelutopia.ultramarine.data.recipe;
 
+import net.minecraft.core.HolderLookup;
+
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import com.voxelutopia.ultramarine.data.registry.RecipeSerializerRegistry;
 import com.voxelutopia.ultramarine.data.registry.RecipeTypeRegistry;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -15,7 +18,7 @@ import net.minecraft.world.item.crafting.SingleItemRecipe;
 import net.minecraft.world.level.Level;
 
 public class WoodworkingRecipe extends SingleItemRecipe {
-    public static final Codec<WoodworkingRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<WoodworkingRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
             Ingredient.CODEC.fieldOf("ingredient").forGetter(recipe -> recipe.ingredient),
             ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
@@ -29,7 +32,7 @@ public class WoodworkingRecipe extends SingleItemRecipe {
         return this.ingredient.test(pContainer.getItem(0));
     }
 
-    public ItemStack assemble(Container pContainer, RegistryAccess registryAccess) {
+    public ItemStack assemble(Container pContainer, HolderLookup.Provider provider) {
         return this.result.copy();
     }
 
@@ -41,7 +44,7 @@ public class WoodworkingRecipe extends SingleItemRecipe {
         return true;
     }
 
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider provider) {
         return this.result.copy();
     }
 
@@ -60,23 +63,26 @@ public class WoodworkingRecipe extends SingleItemRecipe {
         }
 
         @Override
-        public Codec<WoodworkingRecipe> codec() {
+        public MapCodec<WoodworkingRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public WoodworkingRecipe fromNetwork(FriendlyByteBuf pBuffer) {
-            String group = pBuffer.readUtf();
-            Ingredient ingredient = Ingredient.fromNetwork(pBuffer);
-            ItemStack itemstack = pBuffer.readItem();
+        public StreamCodec<RegistryFriendlyByteBuf, WoodworkingRecipe> streamCodec() {
+            return StreamCodec.of(this::toNetwork, this::fromNetwork);
+        }
+
+        private WoodworkingRecipe fromNetwork(RegistryFriendlyByteBuf buf) {
+            String group = buf.readUtf();
+            Ingredient ingredient = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
+            ItemStack itemstack = ItemStack.STREAM_CODEC.decode(buf);
             return new WoodworkingRecipe(group, ingredient, itemstack);
         }
 
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, WoodworkingRecipe pRecipe) {
-            pBuffer.writeUtf(pRecipe.group);
-            pRecipe.ingredient.toNetwork(pBuffer);
-            pBuffer.writeItem(pRecipe.result);
+        private void toNetwork(RegistryFriendlyByteBuf buf, WoodworkingRecipe recipe) {
+            buf.writeUtf(recipe.group);
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.ingredient);
+            ItemStack.STREAM_CODEC.encode(buf, recipe.result);
         }
     }
 }

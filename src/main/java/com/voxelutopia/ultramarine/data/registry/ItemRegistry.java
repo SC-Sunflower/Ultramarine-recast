@@ -11,7 +11,6 @@ import com.voxelutopia.ultramarine.world.item.BlueAndWhitePorcelainUpgradeSmithi
 import com.voxelutopia.ultramarine.world.item.ChiselTemplate;
 import com.voxelutopia.ultramarine.world.item.DyePowder;
 import com.voxelutopia.ultramarine.world.item.WoodenMallet;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -696,16 +695,16 @@ public class ItemRegistry {
    public static final Item BAOZI = foodItem("baozi", ModFoods.BAOZI);
    public static final Item WOODEN_MALLET = toolItem("wooden_mallet", WoodenMallet::new);
    public static final Item BLUE_AND_WHITE_PORCELAIN_SWORD = registerItem(
-      "blue_and_white_porcelain_sword", new SwordItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, 3, -2.4F, new FabricItemSettings())
+      "blue_and_white_porcelain_sword", new SwordItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, new Properties())
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_SHOVEL = registerItem(
-      "blue_and_white_porcelain_shovel", new ShovelItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, 1.5F, -3.0F, new FabricItemSettings())
+      "blue_and_white_porcelain_shovel", new ShovelItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, new Properties())
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_PICKAXE = registerItem(
-      "blue_and_white_porcelain_pickaxe", new PickaxeItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, 1, -2.8F, new FabricItemSettings())
+      "blue_and_white_porcelain_pickaxe", new PickaxeItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, new Properties())
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_AXE = registerItem(
-      "blue_and_white_porcelain_axe", new AxeItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, 6.0F, -3.2F, new FabricItemSettings())
+      "blue_and_white_porcelain_axe", new AxeItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, new Properties())
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_UPGRADE_SMITHING_TEMPLATE = toolItem(
       "blue_and_white_porcelain_upgrade_smithing_template", BlueAndWhitePorcelainUpgradeSmithingTemplate::new

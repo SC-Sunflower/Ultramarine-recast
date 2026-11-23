@@ -3,5 +3,5 @@
   "ingredient": {
     "tag": "minecraft:crimson_stems"
   },
-  "result": { "item": "ultramarine:crimson_rafter_end", "count": 1 }
+  "result": { "id": "ultramarine:crimson_rafter_end", "count": 1 }
 }

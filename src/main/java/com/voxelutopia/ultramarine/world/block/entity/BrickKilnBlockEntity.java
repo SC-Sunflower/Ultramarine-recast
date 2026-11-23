@@ -21,6 +21,7 @@ import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
@@ -315,8 +316,8 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
       return new RecipeWrapper(entity.ingredientsHandler);
    }
 
-   public void load(CompoundTag pTag) {
-      super.load(pTag);
+   protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
+      super.loadAdditional(pTag, provider);
       this.litTime = pTag.getInt("BurnTime");
       this.cookingProgress = pTag.getInt("CookTime");
       this.cookingTotalTime = pTag.getInt("CookTimeTotal");
@@ -327,16 +328,16 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
          int j = itemTag.getByte("Slot") & 255;
          switch (j) {
             case 0:
-               this.ingredientsHandler.setStackInSlot(0, ItemStack.of(itemTag));
+               this.ingredientsHandler.setStackInSlot(0, ItemStack.parseOptional(provider, itemTag));
                break;
             case 1:
-               this.ingredientsHandler.setStackInSlot(1, ItemStack.of(itemTag));
+               this.ingredientsHandler.setStackInSlot(1, ItemStack.parseOptional(provider, itemTag));
                break;
             case 2:
-               this.fuelHandler.setStackInSlot(0, ItemStack.of(itemTag));
+               this.fuelHandler.setStackInSlot(0, ItemStack.parseOptional(provider, itemTag));
                break;
             case 3:
-               this.resultHandler.setStackInSlot(0, ItemStack.of(itemTag));
+               this.resultHandler.setStackInSlot(0, ItemStack.parseOptional(provider, itemTag));
          }
       }
 
@@ -348,8 +349,8 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
       }
    }
 
-   protected void saveAdditional(CompoundTag pTag) {
-      super.saveAdditional(pTag);
+   protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
+      super.saveAdditional(pTag, provider);
       pTag.putInt("BurnTime", this.litTime);
       pTag.putInt("CookTime", this.cookingProgress);
       pTag.putInt("CookTimeTotal", this.cookingTotalTime);
@@ -361,7 +362,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
          if (!item.isEmpty()) {
             CompoundTag itemTag = new CompoundTag();
             itemTag.putByte("Slot", (byte)i);
-            item.save(itemTag);
+            item.save(provider, itemTag);
             itemListTag.add(itemTag);
          }
       }

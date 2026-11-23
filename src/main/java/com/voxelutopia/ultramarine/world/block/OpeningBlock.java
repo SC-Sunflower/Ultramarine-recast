@@ -7,8 +7,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -41,13 +43,13 @@ public class OpeningBlock extends DecorativeBlock {
       super(builder);
    }
 
-   public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+   public ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
       pState = (BlockState)pState.cycle(OPEN);
       pLevel.setBlock(pPos, pState, 10);
       this.playSound(pPlayer, pLevel, pPos, (Boolean)pState.getValue(OPEN));
       pLevel.levelEvent(pPlayer, pState.getValue(OPEN) ? 1006 : 1012, pPos, 0);
       pLevel.gameEvent(pPlayer, this.isOpen(pState) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pPos);
-      return InteractionResult.sidedSuccess(pLevel.isClientSide);
+      return ItemInteractionResult.sidedSuccess(pLevel.isClientSide);
    }
 
    public boolean isOpen(BlockState pState) {

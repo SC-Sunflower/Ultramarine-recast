@@ -3,5 +3,5 @@
   "ingredient": {
     "item": "ultramarine:blue_and_white_porcelain_piece"
   },
-  "result": { "item": "minecraft:clay_ball", "count": 1 }
+  "result": { "id": "minecraft:clay_ball", "count": 1 }
 }

@@ -19,6 +19,7 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades.ItemListing;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
@@ -31,6 +32,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.ServerLevelData;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 
+import java.util.Optional;
 import java.util.List;
 
 /**
@@ -99,7 +101,7 @@ public class CommonEventHandler {
                int z = pos.getZ() + world.random.nextInt(8) - 4;
                int y = world.getHeight(Heightmap.Types.WORLD_SURFACE, x, z);
                BlockPos rolledPos = new BlockPos(x, y, z);
-               if (NaturalSpawner.isSpawnPositionOk(SpawnPlacements.Type.ON_GROUND, world, rolledPos, EntityType.WANDERING_TRADER)) {
+               if (SpawnPlacements.isSpawnPositionOk(EntityType.WANDERING_TRADER, world, rolledPos)) {
                   potentialSpawn = rolledPos;
                   break;
                }
@@ -141,92 +143,92 @@ public class CommonEventHandler {
             (EntityEvents.VillagerTrade)(trades, profession) -> {
                if (profession == VillagerProfession.MASON) {
                   ((List<ItemListing>)trades.get(4))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 5), new ItemStack(ItemRegistry.RAW_HEMATITE, 2), 12, 10, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 5), new ItemStack(ItemRegistry.RAW_HEMATITE, 2), 12, 10, 0.05F));
                   ((List<ItemListing>)trades.get(4))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 5), new ItemStack(ItemRegistry.MAGNESITE, 2), 12, 10, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 5), new ItemStack(ItemRegistry.MAGNESITE, 2), 12, 10, 0.05F));
                   ((List<ItemListing>)trades.get(5))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 10), new ItemStack(ItemRegistry.JADE, 1), 6, 20, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 10), new ItemStack(ItemRegistry.JADE, 1), 6, 20, 0.05F));
                }
 
                if (profession == VillagerProfession.TOOLSMITH) {
                   ((List<ItemListing>)trades.get(4))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 6), new ItemStack(ItemRegistry.BRONZE_INGOT, 1), 12, 10, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 6), new ItemStack(ItemRegistry.BRONZE_INGOT, 1), 12, 10, 0.05F));
                   ((List<ItemListing>)trades.get(5))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 40), new ItemStack(ItemRegistry.CARRIAGE, 1), 1, 10, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 40), new ItemStack(ItemRegistry.CARRIAGE, 1), 1, 10, 0.05F));
                }
 
                if (profession == VillagerProfession.FARMER) {
                   ((List<ItemListing>)trades.get(3))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 4), new ItemStack(ItemRegistry.POLISHED_ROSEWOOD_PLANK, 8), 12, 5, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 4), new ItemStack(ItemRegistry.POLISHED_ROSEWOOD_PLANK, 8), 12, 5, 0.05F));
                   ((List<ItemListing>)trades.get(3))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 4), new ItemStack(ItemRegistry.POLISHED_EBONY_PLANK, 8), 12, 5, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 4), new ItemStack(ItemRegistry.POLISHED_EBONY_PLANK, 8), 12, 5, 0.05F));
                   ((List<ItemListing>)trades.get(3))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 30), new ItemStack(ItemRegistry.SILK, 4), 4, 10, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 30), new ItemStack(ItemRegistry.SILK, 4), 4, 10, 0.05F));
                   ((List<ItemListing>)trades.get(4))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(ItemRegistry.EMPTY_BAMBOO_TEA_BASKET, 1), new ItemStack(Items.EMERALD, 20), new ItemStack(ItemRegistry.BAMBOO_TEA_BASKET, 1), 4, 10, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((ItemRegistry.EMPTY_BAMBOO_TEA_BASKET), 1), Optional.of(new ItemCost((Items.EMERALD), 20)), new ItemStack(ItemRegistry.BAMBOO_TEA_BASKET, 1), 4, 10, 0.05F));
                }
 
                if (profession == VillagerProfession.LIBRARIAN) {
                   ((List<ItemListing>)trades.get(4))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 20), new ItemStack(ItemRegistry.XUAN_PAPER, 4), 10, 20, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 20), new ItemStack(ItemRegistry.XUAN_PAPER, 4), 10, 20, 0.05F));
                   ((List<ItemListing>)trades.get(5))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 30), new ItemStack(ItemRegistry.PORCELAIN_TEAPOT, 1), 2, 20, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 30), new ItemStack(ItemRegistry.PORCELAIN_TEAPOT, 1), 2, 20, 0.05F));
                }
 
                if (profession == VillagerProfession.CLERIC) {
                   ((List<ItemListing>)trades.get(5))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 40), new ItemStack(ItemRegistry.SUNDIAL, 1), 1, 20, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 40), new ItemStack(ItemRegistry.SUNDIAL, 1), 1, 20, 0.05F));
                }
 
                if (profession == VillagerProfessionRegistry.COOK) {
                   ((List<ItemListing>)trades.get(1))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(ItemRegistry.RAW_MEAT, 10), new ItemStack(Items.EMERALD, 1), 12, 2, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((ItemRegistry.RAW_MEAT), 10), new ItemStack(Items.EMERALD, 1), 12, 2, 0.05F));
                   ((List<ItemListing>)trades.get(1))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.PORKCHOP, 15), new ItemStack(Items.EMERALD, 1), 12, 2, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.PORKCHOP), 15), new ItemStack(Items.EMERALD, 1), 12, 2, 0.05F));
                   ((List<ItemListing>)trades.get(1))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.BEEF, 15), new ItemStack(Items.EMERALD, 1), 12, 2, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.BEEF), 15), new ItemStack(Items.EMERALD, 1), 12, 2, 0.05F));
                   ((List<ItemListing>)trades.get(1))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.CHICKEN, 20), new ItemStack(Items.EMERALD, 1), 12, 2, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.CHICKEN), 20), new ItemStack(Items.EMERALD, 1), 12, 2, 0.05F));
                   ((List<ItemListing>)trades.get(1))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 8), new ItemStack(ItemRegistry.COOKED_MEAT, 4), 12, 2, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 8), new ItemStack(ItemRegistry.COOKED_MEAT, 4), 12, 2, 0.05F));
                   ((List<ItemListing>)trades.get(2))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.MUTTON, 15), new ItemStack(Items.EMERALD, 1), 12, 4, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.MUTTON), 15), new ItemStack(Items.EMERALD, 1), 12, 4, 0.05F));
                   ((List<ItemListing>)trades.get(2))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.RABBIT, 15), new ItemStack(Items.EMERALD, 1), 12, 4, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.RABBIT), 15), new ItemStack(Items.EMERALD, 1), 12, 4, 0.05F));
                   ((List<ItemListing>)trades.get(2))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 6), new ItemStack(ItemRegistry.GREASE, 2), 8, 5, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 6), new ItemStack(ItemRegistry.GREASE, 2), 8, 5, 0.05F));
                   ((List<ItemListing>)trades.get(2))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 6), new ItemStack(ItemRegistry.FUR, 2), 8, 5, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 6), new ItemStack(ItemRegistry.FUR, 2), 8, 5, 0.05F));
                   ((List<ItemListing>)trades.get(3))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.DRIED_KELP, 40), new ItemStack(Items.EMERALD, 2), 15, 8, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.DRIED_KELP), 40), new ItemStack(Items.EMERALD, 2), 15, 8, 0.05F));
                   ((List<ItemListing>)trades.get(3))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.SUGAR, 40), new ItemStack(Items.EMERALD, 1), 20, 8, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.SUGAR), 40), new ItemStack(Items.EMERALD, 1), 20, 8, 0.05F));
                   ((List<ItemListing>)trades.get(3))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EGG, 16), new ItemStack(Items.EMERALD, 1), 20, 8, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EGG), 16), new ItemStack(Items.EMERALD, 1), 20, 8, 0.05F));
                   ((List<ItemListing>)trades.get(3))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 12), new ItemStack(ItemRegistry.MUNG_BEAN_CAKE, 4), 12, 10, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 12), new ItemStack(ItemRegistry.MUNG_BEAN_CAKE, 4), 12, 10, 0.05F));
                   ((List<ItemListing>)trades.get(3))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 12), new ItemStack(ItemRegistry.MOONCAKE, 4), 12, 10, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 12), new ItemStack(ItemRegistry.MOONCAKE, 4), 12, 10, 0.05F));
                   ((List<ItemListing>)trades.get(4))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 12), new ItemStack(ItemRegistry.CABBAGE_BASKET, 1), 3, 20, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 12), new ItemStack(ItemRegistry.CABBAGE_BASKET, 1), 3, 20, 0.05F));
                   ((List<ItemListing>)trades.get(4))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 12), new ItemStack(ItemRegistry.CELERY_BASKET, 1), 3, 20, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 12), new ItemStack(ItemRegistry.CELERY_BASKET, 1), 3, 20, 0.05F));
                   ((List<ItemListing>)trades.get(4))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 12), new ItemStack(ItemRegistry.ORANGE_BASKET, 1), 3, 20, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 12), new ItemStack(ItemRegistry.ORANGE_BASKET, 1), 3, 20, 0.05F));
                   ((List<ItemListing>)trades.get(4))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 12), new ItemStack(ItemRegistry.APPLE_BASKET, 1), 3, 20, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 12), new ItemStack(ItemRegistry.APPLE_BASKET, 1), 3, 20, 0.05F));
                   ((List<ItemListing>)trades.get(4))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 12), new ItemStack(ItemRegistry.EGGPLANT_BASKET, 1), 3, 20, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 12), new ItemStack(ItemRegistry.EGGPLANT_BASKET, 1), 3, 20, 0.05F));
                   ((List<ItemListing>)trades.get(4))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 12), new ItemStack(ItemRegistry.PEAR_BASKET, 1), 3, 20, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 12), new ItemStack(ItemRegistry.PEAR_BASKET, 1), 3, 20, 0.05F));
                   ((List<ItemListing>)trades.get(4))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 5), new ItemStack(ItemRegistry.BAOZI, 2), 6, 20, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 5), new ItemStack(ItemRegistry.BAOZI, 2), 6, 20, 0.05F));
                   ((List<ItemListing>)trades.get(5))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 25), new ItemStack(ItemRegistry.XIAOLONGBAO, 1), 2, 30, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 25), new ItemStack(ItemRegistry.XIAOLONGBAO, 1), 2, 30, 0.05F));
                   ((List<ItemListing>)trades.get(5))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 30), new ItemStack(ItemRegistry.WINE_POT, 1), 2, 20, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 30), new ItemStack(ItemRegistry.WINE_POT, 1), 2, 20, 0.05F));
                   ((List<ItemListing>)trades.get(5))
-                     .add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 40), new ItemStack(ItemRegistry.BOTTLE_GOURD, 1), 1, 30, 0.05F));
+                     .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 40), new ItemStack(ItemRegistry.BOTTLE_GOURD, 1), 1, 30, 0.05F));
                }
 
                return trades;

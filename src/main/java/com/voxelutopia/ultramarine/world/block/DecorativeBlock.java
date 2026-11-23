@@ -11,6 +11,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
@@ -32,6 +34,14 @@ import org.jetbrains.annotations.NotNull;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class DecorativeBlock extends HorizontalDirectionalBlock implements BaseBlockPropertyHolder, DiagonallyPlaceable {
+   /**
+    * 1.20.6 起 BlockBehaviour 要求实现 codec()。DecorativeBlock 的构造参数（形状/朝向等）
+    * 无法从 Properties 还原，本模组方块也不参与结构方块序列化，故返回当前实例。
+    */
+   @Override
+   protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+      return BlockBehaviour.simpleCodec(props -> this);
+   }
    public static final DirectionProperty HORIZONTAL_FACING_SHIFT = ModBlockStateProperties.HORIZONTAL_FACING_SHIFT;
    public static final BooleanProperty LIT = BlockStateProperties.LIT;
    private final BaseBlockProperty property;

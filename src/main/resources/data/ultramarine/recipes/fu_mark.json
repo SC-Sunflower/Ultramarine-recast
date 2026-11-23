@@ -21,7 +21,7 @@
     "RPG"
   ],
   "result": {
-    "item": "ultramarine:fu_mark"
+    "id": "ultramarine:fu_mark"
   },
   "show_notification": true
 }

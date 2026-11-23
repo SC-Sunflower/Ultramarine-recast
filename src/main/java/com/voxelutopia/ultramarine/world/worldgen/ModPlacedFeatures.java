@@ -4,7 +4,7 @@ import java.util.List;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -23,7 +23,7 @@ public class ModPlacedFeatures {
    public static final ResourceKey<PlacedFeature> OVERWORLD_HEMATITE_ORE_PLACED_KEY = key("overworld_hematite_ore_placed");
    public static final ResourceKey<PlacedFeature> NETHER_COBALT_ORE_PLACED_KEY = key("nether_cobalt_ore_placed");
 
-   public static void bootstrap(BootstapContext<PlacedFeature> context) {
+   public static void bootstrap(BootstrapContext<PlacedFeature> context) {
       HolderGetter<ConfiguredFeature<?, ?>> lookup = context.lookup(Registries.CONFIGURED_FEATURE);
       register(
          context,
@@ -68,7 +68,7 @@ public class ModPlacedFeatures {
    }
 
    private static void register(
-      BootstapContext<PlacedFeature> context,
+      BootstrapContext<PlacedFeature> context,
       ResourceKey<PlacedFeature> key,
       Holder<ConfiguredFeature<?, ?>> configuredFeature,
       List<PlacementModifier> modifiers

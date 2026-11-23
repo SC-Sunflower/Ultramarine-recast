@@ -16,7 +16,7 @@
   ],
   "result": {
     "count": 8,
-    "item": "ultramarine:cyan_floor_tile"
+    "id": "ultramarine:cyan_floor_tile"
   },
   "show_notification": true
 }

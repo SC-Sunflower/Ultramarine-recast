@@ -15,7 +15,9 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -58,14 +60,14 @@ public class BrickKiln extends DecorativeBlock implements EntityBlock, BaseBlock
          : BlockEntityHelper.createTickerHelper(pBlockEntityType, BlockEntityRegistry.BRICK_KILN, BrickKilnBlockEntity::serverTick);
    }
 
-   public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+   public ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
       if (pLevel.isClientSide) {
-         return InteractionResult.SUCCESS;
+         return ItemInteractionResult.SUCCESS;
       } else if (pLevel.getBlockEntity(pPos) instanceof BrickKilnBlockEntity furnaceBlockEntity) {
          pPlayer.openMenu(furnaceBlockEntity);
-         return InteractionResult.CONSUME;
+         return ItemInteractionResult.SUCCESS;
       } else {
-         return InteractionResult.PASS;
+         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
       }
    }
 

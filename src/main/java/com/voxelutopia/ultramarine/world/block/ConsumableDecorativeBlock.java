@@ -9,6 +9,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
@@ -43,11 +44,11 @@ public class ConsumableDecorativeBlock extends DecorativeBlock {
    public static ConsumableDecorativeBlock.ConsumeAction DEFAULT_EAT_ACTION = (pState, pLevel, pPos, pPlayer) -> {
       if (pState.getBlock() instanceof ConsumableDecorativeBlock consumable) {
          FoodProperties food = consumable.getFood();
-         pPlayer.getFoodData().eat(food.getNutrition(), food.getSaturationModifier());
+         pPlayer.getFoodData().eat(food.nutrition(), food.saturation());
 
-         for (Pair<MobEffectInstance, Float> pair : food.getEffects()) {
-            if (!pLevel.isClientSide && pair.getFirst() != null && pLevel.random.nextFloat() < (Float)pair.getSecond()) {
-               pPlayer.addEffect(new MobEffectInstance((MobEffectInstance)pair.getFirst()));
+         for (FoodProperties.PossibleEffect possibleEffect : food.effects()) {
+            if (!pLevel.isClientSide && possibleEffect.effect() != null && pLevel.random.nextFloat() < (Float)possibleEffect.probability()) {
+               pPlayer.addEffect(new MobEffectInstance((MobEffectInstance)possibleEffect.effect()));
             }
          }
 
@@ -77,10 +78,10 @@ public class ConsumableDecorativeBlock extends DecorativeBlock {
       return state.hasProperty(BITES) ? (BlockState)state.setValue(BITES, this.getMaxBites()) : state;
    }
 
-   public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+   public ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
       int bitesRemaining = pState.hasProperty(BITES) ? (Integer)pState.getValue(BITES) : 0;
       if (!pPlayer.canEat(false)) {
-         return InteractionResult.PASS;
+         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
       }
 
       if (bitesRemaining > 0) {
@@ -94,7 +95,7 @@ public class ConsumableDecorativeBlock extends DecorativeBlock {
          pLevel.setBlock(pPos, (BlockState)pState.setValue(BITES, bitesRemaining), 3);
       }
 
-      return InteractionResult.sidedSuccess(pLevel.isClientSide());
+      return ItemInteractionResult.sidedSuccess(pLevel.isClientSide());
    }
 
    public int getMaxBites() {
@@ -118,7 +119,7 @@ public class ConsumableDecorativeBlock extends DecorativeBlock {
    public static class Builder extends DecorativeBlock.Builder {
       private static final FoodProperties DEFAULT_FOOD = new net.minecraft.world.food.FoodProperties.Builder()
          .nutrition(2)
-         .saturationMod(0.2F)
+         .saturationModifier(0.2F)
          .build();
       private int bites = 4;
       private Supplier<ItemStack> plate = () -> new ItemStack(Blocks.STONE_SLAB);

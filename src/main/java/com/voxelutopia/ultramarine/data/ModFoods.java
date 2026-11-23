@@ -14,14 +14,14 @@ public class ModFoods {
    public static FoodProperties FISH;
 
    public static void registerModFoods() {
-      MOONCAKE = new Builder().nutrition(2).saturationMod(0.1F).build();
-      MUNG_BEAN_CAKE = new Builder().nutrition(2).saturationMod(0.1F).build();
-      RAW_MEAT = new Builder().nutrition(2).saturationMod(0.2F).effect(new MobEffectInstance(MobEffects.HUNGER, 300, 0), 0.8F).build();
-      COOKED_MEAT = new Builder().nutrition(4).saturationMod(0.5F).build();
-      BAOZI = new Builder().nutrition(2).saturationMod(1.0F).build();
+      MOONCAKE = new Builder().nutrition(2).saturationModifier(0.1F).build();
+      MUNG_BEAN_CAKE = new Builder().nutrition(2).saturationModifier(0.1F).build();
+      RAW_MEAT = new Builder().nutrition(2).saturationModifier(0.2F).effect(new MobEffectInstance(MobEffects.HUNGER, 300, 0), 0.8F).build();
+      COOKED_MEAT = new Builder().nutrition(4).saturationModifier(0.5F).build();
+      BAOZI = new Builder().nutrition(2).saturationModifier(1.0F).build();
       FISH = new Builder()
          .nutrition(2)
-         .saturationMod(0.2F)
+         .saturationModifier(0.2F)
          .effect(new MobEffectInstance(MobEffects.HUNGER, 300, 0), 0.6F)
          .effect(new MobEffectInstance(MobEffects.POISON, 200, 0), 0.4F)
          .build();

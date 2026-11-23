@@ -3,5 +3,5 @@
   "ingredient": {
     "tag": "minecraft:mangrove_logs"
   },
-  "result": { "item": "ultramarine:mangrove_rafter", "count": 1 }
+  "result": { "id": "ultramarine:mangrove_rafter", "count": 1 }
 }

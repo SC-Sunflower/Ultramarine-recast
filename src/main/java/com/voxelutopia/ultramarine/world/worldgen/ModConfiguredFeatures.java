@@ -5,7 +5,7 @@ import com.voxelutopia.ultramarine.data.registry.BlockRegistry;
 import java.util.List;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -49,7 +49,7 @@ public class ModConfiguredFeatures {
       () -> List.of(OreConfiguration.target(NETHERRACK, BlockRegistry.NETHER_COBALT_ORE.defaultBlockState()))
    );
 
-   public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+   public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
       register(context, OVERWORLD_JADE_ORE_KEY, Feature.ORE, new OreConfiguration(OVERWORLD_JADE_ORE_PLACEMENT.get(), 4));
       register(context, OVERWORLD_MAGNESITE_ORE_KEY, Feature.ORE, new OreConfiguration(OVERWORLD_MAGNESITE_ORE_PLACEMENT.get(), 7));
       register(context, OVERWORLD_HEMATITE_ORE_KEY, Feature.ORE, new OreConfiguration(OVERWORLD_HEMATITE_ORE_PLACEMENT.get(), 9));
@@ -61,7 +61,7 @@ public class ModConfiguredFeatures {
    }
 
    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(
-      BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC featureConfiguration
+      BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC featureConfiguration
    ) {
       context.register(key, new ConfiguredFeature(feature, featureConfiguration));
    }
