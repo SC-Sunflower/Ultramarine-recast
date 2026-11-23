@@ -36,7 +36,7 @@ public class VillagerTradingsRegister {
    // Ported from Ultramarine 0.5.1 (Forge WandererTradesEvent): rare trades for the vanilla
    // wandering trader. Must be called before the server starts (from the mod initializer).
    public static void registerWandererTrades() {
-      List<ItemListing> rareTrades = new ArrayList<>(Arrays.asList(WANDERER_TRADES.get(2)));
+      List<ItemListing> rareTrades = new ArrayList<>(Arrays.asList(safeTrades(WANDERER_TRADES.get(2))));
       rareTrades.add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 6), new ItemStack(ItemRegistry.INCENSE, 1), 6, 30, 0.05F));
       rareTrades.add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 6), new ItemStack(ItemRegistry.SILK, 1), 8, 30, 0.05F));
       rareTrades.add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 10), new ItemStack(ItemRegistry.JADE, 1), 2, 30, 0.05F));
@@ -48,8 +48,8 @@ public class VillagerTradingsRegister {
    private static void postWandererEvent() {
       List<ItemListing> generic = NonNullList.create();
       List<ItemListing> rare = NonNullList.create();
-      generic.addAll(Arrays.asList((ItemListing[])WANDERER_TRADES.get(1)));
-      rare.addAll(Arrays.asList((ItemListing[])WANDERER_TRADES.get(2)));
+      generic.addAll(Arrays.asList(safeTrades(WANDERER_TRADES.get(1))));
+      rare.addAll(Arrays.asList(safeTrades(WANDERER_TRADES.get(2))));
       VillagerTrades.WANDERING_TRADER_TRADES.add(Pair.of(generic.toArray(new ItemListing[0]), 1));
       VillagerTrades.WANDERING_TRADER_TRADES.add(Pair.of(rare.toArray(new ItemListing[0]), 2));
    }
