@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class ChiselTableScreen extends AbstractContainerScreen<ChiselTableMenu> {
-   private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath("ultramarine", "container/chisel_table");
+   private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath("ultramarine", "textures/gui/sprites/container/chisel_table.png");
 
    public ChiselTableScreen(ChiselTableMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
       super(pMenu, pPlayerInventory, pTitle);
@@ -21,6 +21,6 @@ public class ChiselTableScreen extends AbstractContainerScreen<ChiselTableMenu> 
    }
 
    protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-                        guiGraphics.blitSprite(RenderType::guiTextured, BACKGROUND, this.leftPos, this.topPos, this.imageWidth, this.imageHeight);
+                        guiGraphics.blit(RenderType::guiTextured, BACKGROUND, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
    }
 }
