@@ -12,10 +12,10 @@ import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class TravellingMerchantCategory extends AbstractRecipeCategory<TravellingMerchantWrapper> implements IRecipeCategory<TravellingMerchantWrapper> {
-   public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath("ultramarine", "custom_wandering_trader");
+   public static final Identifier UID = Identifier.fromNamespaceAndPath("ultramarine", "custom_wandering_trader");
    public static final RecipeType<TravellingMerchantWrapper> CUSTOM_WANDERING_TRADER_WRAPPER_RECIPE_TYPE = new RecipeType(UID, TravellingMerchantWrapper.class);
    public static final int WIDTH = 82;
    public static final int HEIGHT = 34;

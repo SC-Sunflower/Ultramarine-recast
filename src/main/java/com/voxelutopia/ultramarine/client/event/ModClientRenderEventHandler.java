@@ -12,7 +12,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.WanderingTraderRenderer;
 import net.minecraft.world.level.block.Block;
 

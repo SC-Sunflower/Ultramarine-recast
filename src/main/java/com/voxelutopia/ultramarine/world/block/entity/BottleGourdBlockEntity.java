@@ -10,7 +10,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -84,7 +84,7 @@ public class BottleGourdBlockEntity extends BlockEntity {
 
    protected void loadAdditional(ValueInput pTag) {
       super.loadAdditional(pTag);
-      this.potion = BuiltInRegistries.POTION.get(ResourceLocation.tryParse(pTag.getStringOr("Potion", ""))).map(Holder.Reference::value).orElse(null);
+      this.potion = BuiltInRegistries.POTION.get(Identifier.tryParse(pTag.getStringOr("Potion", ""))).map(Holder.Reference::value).orElse(null);
       this.charges = pTag.getIntOr("Charges", 0);
       this.filled = pTag.getBooleanOr("Filled", false);
    }

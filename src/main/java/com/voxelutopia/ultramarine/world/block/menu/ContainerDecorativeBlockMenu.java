@@ -3,7 +3,6 @@ package com.voxelutopia.ultramarine.world.block.menu;
 import com.voxelutopia.ultramarine.data.ContainerType;
 import com.voxelutopia.ultramarine.data.registry.MenuTypeRegistry;
 import javax.annotation.ParametersAreNonnullByDefault;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -14,7 +13,6 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-@MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class ContainerDecorativeBlockMenu extends AbstractContainerMenu {
    private static final int SLOTS_PER_ROW = 9;

@@ -4,7 +4,7 @@ import com.voxelutopia.ultramarine.data.registry.ItemRegistry;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -24,19 +24,19 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 public class ReplaceToSingleItemLootModifier {
     public static void register() {
         // Trail ruins archaeology loot (0.7)
-        appendArchaeology(ResourceLocation.tryBuild("minecraft", "archaeology/trail_ruins_rare"), 0.1F, trailRuinsRare());
-        appendArchaeology(ResourceLocation.tryBuild("minecraft", "archaeology/trail_ruins_common"), 0.2F, trailRuinsCommon());
+        appendArchaeology(Identifier.tryBuild("minecraft", "archaeology/trail_ruins_rare"), 0.1F, trailRuinsRare());
+        appendArchaeology(Identifier.tryBuild("minecraft", "archaeology/trail_ruins_common"), 0.2F, trailRuinsCommon());
         // Animal fur and raw meat drops (0.7)
-        appendEntityDrop(ResourceLocation.tryBuild("minecraft", "entities/fox"), ItemRegistry.FUR, 0.6F, UniformGenerator.between(1.0F, 2.0F));
-        appendEntityDrop(ResourceLocation.tryBuild("minecraft", "entities/goat"), ItemRegistry.FUR, 0.8F, UniformGenerator.between(1.0F, 2.0F));
-        appendEntityDrop(ResourceLocation.tryBuild("minecraft", "entities/rabbit"), ItemRegistry.FUR, 0.8F, ConstantValue.exactly(1.0F));
-        appendEntityDrop(ResourceLocation.tryBuild("minecraft", "entities/hoglin"), ItemRegistry.RAW_MEAT, 0.8F, UniformGenerator.between(1.0F, 3.0F));
-        appendEntityDrop(ResourceLocation.tryBuild("minecraft", "entities/ravager"), ItemRegistry.RAW_MEAT, 0.8F, UniformGenerator.between(1.0F, 2.0F));
+        appendEntityDrop(Identifier.tryBuild("minecraft", "entities/fox"), ItemRegistry.FUR, 0.6F, UniformGenerator.between(1.0F, 2.0F));
+        appendEntityDrop(Identifier.tryBuild("minecraft", "entities/goat"), ItemRegistry.FUR, 0.8F, UniformGenerator.between(1.0F, 2.0F));
+        appendEntityDrop(Identifier.tryBuild("minecraft", "entities/rabbit"), ItemRegistry.FUR, 0.8F, ConstantValue.exactly(1.0F));
+        appendEntityDrop(Identifier.tryBuild("minecraft", "entities/hoglin"), ItemRegistry.RAW_MEAT, 0.8F, UniformGenerator.between(1.0F, 3.0F));
+        appendEntityDrop(Identifier.tryBuild("minecraft", "entities/ravager"), ItemRegistry.RAW_MEAT, 0.8F, UniformGenerator.between(1.0F, 2.0F));
     }
 
-    private static void appendEntityDrop(ResourceLocation target, ItemLike item, float chance, NumberProvider count) {
+    private static void appendEntityDrop(Identifier target, ItemLike item, float chance, NumberProvider count) {
         LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {
-            if (key.location().equals(target)) {
+            if (key.identifier().equals(target)) {
                 tableBuilder.pool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
                         .when(LootItemRandomChanceCondition.randomChance(chance))
@@ -46,9 +46,9 @@ public class ReplaceToSingleItemLootModifier {
         });
     }
 
-    private static void appendArchaeology(ResourceLocation target, float chance, Map<ItemLike, Integer> items) {
+    private static void appendArchaeology(Identifier target, float chance, Map<ItemLike, Integer> items) {
         LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {
-            if (key.location().equals(target)) {
+            if (key.identifier().equals(target)) {
                 LootPool.Builder builder = LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
                         .when(LootItemRandomChanceCondition.randomChance(chance));

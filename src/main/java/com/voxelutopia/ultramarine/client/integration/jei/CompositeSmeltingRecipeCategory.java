@@ -16,13 +16,13 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.library.util.RecipeUtil;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 public class CompositeSmeltingRecipeCategory implements IRecipeCategory<CompositeSmeltingRecipe> {
-   public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath("ultramarine", "composite_smelting");
+   public static final Identifier UID = Identifier.fromNamespaceAndPath("ultramarine", "composite_smelting");
    public static final RecipeType<CompositeSmeltingRecipe> COMPOSITE_SMELTING_RECIPE_TYPE = new RecipeType(UID, CompositeSmeltingRecipe.class);
-   public static final ResourceLocation TEXTURE_GUI = ResourceLocation.fromNamespaceAndPath("ultramarine", "textures/gui/brick_kiln.png");
+   public static final Identifier TEXTURE_GUI = Identifier.fromNamespaceAndPath("ultramarine", "textures/gui/brick_kiln.png");
    private final IDrawable background;
    private final int regularCookTime;
    private final IDrawable icon;

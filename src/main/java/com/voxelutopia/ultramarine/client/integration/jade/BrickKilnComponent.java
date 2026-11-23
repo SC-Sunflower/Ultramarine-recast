@@ -4,7 +4,7 @@ import com.voxelutopia.ultramarine.world.block.entity.BrickKilnBlockEntity;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
@@ -17,7 +17,7 @@ import snownee.jade.impl.ui.ProgressArrowElement;
 public enum BrickKilnComponent implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
    INSTANCE;
 
-   public static final ResourceLocation BRICK_KILN = ResourceLocation.fromNamespaceAndPath("ultramarine", "brick_kiln");
+   public static final Identifier BRICK_KILN = Identifier.fromNamespaceAndPath("ultramarine", "brick_kiln");
 
    public void appendTooltip(ITooltip tooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
       CompoundTag data = blockAccessor.getServerData();
@@ -59,7 +59,7 @@ public enum BrickKilnComponent implements IBlockComponentProvider, IServerDataPr
       }
    }
 
-   public ResourceLocation getUid() {
+   public Identifier getUid() {
       return BRICK_KILN;
    }
 }

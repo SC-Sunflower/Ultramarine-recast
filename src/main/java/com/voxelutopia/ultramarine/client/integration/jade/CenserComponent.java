@@ -3,7 +3,7 @@ package com.voxelutopia.ultramarine.client.integration.jade;
 import com.voxelutopia.ultramarine.world.block.entity.CenserBlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.IServerDataProvider;
@@ -13,7 +13,7 @@ import snownee.jade.api.config.IPluginConfig;
 public enum CenserComponent implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
    INSTANCE;
 
-   public static final ResourceLocation CENSER_BURN_TIME = ResourceLocation.fromNamespaceAndPath("ultramarine", "censer_burn_time");
+   public static final Identifier CENSER_BURN_TIME = Identifier.fromNamespaceAndPath("ultramarine", "censer_burn_time");
 
    public void appendTooltip(ITooltip tooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
       if (blockAccessor.getServerData().contains("BurnTime")) {
@@ -24,7 +24,7 @@ public enum CenserComponent implements IBlockComponentProvider, IServerDataProvi
       }
    }
 
-   public ResourceLocation getUid() {
+   public Identifier getUid() {
       return CENSER_BURN_TIME;
    }
 

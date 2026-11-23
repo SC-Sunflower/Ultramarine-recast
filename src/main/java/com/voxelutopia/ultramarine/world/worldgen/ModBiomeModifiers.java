@@ -3,7 +3,7 @@ package com.voxelutopia.ultramarine.world.worldgen;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
@@ -23,6 +23,6 @@ public class ModBiomeModifiers {
    }
 
    public static ResourceKey<PlacedFeature> key(String name) {
-      return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath("ultramarine", name));
+      return ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath("ultramarine", name));
    }
 }

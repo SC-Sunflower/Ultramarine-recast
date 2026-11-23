@@ -4,7 +4,7 @@ import com.voxelutopia.ultramarine.world.block.entity.BottleGourdBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -19,7 +19,7 @@ import snownee.jade.api.ui.IElementHelper;
 public enum BottleGourdComponent implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
    INSTANCE;
 
-   public static final ResourceLocation BOTTLE_GOURD = ResourceLocation.fromNamespaceAndPath("ultramarine", "bottle_gourd");
+   public static final Identifier BOTTLE_GOURD = Identifier.fromNamespaceAndPath("ultramarine", "bottle_gourd");
 
    public void appendTooltip(ITooltip tooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
       CompoundTag data = blockAccessor.getServerData();
@@ -42,7 +42,7 @@ public enum BottleGourdComponent implements IBlockComponentProvider, IServerData
       }
    }
 
-   public ResourceLocation getUid() {
+   public Identifier getUid() {
       return BOTTLE_GOURD;
    }
 }

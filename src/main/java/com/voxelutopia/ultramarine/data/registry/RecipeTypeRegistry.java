@@ -5,7 +5,7 @@ import com.voxelutopia.ultramarine.data.recipe.CompositeSmeltingRecipe;
 import com.voxelutopia.ultramarine.data.recipe.WoodworkingRecipe;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 
@@ -21,10 +21,10 @@ public class RecipeTypeRegistry {
    }
 
    private static <T extends Recipe<?>> RecipeType<T> register(String name) {
-      return (RecipeType<T>)Registry.register(BuiltInRegistries.RECIPE_TYPE, ResourceLocation.fromNamespaceAndPath("ultramarine", name), new RecipeType<T>() {
+      return (RecipeType<T>)Registry.register(BuiltInRegistries.RECIPE_TYPE, Identifier.fromNamespaceAndPath("ultramarine", name), new RecipeType<T>() {
          @Override
          public String toString() {
-            return ResourceLocation.fromNamespaceAndPath("ultramarine", name).toString();
+            return Identifier.fromNamespaceAndPath("ultramarine", name).toString();
          }
       });
    }

@@ -2,7 +2,7 @@ package com.voxelutopia.ultramarine.client.integration.jade;
 
 import com.voxelutopia.ultramarine.data.registry.ItemRegistry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec2;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
@@ -14,7 +14,7 @@ import snownee.jade.api.ui.IElementHelper;
 public enum MalletToggleableComponentProvider implements IBlockComponentProvider {
    INSTANCE;
 
-   public static final ResourceLocation MALLET_TOGGLEABLE = ResourceLocation.fromNamespaceAndPath("ultramarine", "mallet_toggleable");
+   public static final Identifier MALLET_TOGGLEABLE = Identifier.fromNamespaceAndPath("ultramarine", "mallet_toggleable");
 
    public void appendTooltip(ITooltip tooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
       IElementHelper elements = tooltip.getElementHelper();
@@ -23,7 +23,7 @@ public enum MalletToggleableComponentProvider implements IBlockComponentProvider
       tooltip.append(Component.translatable("gui.jade.plugin_ultramarine.mallet_toggleable"));
    }
 
-   public ResourceLocation getUid() {
+   public Identifier getUid() {
       return MALLET_TOGGLEABLE;
    }
 }

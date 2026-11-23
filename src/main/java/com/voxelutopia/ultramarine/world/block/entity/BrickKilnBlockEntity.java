@@ -22,14 +22,13 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -55,7 +54,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-@MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, SlottedStackStorage {
    public static final Codec<BrickKilnBlockEntity> CODEC = RecordCodecBuilder.create(
@@ -148,7 +146,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
          return 4;
       }
    };
-   private final Object2IntOpenHashMap<ResourceLocation> recipesUsed = new Object2IntOpenHashMap();
+   private final Object2IntOpenHashMap<Identifier> recipesUsed = new Object2IntOpenHashMap();
 
    public BrickKilnBlockEntity(BlockPos blockPos, BlockState blockState) {
       super(BlockEntityRegistry.BRICK_KILN, blockPos, blockState);
@@ -264,7 +262,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
 
    public void setRecipeUsed(@Nullable RecipeHolder<?> pRecipe) {
       if (pRecipe != null) {
-         this.recipesUsed.addTo(pRecipe.id().location(), 1);
+         this.recipesUsed.addTo(pRecipe.id().identifier(), 1);
       }
    }
 
@@ -284,8 +282,8 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
       ObjectIterator var4 = this.recipesUsed.object2IntEntrySet().iterator();
 
       while (var4.hasNext()) {
-         Entry<ResourceLocation> entry = (Entry<ResourceLocation>)var4.next();
-         RecipeManagerAccess.get(pLevel).byKey(ResourceKey.create(Registries.RECIPE, (ResourceLocation)entry.getKey())).ifPresent(holder -> {
+         Entry<Identifier> entry = (Entry<Identifier>)var4.next();
+         RecipeManagerAccess.get(pLevel).byKey(ResourceKey.create(Registries.RECIPE, (Identifier)entry.getKey())).ifPresent(holder -> {
             list.add((RecipeHolder<?>)holder);
             if (holder.value() instanceof CompositeSmeltingRecipe smeltingRecipe) {
                createExperience(pLevel, pos, entry.getIntValue(), smeltingRecipe.getExp());
@@ -357,7 +355,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
       Map<String, Integer> recipesMap = new HashMap<>();
       input.read("RecipesUsed", Codec.unboundedMap(Codec.STRING, Codec.INT)).ifPresent(recipesMap::putAll);
 
-      recipesMap.forEach((s, count) -> this.recipesUsed.put(ResourceLocation.parse(s), count));
+      recipesMap.forEach((s, count) -> this.recipesUsed.put(Identifier.parse(s), count));
    }
 
    protected void saveAdditional(ValueOutput output) {

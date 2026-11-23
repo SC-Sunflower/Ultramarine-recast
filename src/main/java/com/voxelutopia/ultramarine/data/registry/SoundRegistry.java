@@ -2,7 +2,7 @@ package com.voxelutopia.ultramarine.data.registry;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
@@ -39,7 +39,7 @@ public class SoundRegistry {
    }
 
    private static SoundEvent register(String name) {
-      return (SoundEvent)Registry.register(BuiltInRegistries.SOUND_EVENT, name, SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath("ultramarine", name)));
+      return (SoundEvent)Registry.register(BuiltInRegistries.SOUND_EVENT, name, SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("ultramarine", name)));
    }
 
    private static SoundEvent register(String name, SoundEvent soundEvent) {

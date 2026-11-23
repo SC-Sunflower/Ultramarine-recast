@@ -13,11 +13,11 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.library.util.RecipeUtil;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class WoodworkingRecipeCategory extends AbstractRecipeCategory<WoodworkingRecipe> implements IRecipeCategory<WoodworkingRecipe> {
-   public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath("ultramarine", "woodworking");
+   public static final Identifier UID = Identifier.fromNamespaceAndPath("ultramarine", "woodworking");
    public static final RecipeType<WoodworkingRecipe> WOODWORKING_RECIPE_TYPE = new RecipeType(UID, WoodworkingRecipe.class);
    public static final int WIDTH = 82;
    public static final int HEIGHT = 34;

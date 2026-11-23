@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
@@ -34,22 +34,22 @@ public class BlockEntityRegistry {
    public static void registerModBlockEntities() {
       CONTAINER_DECORATIVE_BLOCK = (BlockEntityType<ContainerDecorativeBlockEntity>)Registry.register(
          BuiltInRegistries.BLOCK_ENTITY_TYPE,
-         ResourceLocation.fromNamespaceAndPath("ultramarine", "container_decorative_block_entity"),
+         Identifier.fromNamespaceAndPath("ultramarine", "container_decorative_block_entity"),
          FabricBlockEntityTypeBuilder.create(ContainerDecorativeBlockEntity::new, new HashSet<>(CONTAINER_BLOCKS).toArray(new Block[0])).build(null)
       );
       CENSER = (BlockEntityType<CenserBlockEntity>)Registry.register(
          BuiltInRegistries.BLOCK_ENTITY_TYPE,
-         ResourceLocation.fromNamespaceAndPath("ultramarine", "censer_block_entity"),
+         Identifier.fromNamespaceAndPath("ultramarine", "censer_block_entity"),
          FabricBlockEntityTypeBuilder.create(CenserBlockEntity::new, new HashSet<>(CENSERS).toArray(new Block[0])).build(null)
       );
       BOTTLE_GOURD = (BlockEntityType<BottleGourdBlockEntity>)Registry.register(
          BuiltInRegistries.BLOCK_ENTITY_TYPE,
-         ResourceLocation.fromNamespaceAndPath("ultramarine", "bottle_gourd_entity"),
+         Identifier.fromNamespaceAndPath("ultramarine", "bottle_gourd_entity"),
          FabricBlockEntityTypeBuilder.create(BottleGourdBlockEntity::new, new Block[]{BlockRegistry.BOTTLE_GOURD}).build(null)
       );
       BRICK_KILN = (BlockEntityType<BrickKilnBlockEntity>)Registry.register(
          BuiltInRegistries.BLOCK_ENTITY_TYPE,
-         ResourceLocation.fromNamespaceAndPath("ultramarine", "brick_kiln_block_entity"),
+         Identifier.fromNamespaceAndPath("ultramarine", "brick_kiln_block_entity"),
          FabricBlockEntityTypeBuilder.create(BrickKilnBlockEntity::new, new Block[]{BlockRegistry.BRICK_KILN}).build(null)
       );
    }

@@ -99,7 +99,7 @@ public class ChiselTableMenu extends AbstractContainerMenu {
             .toList();
       if (list.size() > 1) {
          Ultramarine.LOGGER.warn("Duplicate chisel table recipe: ");
-         list.forEach(recipe -> Ultramarine.LOGGER.warn(recipe.id().location().getPath()));
+         list.forEach(recipe -> Ultramarine.LOGGER.warn(recipe.id().identifier().getPath()));
       }
 
       if (list.isEmpty()) {

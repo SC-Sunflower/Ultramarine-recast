@@ -12,7 +12,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -87,7 +87,7 @@ public class ContainerDecorativeBlockEntity extends RandomizableContainerBlockEn
 
    protected void loadAdditional(ValueInput nbt) {
       super.loadAdditional(nbt);
-      this.block = BuiltInRegistries.BLOCK.get(ResourceLocation.tryParse(nbt.getStringOr("Block", ""))).map(Holder.Reference::value).orElse(Blocks.AIR);
+      this.block = BuiltInRegistries.BLOCK.get(Identifier.tryParse(nbt.getStringOr("Block", ""))).map(Holder.Reference::value).orElse(Blocks.AIR);
       this.rows = nbt.getByteOr("Rows", (byte)3);
       this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
       if (!this.tryLoadLootTable(nbt)) {

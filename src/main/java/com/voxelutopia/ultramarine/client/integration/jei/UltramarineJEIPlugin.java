@@ -23,7 +23,7 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -32,15 +32,15 @@ import org.slf4j.LoggerFactory;
 
 @JeiPlugin
 public class UltramarineJEIPlugin implements IModPlugin {
-   public static final ResourceLocation JEI_GUI_VANILLA = ResourceLocation.fromNamespaceAndPath("jei", "textures/gui/gui_vanilla.png");
+   public static final Identifier JEI_GUI_VANILLA = Identifier.fromNamespaceAndPath("jei", "textures/gui/gui_vanilla.png");
    private static final Logger LOGGER = LoggerFactory.getLogger(UltramarineJEIPlugin.class);
 
    public UltramarineJEIPlugin() {
       LOGGER.info("JEI Integration Loaded");
    }
 
-   public ResourceLocation getPluginUid() {
-      return ResourceLocation.fromNamespaceAndPath("ultramarine", "jei_plugin");
+   public Identifier getPluginUid() {
+      return Identifier.fromNamespaceAndPath("ultramarine", "jei_plugin");
    }
 
    public void registerGuiHandlers(IGuiHandlerRegistration registration) {

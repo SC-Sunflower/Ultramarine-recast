@@ -1,7 +1,7 @@
 package com.voxelutopia.ultramarine.data;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
@@ -31,10 +31,10 @@ public class ModItemTags {
    public static final TagKey<Item> BLACK_DYES = commonTag("black_dyes");
 
    private static TagKey<Item> commonTag(String path) {
-      return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", path));
+      return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", path));
    }
 
    private static TagKey<Item> modTag(String path) {
-      return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("ultramarine", path));
+      return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", path));
    }
 }

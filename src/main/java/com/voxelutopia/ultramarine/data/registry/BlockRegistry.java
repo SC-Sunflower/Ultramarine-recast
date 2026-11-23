@@ -64,7 +64,7 @@ import com.voxelutopia.ultramarine.world.block.state.ModBlockStateProperties;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
@@ -1961,11 +1961,11 @@ public class BlockRegistry {
    );
 
    public static Block registerBlock(String name, Block block) {
-      return (Block)Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath("ultramarine", name), block);
+      return (Block)Registry.register(BuiltInRegistries.BLOCK, Identifier.fromNamespaceAndPath("ultramarine", name), block);
    }
 
    public static void registerBlockItem(String name, Block block) {
-      Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath("ultramarine", name), new BlockItem(block, new Properties()));
+      Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", name), new BlockItem(block, new Properties()));
    }
 
    public static void registerModBlocks() {

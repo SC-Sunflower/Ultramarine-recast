@@ -6,7 +6,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
@@ -64,7 +64,7 @@ public class ModPlacedFeatures {
    }
 
    public static ResourceKey<PlacedFeature> key(String name) {
-      return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath("ultramarine", name));
+      return ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath("ultramarine", name));
    }
 
    private static void register(

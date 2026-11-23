@@ -1,5 +1,5 @@
 plugins {
-    id 'dev.architectury.loom' version '1.17.486'
+    id 'fabric-loom' version '1.15.5'
     id 'maven-publish'
 }
 
@@ -27,18 +27,12 @@ repositories {
 }
 
 loom {
-    silentMojangMappingsLicense()
     accessWidenerPath = file('src/main/resources/ultramarine.accesswidener')
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.layered {
-        // 注意：parchment-1.21.11 的 release 数据在 Loom 下 remap 失败
-        // （Cannot remap modifiers ... targets []），故 1.21.11 分支仅用官方映射；
-        // 官方映射在 1.21.11 已为绝大多数符号提供正式名称。
-        officialMojangMappings()
-    }
+    mappings loom.officialMojangMappings()
 
     modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"

@@ -5,7 +5,7 @@ import com.voxelutopia.ultramarine.data.recipe.CompositeSmeltingRecipe;
 import com.voxelutopia.ultramarine.data.recipe.WoodworkingRecipe;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 public class RecipeSerializerRegistry {
@@ -15,13 +15,13 @@ public class RecipeSerializerRegistry {
 
    public static void registerModRecipeSerializers() {
       WOODWORKING_SERIALIZER = (RecipeSerializer<WoodworkingRecipe>)Registry.register(
-         BuiltInRegistries.RECIPE_SERIALIZER, ResourceLocation.fromNamespaceAndPath("ultramarine", "woodworking"), WoodworkingRecipe.Serializer.INSTANCE
+         BuiltInRegistries.RECIPE_SERIALIZER, Identifier.fromNamespaceAndPath("ultramarine", "woodworking"), WoodworkingRecipe.Serializer.INSTANCE
       );
       COMPOSITE_SMELTING_SERIALIZER = (RecipeSerializer<CompositeSmeltingRecipe>)Registry.register(
-         BuiltInRegistries.RECIPE_SERIALIZER, ResourceLocation.fromNamespaceAndPath("ultramarine", "composite_smelting"), CompositeSmeltingRecipe.Serializer.INSTANCE
+         BuiltInRegistries.RECIPE_SERIALIZER, Identifier.fromNamespaceAndPath("ultramarine", "composite_smelting"), CompositeSmeltingRecipe.Serializer.INSTANCE
       );
       CHISEL_TABLE_SERIALIZER = (RecipeSerializer<ChiselTableRecipe>)Registry.register(
-         BuiltInRegistries.RECIPE_SERIALIZER, ResourceLocation.fromNamespaceAndPath("ultramarine", "chisel_table"), ChiselTableRecipe.Serializer.INSTANCE
+         BuiltInRegistries.RECIPE_SERIALIZER, Identifier.fromNamespaceAndPath("ultramarine", "chisel_table"), ChiselTableRecipe.Serializer.INSTANCE
       );
    }
 }
