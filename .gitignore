@@ -45,3 +45,6 @@ libs/porting-lib/
 
 ### Build/run logs ###
 *.log
+
+### versioned release jars ###
+release/
