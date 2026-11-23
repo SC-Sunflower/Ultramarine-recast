@@ -5,6 +5,8 @@ import net.minecraft.core.HolderLookup;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import com.voxelutopia.ultramarine.data.registry.RecipeSerializerRegistry;
@@ -31,11 +33,12 @@ public class CompositeSmeltingRecipe implements Recipe<CraftingInput> {
             Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
             Ingredient.CODEC.fieldOf("primary_ingredient").forGetter(recipe -> recipe.primaryIngredient),
             Ingredient.CODEC.fieldOf("secondary_ingredient").forGetter(recipe -> recipe.secondaryIngredient),
-            ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result),
+            Codec.INT.optionalFieldOf("count", 1).forGetter(recipe -> recipe.result.getCount()),
+      Codec.STRING.fieldOf("result").forGetter(recipe -> BuiltInRegistries.ITEM.getKey(recipe.result.getItem()).toString()),
             Codec.FLOAT.optionalFieldOf("experience", 0.0F).forGetter(recipe -> recipe.experience),
             Codec.INT.optionalFieldOf("cookingtime", 200).forGetter(recipe -> recipe.cookingTime)
-    ).apply(instance, (group, primary, secondary, result, experience, cookingTime) ->
-            new CompositeSmeltingRecipe(group, primary, secondary, result, experience, cookingTime)));
+    ).apply(instance, (group, primary, secondary, count, result, experience, cookingTime) ->
+            new CompositeSmeltingRecipe(group, primary, secondary, new ItemStack(BuiltInRegistries.ITEM.getValue(ResourceLocation.parse(result)), count), experience, cookingTime)));
 
     public CompositeSmeltingRecipe(
             String pGroup, Ingredient primaryIngredient, Ingredient secondaryIngredient, ItemStack pResult, float pExperience, int pCookingTime
