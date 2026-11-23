@@ -1,5 +1,5 @@
 plugins {
-    id 'dev.architectury.loom' version '1.14.473'
+    id 'dev.architectury.loom' version '1.17.486'
     id 'maven-publish'
 }
 
@@ -34,8 +34,10 @@ loom {
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.layered {
+        // 注意：parchment-1.21.11 的 release 数据在 Loom 下 remap 失败
+        // （Cannot remap modifiers ... targets []），故 1.21.11 分支仅用官方映射；
+        // 官方映射在 1.21.11 已为绝大多数符号提供正式名称。
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${project.parchment_minecraft_version}:${project.parchment_mappings_version}@zip")
     }
 
     modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"

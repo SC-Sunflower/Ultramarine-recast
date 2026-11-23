@@ -2,7 +2,8 @@ pluginManagement {
     repositories {
         maven { url = 'https://maven.architectury.dev/' }
         maven { url = 'https://maven.fabricmc.net/' }
-        maven { url = 'https://maven.neoforged.net/releases/' }
+        // maven.neoforged.net 在本机不可达，改用 BMCLAPI 镜像（内容与 neoforged/forge maven 一致）
+        maven { url = 'https://bmclapi2.bangbang93.com/maven' }
         mavenCentral()
         gradlePluginPortal()
     }
