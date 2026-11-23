@@ -5,6 +5,8 @@ import net.minecraft.core.HolderLookup;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import com.voxelutopia.ultramarine.data.registry.RecipeSerializerRegistry;
@@ -36,10 +38,11 @@ public class ChiselTableRecipe implements Recipe<CraftingInput> {
             Ingredient.CODEC.fieldOf("material").forGetter(recipe -> recipe.material),
             Ingredient.CODEC.fieldOf("template").forGetter(recipe -> recipe.template),
             Ingredient.CODEC.listOf().fieldOf("colors").forGetter(recipe -> recipe.colors),
-            ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
-    ).apply(instance, (group, material, template, colors, result) ->
-            new ChiselTableRecipe(group, material, template, colors.toArray(new Ingredient[0]), result)));
-
+            Codec.INT.optionalFieldOf("count", 1).forGetter(recipe -> recipe.result.getCount()),
+            Codec.STRING.fieldOf("result").forGetter(recipe -> BuiltInRegistries.ITEM.getKey(recipe.result.getItem()).toString())
+    ).apply(instance, (group, material, template, colors, count, result) ->
+            new ChiselTableRecipe(group, material, template, colors.toArray(new Ingredient[0]),
+                    new ItemStack(BuiltInRegistries.ITEM.getValue(ResourceLocation.parse(result)), count))));
     public ChiselTableRecipe(String pGroup, Ingredient material, Ingredient template, Ingredient[] colors, ItemStack pResult) {
         this.group = pGroup;
         this.material = material;
@@ -146,7 +149,7 @@ public class ChiselTableRecipe implements Recipe<CraftingInput> {
             for (int i = 0; i < 4; i++) {
                 colors[i] = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
             }
-            colors = Arrays.stream(colors).filter(i -> i.items().findAny().isPresent()).toList().toArray(new Ingredient[0]);
+            colors = Arrays.stream(colors).filter(i -> !i.items().isEmpty()).toList().toArray(new Ingredient[0]);
             ItemStack result = ItemStack.STREAM_CODEC.decode(buf);
             return new ChiselTableRecipe(group, material, template, colors, result);
         }
