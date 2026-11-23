@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "ultramarine:red_floor_tile"
+  },
+  "result": { "item": "ultramarine:red_floor_tile_stairs", "count": 1 }
+}

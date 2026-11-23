@@ -1,0 +1,21 @@
+{
+  "type": "ultramarine:chisel_table",
+  "colors": [
+    {
+      "item": "ultramarine:cyan_dye_powder"
+    },
+    {
+      "tag": "c:dyes/cyan"
+    },
+    {
+      "item": "ultramarine:green_dye_powder"
+    }
+  ],
+  "material": {
+    "tag": "ultramarine:polished_planks"
+  },
+  "result": { "item": "ultramarine:grass_lucky_motif_3", "count": 1 },
+  "template": {
+    "item": "ultramarine:caihua_template"
+  }
+}

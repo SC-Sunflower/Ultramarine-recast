@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.voxelutopia.ultramarine.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "ultramarine.refmap.json",
+  "mixins": [
+    "ItemEntityMixin"
+  ],
+  "client": [],
+  "minVersion": "0.8.5"
+}

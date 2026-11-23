@@ -1,0 +1,266 @@
+package com.voxelutopia.ultramarine.data.shape;
+
+import com.google.common.collect.Maps;
+import com.voxelutopia.ultramarine.world.block.state.ModBlockStateProperties;
+import com.voxelutopia.ultramarine.world.block.state.OrientableBlockType;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.apache.commons.lang3.tuple.Pair;
+
+public class ShapeFunction implements Function<BlockState, VoxelShape> {
+   private static final Map<Pair<Direction, Direction>, Integer> ROTATIONS = Map.of(
+      Pair.of(Direction.NORTH, Direction.EAST),
+      135,
+      Pair.of(Direction.EAST, Direction.NORTH),
+      135,
+      Pair.of(Direction.EAST, Direction.SOUTH),
+      45,
+      Pair.of(Direction.SOUTH, Direction.EAST),
+      45,
+      Pair.of(Direction.SOUTH, Direction.WEST),
+      315,
+      Pair.of(Direction.WEST, Direction.SOUTH),
+      315,
+      Pair.of(Direction.WEST, Direction.NORTH),
+      225,
+      Pair.of(Direction.NORTH, Direction.WEST),
+      225
+   );
+   private final Function<BlockState, VoxelShape> processFunction;
+   private final Map<BlockState, VoxelShape> cache = Maps.newConcurrentMap();
+
+   private ShapeFunction(Function<BlockState, VoxelShape> processFunction) {
+      this.processFunction = processFunction;
+   }
+
+   public VoxelShape apply(BlockState state) {
+      return this.cache.computeIfAbsent(state, this.processFunction);
+   }
+
+   public static ShapeFunction of(Function<BlockState, VoxelShape> processFunction) {
+      return new ShapeFunction(processFunction);
+   }
+
+   public static ShapeFunction or(ShapeFunction a, ShapeFunction b) {
+      return new ShapeFunction(state -> Shapes.or(a.apply(state), b.apply(state)));
+   }
+
+   public static ShapeFunction or(ShapeFunction a, ShapeFunction... b) {
+      return Arrays.stream(b).reduce(a, ShapeFunction::or);
+   }
+
+   public static ShapeFunction exclude(ShapeFunction a, ShapeFunction b) {
+      return new ShapeFunction(state -> Shapes.join(a.apply(state), b.apply(state), BooleanOp.ONLY_FIRST));
+   }
+
+   public static ShapeFunction eightRotations(RawVoxelShape northShape) {
+      return eightRotations(northShape, 0.0F);
+   }
+
+   public static ShapeFunction eightRotations(RawVoxelShape northShape, float diagonalRotationOffset) {
+      return new ShapeFunction(
+         state -> {
+            Direction primaryDir = (Direction)state.getValue(HorizontalDirectionalBlock.FACING);
+            Direction shiftDir = (Direction)state.getValue(ModBlockStateProperties.HORIZONTAL_FACING_SHIFT);
+            if (primaryDir == shiftDir) {
+               return switch (primaryDir) {
+                  case NORTH -> northShape.copy().toVoxelShape();
+                  case SOUTH -> northShape.copy().rotateY(180.0F).toVoxelShape();
+                  case WEST -> northShape.copy().rotateY(90.0F).toVoxelShape();
+                  case EAST -> northShape.copy().rotateY(270.0F).toVoxelShape();
+                  case UP, DOWN -> Shapes.empty();
+                  default -> throw new IncompatibleClassChangeError();
+               };
+            } else {
+               return ROTATIONS.containsKey(Pair.of(primaryDir, shiftDir))
+                  ? northShape.copy().rotateY(ROTATIONS.get(Pair.of(primaryDir, shiftDir)).intValue() + diagonalRotationOffset).toVoxelShape()
+                  : northShape.copy().toVoxelShape();
+            }
+         }
+      );
+   }
+
+   public static ShapeFunction cardinalRotations(RawVoxelShape northShape) {
+      return new ShapeFunction(state -> {
+         Direction direction = (Direction)state.getValue(HorizontalDirectionalBlock.FACING);
+
+         return switch (direction) {
+            case NORTH -> northShape.copy().toVoxelShape();
+            case SOUTH -> northShape.copy().rotateY(180.0F).toVoxelShape();
+            case WEST -> northShape.copy().rotateY(90.0F).toVoxelShape();
+            case EAST -> northShape.copy().rotateY(270.0F).toVoxelShape();
+            case UP, DOWN -> Shapes.empty();
+            default -> throw new IncompatibleClassChangeError();
+         };
+      });
+   }
+
+   public static ShapeFunction axialRotations(RawVoxelShape xShape) {
+      return new ShapeFunction(state -> {
+         Axis axis = (Axis)state.getValue(BlockStateProperties.HORIZONTAL_AXIS);
+
+         return switch (axis) {
+            case X -> xShape.copy().toVoxelShape();
+            case Y -> Shapes.empty();
+            case Z -> xShape.copy().rotateY(90.0F).toVoxelShape();
+            default -> throw new IncompatibleClassChangeError();
+         };
+      });
+   }
+
+   public static ShapeFunction centeredSquare(float side, float height) {
+      float d = (16.0F - side) / 2.0F;
+      return simpleShape(Block.box(d, 0.0, d, 16.0F - d, height, 16.0F - d));
+   }
+
+   public static ShapeFunction centeredSquare(int side, int height) {
+      return centeredSquare((float)side, (float)height);
+   }
+
+   public static ShapeFunction raisedCenteredSquare(float side, float height, float startHeight) {
+      float d = (16.0F - side) / 2.0F;
+      return simpleShape(Block.box(d, startHeight, d, 16.0F - d, startHeight + height, 16.0F - d));
+   }
+
+   public static ShapeFunction raisedCenteredSquare(int side, int height, int startHeight) {
+      return raisedCenteredSquare((float)side, (float)height, (float)startHeight);
+   }
+
+   public static ShapeFunction diagonalSquare(float side, float height) {
+      return new ShapeFunction(state -> {
+         boolean diagonal = (Boolean)state.getValue(ModBlockStateProperties.DIAGONAL);
+         float s = diagonal ? side * Mth.SQRT_OF_TWO : side;
+         float d = (16.0F - s) / 2.0F;
+         return Block.box(d, 0.0, d, 16.0F - d, height, 16.0F - d);
+      });
+   }
+
+   public static ShapeFunction diagonalSquare(int side, int height) {
+      return diagonalSquare((float)side, (float)height);
+   }
+
+   public static ShapeFunction diagonal(RawVoxelShape normalShape) {
+      return new ShapeFunction(state -> {
+         boolean diagonal = (Boolean)state.getValue(ModBlockStateProperties.DIAGONAL);
+         return diagonal ? normalShape.copy().rotateY(45.0F).toVoxelShape() : normalShape.copy().toVoxelShape();
+      });
+   }
+
+   public static ShapeFunction sideShape(int thickness) {
+      return cardinalRotations(new RawVoxelShape(0.0, 0.0, 16 - thickness, 16.0, 16.0, 16.0));
+   }
+
+   public static ShapeFunction sixSideShape(int thickness) {
+      return sixSideShape(new RawVoxelShape(0.0, 0.0, 16 - thickness, 16.0, 16.0, 16.0), new RawVoxelShape(0.0, 0.0, 0.0, 16.0, thickness, 16.0));
+   }
+
+   public static ShapeFunction sideOrientedShape(RawVoxelShape northLeftShape) {
+      return new ShapeFunction(state -> {
+         Direction facing = (Direction)state.getValue(HorizontalDirectionalBlock.FACING);
+         OrientableBlockType direction = (OrientableBlockType)state.getValue(ModBlockStateProperties.ORIENTABLE_BLOCK_TYPE);
+         RawVoxelShape northRightShape = northLeftShape.copy().mirrorZ();
+
+         RawVoxelShape shape = switch (direction) {
+            case LEFT -> northLeftShape.copy();
+            case RIGHT -> northRightShape.copy();
+         };
+
+         return switch (facing) {
+            case NORTH -> shape.copy().toVoxelShape();
+            case SOUTH -> shape.copy().rotateY(180.0F).toVoxelShape();
+            case WEST -> shape.copy().rotateY(90.0F).toVoxelShape();
+            case EAST -> shape.copy().rotateY(270.0F).toVoxelShape();
+            case UP, DOWN -> Shapes.empty();
+            default -> throw new IncompatibleClassChangeError();
+         };
+      });
+   }
+
+   public static ShapeFunction sixSideShape(RawVoxelShape northShape, RawVoxelShape topShape) {
+      return new ShapeFunction(state -> {
+         Direction facing = (Direction)state.getValue(BlockStateProperties.FACING);
+
+         return switch (facing) {
+            case NORTH -> northShape.copy().toVoxelShape();
+            case SOUTH -> northShape.copy().rotateY(180.0F).toVoxelShape();
+            case WEST -> northShape.copy().rotateY(90.0F).toVoxelShape();
+            case EAST -> northShape.copy().rotateY(270.0F).toVoxelShape();
+            case UP -> topShape.copy().toVoxelShape();
+            case DOWN -> topShape.copy().mirrorY().toVoxelShape();
+            default -> throw new IncompatibleClassChangeError();
+         };
+      });
+   }
+
+   public static ShapeFunction orientedSixSideShape(RawVoxelShape northUpShape, RawVoxelShape topNorthShape) {
+      return new ShapeFunction(state -> {
+         Direction facing = (Direction)state.getValue(BlockStateProperties.FACING);
+         Direction direction = (Direction)state.getValue(ModBlockStateProperties.ON_FACE_DIRECTION);
+         RawVoxelShape shape;
+         if (facing != Direction.UP && facing != Direction.DOWN) {
+            shape = northUpShape.copy();
+            if (facing.getClockWise() == direction) {
+               shape = shape.copy().rotateZ(-90.0F);
+            } else if (facing.getCounterClockWise() == direction) {
+               shape = shape.copy().rotateZ(90.0F);
+            } else if (direction == Direction.DOWN) {
+               shape = shape.copy().mirrorY();
+            }
+
+            switch (facing) {
+               case NORTH:
+                  shape = shape.copy();
+                  break;
+               case SOUTH:
+                  shape = shape.copy().rotateY(180.0F);
+                  break;
+               case WEST:
+                  shape = shape.copy().rotateY(90.0F);
+                  break;
+               case EAST:
+                  shape = shape.copy().rotateY(270.0F);
+            }
+         } else {
+            shape = topNorthShape.copy();
+            if (facing == Direction.DOWN) {
+               shape = topNorthShape.copy().mirrorY();
+            }
+
+            switch (direction) {
+               case NORTH:
+                  shape = shape.copy();
+                  break;
+               case SOUTH:
+                  shape = shape.copy().rotateY(180.0F);
+                  break;
+               case WEST:
+                  shape = shape.copy().rotateY(90.0F);
+                  break;
+               case EAST:
+                  shape = shape.copy().rotateY(270.0F);
+            }
+         }
+
+         return shape.toVoxelShape();
+      });
+   }
+
+   public static ShapeFunction simpleShape(VoxelShape shape) {
+      return new ShapeFunction(state -> shape);
+   }
+
+   public static ShapeFunction simpleShape(RawVoxelShape shape) {
+      return new ShapeFunction(state -> shape.toVoxelShape());
+   }
+}

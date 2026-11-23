@@ -1,0 +1,90 @@
+plugins {
+    id 'dev.architectury.loom' version '1.14.473'
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = "${project.archives_base_name}-fabric-${project.minecraft_version}"
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'Fabric'
+        url = 'https://maven.fabricmc.net/'
+    }
+    maven {
+        name = 'ParchmentMC'
+        url = 'https://maven.parchmentmc.org/'
+    }
+    maven {
+        name = 'Modrinth'
+        url = 'https://api.modrinth.com/maven'
+    }
+}
+
+loom {
+    silentMojangMappingsLicense()
+    accessWidenerPath = file('src/main/resources/ultramarine.accesswidener')
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.layered {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${project.parchment_minecraft_version}:${project.parchment_mappings_version}@zip")
+    }
+
+    modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    // Porting Lib 2.3.8：
+    // - 编译期用本地提取的模块 jar（Modrinth 聚合 jar 的嵌套模块不在编译 classpath）
+    // - 打包期 include Modrinth 的聚合 jar，Loom 会递归展开其全部嵌套模块，
+    //   让玩家无需单独安装 Porting Lib（与原版 fat jar 结构一致）。
+    modImplementation fileTree(dir: 'libs/porting-lib', include: '*.jar')
+    include "maven.modrinth:porting_lib:${project.porting_lib_version}"
+
+    // 可选集成（仅编译期，运行时可选）
+    modCompileOnly "maven.modrinth:jei:${project.jei_version}"
+    modCompileOnly "maven.modrinth:jade:${project.jade_version}"
+
+    // 开发运行（runClient）所需的运行时依赖
+    modRuntimeOnly "maven.modrinth:porting_lib:${project.porting_lib_version}"
+
+    // 反编译产物引用 javax.annotation 注解（Java 11+ 已移除该包）
+    compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    var replaceProperties = [
+            minecraft_version: project.minecraft_version,
+            mod_id           : project.mod_id,
+            mod_name         : project.mod_name,
+            mod_license      : project.mod_license,
+            mod_version      : project.mod_version,
+            mod_authors      : project.mod_authors,
+            mod_description  : project.mod_description,
+            mod_display_url  : project.mod_display_url,
+            mod_issue_tracker: project.mod_issue_tracker,
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching('fabric.mod.json') {
+        expand replaceProperties
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = project.java_version.toInteger()
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(project.java_toolchain.toInteger())
+    withSourcesJar()
+}

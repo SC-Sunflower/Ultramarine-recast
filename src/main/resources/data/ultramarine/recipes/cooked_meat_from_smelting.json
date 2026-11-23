@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.05,
+  "ingredient": {
+    "item": "ultramarine:raw_meat"
+  },
+  "result": { "item": "ultramarine:cooked_meat", "count": 1 }
+}

@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "tag": "c:ingots/cobalt"
+  },
+  "result": { "item": "ultramarine:cobalt_dust", "count": 1 }
+}
