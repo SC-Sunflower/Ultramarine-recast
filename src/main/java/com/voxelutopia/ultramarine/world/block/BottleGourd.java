@@ -2,7 +2,7 @@ package com.voxelutopia.ultramarine.world.block;
 
 import com.voxelutopia.ultramarine.data.registry.BlockEntityRegistry;
 import com.voxelutopia.ultramarine.world.block.entity.BottleGourdBlockEntity;
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
+import com.voxelutopia.ultramarine.data.storage.ItemHandlerHelper;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;

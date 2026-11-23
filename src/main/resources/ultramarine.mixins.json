@@ -4,7 +4,8 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "ultramarine.refmap.json",
   "mixins": [
-    "ItemEntityMixin"
+    "ItemEntityMixin",
+    "SnowLayerBlockMixin"
   ],
   "client": [],
   "minVersion": "0.8.5"

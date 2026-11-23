@@ -1,11 +1,13 @@
 package com.voxelutopia.ultramarine.world.block.menu;
 
+import com.voxelutopia.ultramarine.data.recipe.CompositeSmeltingRecipe;
+
 import com.voxelutopia.ultramarine.data.registry.BlockRegistry;
 import com.voxelutopia.ultramarine.data.registry.MenuTypeRegistry;
 import com.voxelutopia.ultramarine.data.registry.RecipeTypeRegistry;
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
-import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
-import io.github.fabricators_of_create.porting_lib.transfer.item.SlottedStackStorage;
+import com.voxelutopia.ultramarine.data.storage.ItemStackHandler;
+import com.voxelutopia.ultramarine.data.storage.SlotItemHandler;
+import com.voxelutopia.ultramarine.data.storage.SlottedStackStorage;
 import javax.annotation.Nonnull;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -120,7 +122,7 @@ public class BrickKilnMenu extends AbstractContainerMenu {
             .getRecipeManager()
             .getAllRecipesFor(RecipeTypeRegistry.COMPOSITE_SMELTING)
             .stream()
-            .anyMatch(recipe -> recipe.partialMatch(new SimpleContainer(new ItemStack[]{item}), this.blockEntity.getLevel()))
+            .anyMatch(holder -> ((CompositeSmeltingRecipe)holder.value()).partialMatch(new SimpleContainer(new ItemStack[]{item}), this.blockEntity.getLevel()))
          : false;
    }
 

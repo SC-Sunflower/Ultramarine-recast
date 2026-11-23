@@ -2,7 +2,7 @@ package com.voxelutopia.ultramarine.world.block;
 
 import com.mojang.datafixers.util.Pair;
 import com.voxelutopia.ultramarine.world.block.state.ModBlockStateProperties;
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
+import com.voxelutopia.ultramarine.data.storage.ItemHandlerHelper;
 import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;

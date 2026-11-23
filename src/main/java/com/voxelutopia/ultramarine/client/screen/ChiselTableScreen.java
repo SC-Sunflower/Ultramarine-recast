@@ -17,13 +17,13 @@ public class ChiselTableScreen extends AbstractContainerScreen<ChiselTableMenu> 
    }
 
    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-      this.renderBackground(guiGraphics);
+      this.renderBackground(guiGraphics, mouseX, mouseY, partialTicks);
       super.render(guiGraphics, mouseX, mouseY, partialTicks);
       this.renderTooltip(guiGraphics, mouseX, mouseY);
    }
 
    protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-      this.renderBackground(guiGraphics);
+      this.renderBackground(guiGraphics, pMouseX, pMouseY, pPartialTick);
       RenderSystem.setShader(GameRenderer::getPositionTexShader);
       RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
       RenderSystem.setShaderTexture(0, BACKGROUND);

@@ -42,6 +42,7 @@ repo/
 
 ### Porting Lib modules (fetched by scripts/fetch-porting-lib.ps1) ###
 libs/porting-lib/
+libs/porting-lib-1202/
 
 ### Build/run logs ###
 *.log

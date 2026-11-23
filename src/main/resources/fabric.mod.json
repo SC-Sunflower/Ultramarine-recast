@@ -26,12 +26,6 @@
     ],
     "fabric-datagen": [
       "com.voxelutopia.ultramarine.data.ModDataGenerator"
-    ],
-    "jade": [
-      "com.voxelutopia.ultramarine.client.integration.jade.UltramarineJadePlugin"
-    ],
-    "jei_mod_plugin": [
-      "com.voxelutopia.ultramarine.client.integration.jei.UltramarineJEIPlugin"
     ]
   },
   "mixins": [
@@ -41,8 +35,7 @@
   "depends": {
     "fabricloader": ">=0.15.7",
     "fabric-api": "*",
-    "porting_lib_base": ">=2.3.8",
-    "minecraft": ">=1.20 <1.20.2",
+    "minecraft": ">=1.20.2 <1.20.5",
     "java": ">=17"
   }
 }

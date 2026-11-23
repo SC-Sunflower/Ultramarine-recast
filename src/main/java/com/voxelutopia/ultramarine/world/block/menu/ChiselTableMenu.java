@@ -6,9 +6,9 @@ import com.voxelutopia.ultramarine.data.recipe.ChiselTableRecipe;
 import com.voxelutopia.ultramarine.data.registry.BlockRegistry;
 import com.voxelutopia.ultramarine.data.registry.MenuTypeRegistry;
 import com.voxelutopia.ultramarine.data.registry.RecipeTypeRegistry;
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
-import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
-import io.github.fabricators_of_create.porting_lib.transfer.item.SlottedStackStorage;
+import com.voxelutopia.ultramarine.data.storage.ItemStackHandler;
+import com.voxelutopia.ultramarine.data.storage.SlotItemHandler;
+import com.voxelutopia.ultramarine.data.storage.SlottedStackStorage;
 import java.util.List;
 import java.util.function.Predicate;
 import javax.annotation.Nonnull;
@@ -24,6 +24,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -87,16 +88,16 @@ public class ChiselTableMenu extends AbstractContainerMenu {
    public void createResult() {
       Level level = this.player.level();
       Container ingredients = this.wrapIngredients();
-      List<ChiselTableRecipe> list = level.getRecipeManager().getRecipesFor(RecipeTypeRegistry.CHISEL_TABLE, ingredients, level);
+      List<RecipeHolder<ChiselTableRecipe>> list = level.getRecipeManager().getRecipesFor(RecipeTypeRegistry.CHISEL_TABLE, ingredients, level);
       if (list.size() > 1) {
          Ultramarine.LOGGER.warn("Duplicate chisel table recipe: ");
-         list.forEach(recipex -> Ultramarine.LOGGER.warn(recipex.getId().getPath()));
+         list.forEach(recipe -> Ultramarine.LOGGER.warn(recipe.id().getPath()));
       }
 
       if (list.isEmpty()) {
          this.result.setStackInSlot(0, ItemStack.EMPTY);
       } else {
-         ChiselTableRecipe recipe = list.get(0);
+         ChiselTableRecipe recipe = (ChiselTableRecipe)list.get(0).value();
          ItemStack resultItemStack = recipe.assemble(ingredients, level.registryAccess());
          this.result.setStackInSlot(0, resultItemStack);
       }

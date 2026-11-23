@@ -7,7 +7,6 @@ import com.voxelutopia.ultramarine.data.registry.PoiTypeRegistry;
 import com.voxelutopia.ultramarine.data.registry.VillagerProfessionRegistry;
 import com.voxelutopia.ultramarine.world.block.SnowRoofRidge;
 import com.voxelutopia.ultramarine.world.entity.TravellingMerchant;
-import io.github.fabricators_of_create.porting_lib.event.common.BlockEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.core.BlockPos;
@@ -42,7 +41,6 @@ import java.util.List;
 public class CommonEventHandler {
    public static void init() {
       breakSpeed();
-      roofSnowFall();
       travellingMerchantSpawnAttempt();
       registerEntityAttributes();
       villagerTraders();
@@ -58,20 +56,6 @@ public class CommonEventHandler {
       });
    }
 
-   // Ported from Ultramarine 0.5.1 (Forge BlockEvent.NeighborNotifyEvent): snow falling on a
-   // snow roof ridge is absorbed into the ridge as an extra snow layer.
-   private static void roofSnowFall() {
-      BlockEvents.NEIGHBORS_NOTIFY.register(event -> {
-         if (event.getState().is(Blocks.SNOW)) {
-            BlockState blockBelow = event.getLevel().getBlockState(event.getPos().below());
-            if (blockBelow.getBlock() instanceof SnowRoofRidge ridge && blockBelow.getValue(SnowRoofRidge.SNOW_LAYERS) < 15) {
-               ridge.handleSnow(blockBelow, event.getLevel(), event.getPos().below());
-               event.getLevel().setBlock(event.getPos(), Blocks.AIR.defaultBlockState(), 3);
-               event.setCanceled(true);
-            }
-         }
-      });
-   }
 
    // Ported from Ultramarine 0.5.1 (Forge TickEvent.LevelTickEvent): spawns the travelling
    // merchant near a trade POI with the vanilla wandering trader probability, every day at dawn.

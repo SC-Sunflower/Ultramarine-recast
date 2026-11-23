@@ -1,7 +1,5 @@
 package com.voxelutopia.ultramarine.world.block;
 
-import io.github.fabricators_of_create.porting_lib.common.util.IPlantable;
-import io.github.fabricators_of_create.porting_lib.common.util.PlantType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -13,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
-public class AquaticPlantBlock extends DecorativeBlock implements IPlantable {
+public class AquaticPlantBlock extends DecorativeBlock {
    public AquaticPlantBlock(DecorativeBlock.Builder builder) {
       super(builder);
    }
@@ -40,12 +38,4 @@ public class AquaticPlantBlock extends DecorativeBlock implements IPlantable {
          && fluidstate1.getType() == Fluids.EMPTY;
    }
 
-   public BlockState getPlant(BlockGetter world, BlockPos pos) {
-      BlockState state = world.getBlockState(pos);
-      return state.getBlock() != this ? this.defaultBlockState() : state;
-   }
-
-   public PlantType getPlantType(BlockGetter level, BlockPos pos) {
-      return PlantType.WATER;
-   }
 }

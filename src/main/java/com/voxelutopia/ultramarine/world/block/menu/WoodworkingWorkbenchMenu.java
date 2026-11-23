@@ -20,6 +20,7 @@ import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 
 public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
@@ -32,7 +33,7 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
    private final ContainerLevelAccess access;
    private final DataSlot selectedRecipeIndex = DataSlot.standalone();
    private final Level level;
-   private List<WoodworkingRecipe> recipes = Lists.newArrayList();
+   private List<RecipeHolder<WoodworkingRecipe>> recipes = Lists.newArrayList();
    private ItemStack input = ItemStack.EMPTY;
    final Slot inputSlot;
    final Slot resultSlot;
@@ -97,7 +98,7 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
       return this.selectedRecipeIndex.get();
    }
 
-   public List<WoodworkingRecipe> getRecipes() {
+   public List<RecipeHolder<WoodworkingRecipe>> getRecipes() {
       return this.recipes;
    }
 
@@ -145,9 +146,9 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
 
    void setupResultSlot() {
       if (!this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
-         WoodworkingRecipe woodworkingRecipe = this.recipes.get(this.selectedRecipeIndex.get());
-         this.resultContainer.setRecipeUsed(woodworkingRecipe);
-         this.resultSlot.set(woodworkingRecipe.assemble(this.container, this.level.registryAccess()));
+         RecipeHolder<WoodworkingRecipe> holder = this.recipes.get(this.selectedRecipeIndex.get());
+         this.resultContainer.setRecipeUsed(holder);
+         this.resultSlot.set(((WoodworkingRecipe)holder.value()).assemble(this.container, this.level.registryAccess()));
       } else {
          this.resultSlot.set(ItemStack.EMPTY);
       }

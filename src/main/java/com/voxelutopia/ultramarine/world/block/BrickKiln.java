@@ -3,7 +3,7 @@ package com.voxelutopia.ultramarine.world.block;
 import com.voxelutopia.ultramarine.data.registry.BlockEntityRegistry;
 import com.voxelutopia.ultramarine.world.block.entity.BlockEntityHelper;
 import com.voxelutopia.ultramarine.world.block.entity.BrickKilnBlockEntity;
-import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
+import com.voxelutopia.ultramarine.data.storage.RecipeWrapper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
