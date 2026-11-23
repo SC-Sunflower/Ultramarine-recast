@@ -72,7 +72,7 @@ public class Censer extends DecorativeBlock implements EntityBlock {
 
    @Nullable
    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-      return pLevel.isClientSide ? null : BlockEntityHelper.createTickerHelper(pBlockEntityType, BlockEntityRegistry.CENSER, CenserBlockEntity::tick);
+      return pLevel.isClientSide() ? null : BlockEntityHelper.createTickerHelper(pBlockEntityType, BlockEntityRegistry.CENSER, CenserBlockEntity::tick);
    }
 
    @NotNull

@@ -24,7 +24,7 @@ public class ChiselTableMedium extends DecorativeBlock implements BaseBlockPrope
    }
 
    public InteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-      if (pLevel.isClientSide) {
+      if (pLevel.isClientSide()) {
          return InteractionResult.SUCCESS;
       }
 

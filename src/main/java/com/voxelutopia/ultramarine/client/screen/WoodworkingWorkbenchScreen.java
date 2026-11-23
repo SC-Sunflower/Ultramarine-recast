@@ -8,6 +8,7 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -106,7 +107,10 @@ public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<Woodwork
       }
    }
 
-   public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
+   public boolean mouseClicked(MouseButtonEvent event, boolean isHovered) {
+      double pMouseX = event.x();
+      double pMouseY = event.y();
+      int pButton = event.button();
       this.scrolling = false;
       if (this.displayRecipes) {
          int i = this.leftPos + 52;
@@ -131,10 +135,12 @@ public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<Woodwork
          }
       }
 
-      return super.mouseClicked(pMouseX, pMouseY, pButton);
+      return super.mouseClicked(event, isHovered);
    }
 
-   public boolean mouseDragged(double pMouseX, double pMouseY, int pButton, double pDragX, double pDragY) {
+   public boolean mouseDragged(MouseButtonEvent event, double pDragX, double pDragY) {
+      double pMouseX = event.x();
+      double pMouseY = event.y();
       if (this.scrolling && this.isScrollBarActive()) {
          int i = this.topPos + 14;
          int j = i + 54;
@@ -143,7 +149,7 @@ public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<Woodwork
          this.startIndex = (int)(this.scrollOffs * this.getOffscreenRows() + 0.5) * 4;
          return true;
       } else {
-         return super.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY);
+         return super.mouseDragged(event, pDragX, pDragY);
       }
    }
 

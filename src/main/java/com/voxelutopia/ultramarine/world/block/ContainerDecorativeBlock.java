@@ -52,7 +52,7 @@ public class ContainerDecorativeBlock extends DecorativeBlock implements EntityB
    }
 
    public InteractionResult useItemOn(ItemStack stack, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayIn) {
-      if (worldIn.isClientSide) {
+      if (worldIn.isClientSide()) {
          return InteractionResult.SUCCESS;
       }
 

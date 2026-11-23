@@ -55,13 +55,13 @@ public class BrickKiln extends DecorativeBlock implements EntityBlock, BaseBlock
 
    @Nullable
    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-      return pLevel.isClientSide
+      return pLevel.isClientSide()
          ? null
          : BlockEntityHelper.createTickerHelper(pBlockEntityType, BlockEntityRegistry.BRICK_KILN, BrickKilnBlockEntity::serverTick);
    }
 
    public InteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-      if (pLevel.isClientSide) {
+      if (pLevel.isClientSide()) {
          return InteractionResult.SUCCESS;
       } else if (pLevel.getBlockEntity(pPos) instanceof BrickKilnBlockEntity furnaceBlockEntity) {
          pPlayer.openMenu(furnaceBlockEntity);

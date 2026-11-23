@@ -33,7 +33,7 @@ public class SeatEntity extends Entity {
 
    public void tick() {
       super.tick();
-      if (!this.level().isClientSide) {
+      if (!this.level().isClientSide()) {
          if (this.getPassengers().isEmpty() || this.level().isEmptyBlock(this.blockPosition())) {
             this.life++;
          }
