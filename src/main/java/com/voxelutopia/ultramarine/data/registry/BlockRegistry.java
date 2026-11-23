@@ -66,6 +66,7 @@ import com.voxelutopia.ultramarine.world.block.WoodworkingWorkBench;
 import com.voxelutopia.ultramarine.world.block.state.ModBlockStateProperties;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -1968,6 +1969,7 @@ public class BlockRegistry {
 
       public static Block registerBlock(String name, Block block) {
       block.properties.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("ultramarine", name)));
+      block.descriptionId = Util.makeDescriptionId("block", ResourceLocation.fromNamespaceAndPath("ultramarine", name));
       Ultramarine.LOGGER.info("[um-debug] registerBlock {} -> {}", name, block.properties.id);
       return Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath("ultramarine", name), block);
    }

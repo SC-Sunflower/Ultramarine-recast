@@ -4,3 +4,5 @@ accessible	field	net/minecraft/world/level/block/entity/BlockEntity	remove	Z
 accessible field net/minecraft/world/level/block/state/BlockBehaviour properties Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties id Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/world/item/Item$Properties id Lnet/minecraft/resources/ResourceKey;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour descriptionId Ljava/lang/String;
+mutable field net/minecraft/world/level/block/state/BlockBehaviour descriptionId Ljava/lang/String;
