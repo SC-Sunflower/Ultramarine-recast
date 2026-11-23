@@ -1963,13 +1963,13 @@ public class BlockRegistry {
    );
 
       public static Block registerBlock(String name, Block block) {
-      block.properties.setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("ultramarine", name)));
+      BlockBehaviourMixin.ultramarine$setBlockId(block, ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("ultramarine", name)));
       return Registry.register(BuiltInRegistries.BLOCK, Identifier.fromNamespaceAndPath("ultramarine", name), block);
    }
 
       public static void registerBlockItem(String name, Block block) {
       Item item = new BlockItem(block, new Properties());
-      item.properties.setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", name)));
+      ItemMixin.ultramarine$setItemId(item, ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", name)));
       Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", name), item);
    }
 
