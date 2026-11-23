@@ -1,5 +1,7 @@
 package com.voxelutopia.ultramarine.data.registry;
 
+import com.voxelutopia.ultramarine.mixin.ItemMixin;
+
 import com.google.common.base.Supplier;
 import com.voxelutopia.ultramarine.Ultramarine;
 import com.voxelutopia.ultramarine.data.ModCreativeTab;
