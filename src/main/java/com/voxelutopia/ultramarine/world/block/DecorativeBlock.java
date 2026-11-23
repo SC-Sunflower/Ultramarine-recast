@@ -1,4 +1,4 @@
-﻿package com.voxelutopia.ultramarine.world.block;
+ackage com.voxelutopia.ultramarine.world.block;
 
 import com.voxelutopia.ultramarine.data.shape.BlockShapes;
 import com.voxelutopia.ultramarine.data.shape.ShapeFunction;

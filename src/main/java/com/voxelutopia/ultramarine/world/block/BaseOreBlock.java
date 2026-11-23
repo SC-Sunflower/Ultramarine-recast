@@ -1,4 +1,4 @@
-﻿package com.voxelutopia.ultramarine.world.block;
+ackage com.voxelutopia.ultramarine.world.block;
 
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.DropExperienceBlock;
