@@ -5,6 +5,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.SmithingTemplateItem;
 
@@ -35,7 +36,7 @@ public class BlueAndWhitePorcelainUpgradeSmithingTemplate extends SmithingTempla
    private static final ResourceLocation EMPTY_SLOT_SHOVEL = ResourceLocation.withDefaultNamespace("item/empty_slot_shovel");
    private static final ResourceLocation EMPTY_SLOT_PICKAXE = ResourceLocation.withDefaultNamespace("item/empty_slot_pickaxe");
 
-   public BlueAndWhitePorcelainUpgradeSmithingTemplate() {
+   public BlueAndWhitePorcelainUpgradeSmithingTemplate(Item.Properties properties) {
       super(
          BLUE_AND_WHITE_PORCELAIN_UPGRADE_APPLIES_TO,
          BLUE_AND_WHITE_PORCELAIN_UPGRADE_INGREDIENT,
@@ -44,7 +45,7 @@ public class BlueAndWhitePorcelainUpgradeSmithingTemplate extends SmithingTempla
          
          List.of(EMPTY_SLOT_SWORD, EMPTY_SLOT_PICKAXE, EMPTY_SLOT_AXE, EMPTY_SLOT_SHOVEL),
          List.of(EMPTY_SLOT_PIECE),
-         new Properties()
+         properties
       );
    }
 }

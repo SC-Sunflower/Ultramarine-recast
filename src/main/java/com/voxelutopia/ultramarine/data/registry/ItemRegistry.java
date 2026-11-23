@@ -1,5 +1,7 @@
 package com.voxelutopia.ultramarine.data.registry;
 
+import java.util.function.Function;
+
 import com.voxelutopia.ultramarine.mixin.ItemMixin;
 
 import com.google.common.base.Supplier;
@@ -22,9 +24,10 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.block.Block;
 
@@ -698,16 +701,16 @@ public class ItemRegistry {
    public static final Item BAOZI = foodItem("baozi", ModFoods.BAOZI);
    public static final Item WOODEN_MALLET = toolItem("wooden_mallet", WoodenMallet::new);
    public static final Item BLUE_AND_WHITE_PORCELAIN_SWORD = registerItem(
-      "blue_and_white_porcelain_sword", new Item(ModTiers.BLUE_AND_WHITE_PORCELAIN.applySwordProperties(new Properties(), 3.0F, -2.4F))
+      "blue_and_white_porcelain_sword", p -> new SwordItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, 3.0F, -2.4F, p)
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_SHOVEL = registerItem(
-      "blue_and_white_porcelain_shovel", new Item(ModTiers.BLUE_AND_WHITE_PORCELAIN.applyToolProperties(new Properties(), BlockTags.MINEABLE_WITH_SHOVEL, 1.5F, -3.0F, 1.0F))
+      "blue_and_white_porcelain_shovel", p -> new ShovelItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, 1.5F, -3.0F, p)
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_PICKAXE = registerItem(
-      "blue_and_white_porcelain_pickaxe", new Item(ModTiers.BLUE_AND_WHITE_PORCELAIN.applyToolProperties(new Properties(), BlockTags.MINEABLE_WITH_PICKAXE, 1.0F, -2.8F, 1.0F))
+      "blue_and_white_porcelain_pickaxe", p -> new PickaxeItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, 1.0F, -2.8F, p)
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_AXE = registerItem(
-      "blue_and_white_porcelain_axe", new Item(ModTiers.BLUE_AND_WHITE_PORCELAIN.applyToolProperties(new Properties(), BlockTags.MINEABLE_WITH_AXE, 6.0F, -3.2F, 1.0F))
+      "blue_and_white_porcelain_axe", p -> new AxeItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, 6.0F, -3.2F, p)
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_UPGRADE_SMITHING_TEMPLATE = toolItem(
       "blue_and_white_porcelain_upgrade_smithing_template", BlueAndWhitePorcelainUpgradeSmithingTemplate::new
@@ -755,42 +758,45 @@ public class ItemRegistry {
    public static final Item CARVED_WOOL_TEMPLATE = toolItem("carved_wool_template", ChiselTemplate::new);
 
    private static <B extends Block> Item fromBlock(Block block, ModCreativeTab tabDef) {
-      Item registryObject = registerItem(BuiltInRegistries.BLOCK.getKey(block).getPath(), new BlockItem(block, new Properties()));
+      Item registryObject = registerItem(BuiltInRegistries.BLOCK.getKey(block).getPath(), p -> new BlockItem(block, p));
       ModCreativeTab.putItemInSet(registryObject, tabDef);
       return registryObject;
    }
 
    private static <B extends Block> Item aquaticPlantItem(Block block, ModCreativeTab tabDef) {
-      Item registryObject = registerItem(BuiltInRegistries.BLOCK.getKey(block).getPath(), new AquaticPlantBlockItem(block, new Properties()));
+      Item registryObject = registerItem(BuiltInRegistries.BLOCK.getKey(block).getPath(), p -> new AquaticPlantBlockItem(block, p));
       ModCreativeTab.putItemInSet(registryObject, tabDef);
       return registryObject;
    }
 
    private static Item simpleItem(String name, ModCreativeTab tabDef) {
-      Item registryObject = registerItem(name, new Item(new Properties()));
+      Item registryObject = registerItem(name, Item::new);
       ModCreativeTab.putItemInSet(registryObject, tabDef);
       return registryObject;
    }
 
    private static Item foodItem(String name, FoodProperties food) {
-      Item registryObject = registerItem(name, new BaseFood(food));
+      Item registryObject = registerItem(name, p -> new BaseFood(food, p));
       ModCreativeTab.putItemInSet(registryObject, ModCreativeTab.MATERIALS);
       return registryObject;
    }
 
    private static Item dyePowderItem(String name, DyeColor color) {
-      Item registryObject = registerItem(name, new DyePowder(color));
+      Item registryObject = registerItem(name, p -> new DyePowder(color, p));
       ModCreativeTab.putItemInSet(registryObject, ModCreativeTab.MATERIALS);
       return registryObject;
    }
 
-   private static Item toolItem(String name, Supplier<Item> toolItemSupplier) {
-      Item item = registerItem(name, (Item)toolItemSupplier.get());
+   private static Item toolItem(String name, Function<Item.Properties, Item> factory) {
+      Item item = registerItem(name, factory);
       ModCreativeTab.putItemInSet(item, ModCreativeTab.TOOLS);
       return item;
    }
 
-      private static Item registerItem(String name, Item item) {
+      private static Item registerItem(String name, Function<Item.Properties, Item> factory) {
+      Item.Properties properties = new Item.Properties();
+      properties.setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("ultramarine", name)));
+      Item item = factory.apply(properties);
       return Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath("ultramarine", name), item);
    }
 
