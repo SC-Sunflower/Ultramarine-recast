@@ -1968,6 +1968,7 @@ public class BlockRegistry {
 
       public static Block registerBlock(String name, Block block) {
       block.properties.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("ultramarine", name)));
+      Ultramarine.LOGGER.info("[um-debug] registerBlock {} -> {}", name, block.properties.id);
       return Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath("ultramarine", name), block);
    }
 
