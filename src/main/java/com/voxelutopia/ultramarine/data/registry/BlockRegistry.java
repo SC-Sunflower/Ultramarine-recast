@@ -1,5 +1,7 @@
 package com.voxelutopia.ultramarine.data.registry;
 
+import net.minecraft.world.level.block.state.BlockBehaviour;
+
 import com.voxelutopia.ultramarine.mixin.BlockBehaviourMixin;
 import com.voxelutopia.ultramarine.mixin.ItemMixin;
 
@@ -1968,6 +1970,7 @@ public class BlockRegistry {
    );
 
       public static Block registerBlock(String name, Block block) {
+      block.properties = BlockBehaviour.Properties.ofFullCopy(block);
       block.properties.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("ultramarine", name)));
       block.descriptionId = Util.makeDescriptionId("block", ResourceLocation.fromNamespaceAndPath("ultramarine", name));
       Ultramarine.LOGGER.info("[um-debug] registerBlock {} -> {}", name, block.properties.id);
