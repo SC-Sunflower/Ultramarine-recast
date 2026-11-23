@@ -7,8 +7,8 @@ import net.minecraft.world.item.Item.Properties;
 public class DyePowder extends Item {
    private final DyeColor color;
 
-   public DyePowder(DyeColor color) {
-      super(new Properties());
+   public DyePowder(DyeColor color, Item.Properties properties) {
+      super(properties);
       this.color = color;
    }
 

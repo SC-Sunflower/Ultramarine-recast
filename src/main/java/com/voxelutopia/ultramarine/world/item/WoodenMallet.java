@@ -21,8 +21,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class WoodenMallet extends Item {
-   public WoodenMallet() {
-      super(new Properties().durability(100));
+   public WoodenMallet(Item.Properties properties) {
+      super(properties.durability(100));
    }
 
    @NotNull
