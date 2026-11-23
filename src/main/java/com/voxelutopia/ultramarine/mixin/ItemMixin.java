@@ -5,12 +5,19 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Item.class)
 public abstract class ItemMixin {
+    @Shadow
+    protected Item.Properties properties;
+
+    public static void ultramarine$setItemId(Item item, ResourceKey<Item> key) {
+        ((ItemMixin)(Object)item).properties.setId(key);
+    }
     @Inject(method = "<init>(Lnet/minecraft/world/item/Item$Properties;)V", at = @At("HEAD"))
     private static void ultramarine$ensureItemId(Item.Properties properties, CallbackInfo ci) {
         properties.setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("ultramarine", "dummy")));
