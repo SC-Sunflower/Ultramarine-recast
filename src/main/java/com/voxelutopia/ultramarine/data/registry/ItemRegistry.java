@@ -13,6 +13,8 @@ import com.voxelutopia.ultramarine.world.item.DyePowder;
 import com.voxelutopia.ultramarine.world.item.WoodenMallet;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.AxeItem;
@@ -786,10 +788,9 @@ public class ItemRegistry {
       return item;
    }
 
-   private static Item registerItem(String name, Item item) {
-      return (Item)Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", name), item);;
-      item);.properties.setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", name)));
-      return item);;
+      private static Item registerItem(String name, Item item) {
+      item.properties.setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", name)));
+      return Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", name), item);
    }
 
    public static void registerModItems() {

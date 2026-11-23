@@ -64,6 +64,8 @@ import com.voxelutopia.ultramarine.world.block.state.ModBlockStateProperties;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.BlockItem;
@@ -1960,13 +1962,15 @@ public class BlockRegistry {
       )
    );
 
-   public static Block registerBlock(String name, Block block) {
-      return (Block)block.properties.setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("ultramarine", name)));
+      public static Block registerBlock(String name, Block block) {
+      block.properties.setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("ultramarine", name)));
       return Registry.register(BuiltInRegistries.BLOCK, Identifier.fromNamespaceAndPath("ultramarine", name), block);
    }
 
-   public static void registerBlockItem(String name, Block block) {
-      Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", name), new BlockItem(block, new Properties()));
+      public static void registerBlockItem(String name, Block block) {
+      Item item = new BlockItem(block, new Properties());
+      item.properties.setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", name)));
+      Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", name), item);
    }
 
    public static void registerModBlocks() {
