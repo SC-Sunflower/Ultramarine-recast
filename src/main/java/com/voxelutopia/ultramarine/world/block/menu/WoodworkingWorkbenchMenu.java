@@ -66,7 +66,7 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
          }
 
          public void onTake(Player player, ItemStack itemStack) {
-            itemStack.onCraftedBy(player.level(), player, itemStack.getCount());
+            itemStack.onCraftedBy(player, itemStack.getCount());
             WoodworkingWorkbenchMenu.this.resultContainer.awardUsedRecipes(player, List.of(itemStack));
             ItemStack itemstack = WoodworkingWorkbenchMenu.this.inputSlot.remove(1);
             if (!itemstack.isEmpty()) {
@@ -184,7 +184,7 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
          Item item = slotItem.getItem();
          itemstack = slotItem.copy();
          if (pIndex == 1) {
-            item.onCraftedBy(slotItem, pPlayer.level(), pPlayer);
+            item.onCraftedBy(slotItem, pPlayer);
             if (!this.moveItemStackTo(slotItem, 2, 38, true)) {
                return ItemStack.EMPTY;
             }

@@ -161,9 +161,9 @@ public class RoofTiles extends ShiftableBlock {
       super.onPlace(pState, pLevel, pPos, pOldState, pIsMoving);
    }
 
-   public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+   protected void affectNeighborsAfterRemoval(BlockState pState, ServerLevel pLevel, BlockPos pPos, boolean pIsMoving) {
       this.updateNeighborSideSnow(pState, pLevel, pPos);
-      super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
+      super.affectNeighborsAfterRemoval(pState, pLevel, pPos, pIsMoving);
    }
 
    private void updateNeighborSideSnow(BlockState pState, Level pLevel, BlockPos pPos) {

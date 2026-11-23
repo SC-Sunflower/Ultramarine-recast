@@ -130,7 +130,7 @@ public class ChiselTableMenu extends AbstractContainerMenu {
          ItemStack slotItem = slot.getItem();
          itemstack = slotItem.copy();
          if (pIndex == 6) {
-            slotItem.getItem().onCraftedBy(slotItem, pPlayer.level(), pPlayer);
+            slotItem.getItem().onCraftedBy(slotItem, pPlayer);
             if (!this.moveItemStackTo(slotItem, 7, 43, true)) {
                return ItemStack.EMPTY;
             }

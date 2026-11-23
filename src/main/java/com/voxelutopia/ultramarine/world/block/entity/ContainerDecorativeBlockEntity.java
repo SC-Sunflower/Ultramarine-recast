@@ -85,8 +85,8 @@ public class ContainerDecorativeBlockEntity extends RandomizableContainerBlockEn
 
    protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider provider) {
       super.loadAdditional(nbt, provider);
-      this.block = BuiltInRegistries.BLOCK.get(ResourceLocation.tryParse(nbt.getString("Block"))).map(Holder.Reference::value).orElse(Blocks.AIR);
-      this.rows = nbt.getByte("Rows");
+      this.block = BuiltInRegistries.BLOCK.get(ResourceLocation.tryParse(nbt.getStringOr("Block", ""))).map(Holder.Reference::value).orElse(Blocks.AIR);
+      this.rows = nbt.getByteOr("Rows", (byte)3);
       this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
       if (!this.tryLoadLootTable(nbt)) {
          ContainerHelper.loadAllItems(nbt, this.items, provider);

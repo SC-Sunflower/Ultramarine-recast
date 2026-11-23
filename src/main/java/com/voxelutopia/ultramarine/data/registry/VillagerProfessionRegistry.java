@@ -3,6 +3,7 @@ package com.voxelutopia.ultramarine.data.registry;
 import com.google.common.collect.ImmutableSet;
 import java.util.Objects;
 import net.minecraft.core.Registry;
+import net.minecraft.network.chat.Component;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -15,7 +16,7 @@ public class VillagerProfessionRegistry {
          BuiltInRegistries.VILLAGER_PROFESSION,
          "cook",
          new VillagerProfession(
-            "cook",
+            Component.literal("cook"),
             holder -> holder.is(Objects.requireNonNull(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getKey(PoiTypeRegistry.COOKING_POI))),
             holder -> holder.is(Objects.requireNonNull(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getKey(PoiTypeRegistry.COOKING_POI))),
             ImmutableSet.of(),

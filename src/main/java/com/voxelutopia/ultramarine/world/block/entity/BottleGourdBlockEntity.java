@@ -83,9 +83,9 @@ public class BottleGourdBlockEntity extends BlockEntity {
 
    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
       super.loadAdditional(pTag, provider);
-      this.potion = BuiltInRegistries.POTION.get(ResourceLocation.tryParse(pTag.getString("Potion"))).map(Holder.Reference::value).orElse(null);
-      this.charges = pTag.getInt("Charges");
-      this.filled = pTag.getBoolean("Filled");
+      this.potion = BuiltInRegistries.POTION.get(ResourceLocation.tryParse(pTag.getStringOr("Potion", ""))).map(Holder.Reference::value).orElse(null);
+      this.charges = pTag.getIntOr("Charges", 0);
+      this.filled = pTag.getBooleanOr("Filled", false);
    }
 
    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider provider) {

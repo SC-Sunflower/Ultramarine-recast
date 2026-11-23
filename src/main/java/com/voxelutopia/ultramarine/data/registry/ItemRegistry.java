@@ -18,10 +18,9 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.ShovelItem;
-import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.block.Block;
 
@@ -695,16 +694,16 @@ public class ItemRegistry {
    public static final Item BAOZI = foodItem("baozi", ModFoods.BAOZI);
    public static final Item WOODEN_MALLET = toolItem("wooden_mallet", WoodenMallet::new);
    public static final Item BLUE_AND_WHITE_PORCELAIN_SWORD = registerItem(
-      "blue_and_white_porcelain_sword", new SwordItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, 3.0F, -2.4F, new Properties())
+      "blue_and_white_porcelain_sword", new Item(ModTiers.BLUE_AND_WHITE_PORCELAIN.applySwordProperties(new Properties(), 3.0F, -2.4F))
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_SHOVEL = registerItem(
-      "blue_and_white_porcelain_shovel", new ShovelItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, 1.5F, -3.0F, new Properties())
+      "blue_and_white_porcelain_shovel", new Item(ModTiers.BLUE_AND_WHITE_PORCELAIN.applyToolProperties(new Properties(), BlockTags.MINEABLE_WITH_SHOVEL, 1.5F, -3.0F, 1.0F))
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_PICKAXE = registerItem(
-      "blue_and_white_porcelain_pickaxe", new PickaxeItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, 1.0F, -2.8F, new Properties())
+      "blue_and_white_porcelain_pickaxe", new Item(ModTiers.BLUE_AND_WHITE_PORCELAIN.applyToolProperties(new Properties(), BlockTags.MINEABLE_WITH_PICKAXE, 1.0F, -2.8F, 1.0F))
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_AXE = registerItem(
-      "blue_and_white_porcelain_axe", new AxeItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, 6.0F, -3.2F, new Properties())
+      "blue_and_white_porcelain_axe", new Item(ModTiers.BLUE_AND_WHITE_PORCELAIN.applyToolProperties(new Properties(), BlockTags.MINEABLE_WITH_AXE, 6.0F, -3.2F, 1.0F))
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_UPGRADE_SMITHING_TEMPLATE = toolItem(
       "blue_and_white_porcelain_upgrade_smithing_template", BlueAndWhitePorcelainUpgradeSmithingTemplate::new

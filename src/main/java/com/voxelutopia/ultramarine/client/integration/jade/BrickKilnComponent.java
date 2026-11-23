@@ -27,7 +27,7 @@ public enum BrickKilnComponent implements IBlockComponentProvider, IServerDataPr
          NonNullList<ItemStack> inventory = NonNullList.withSize(4, ItemStack.EMPTY);
 
          for (int i = 0; i < items.size(); i++) {
-            inventory.set(i, ItemStack.of(items.getCompound(i)));
+            inventory.set(i, ItemStack.of(items.getCompoundOrEmpty(i)));
          }
 
          IElementHelper helper = IElementHelper.get();

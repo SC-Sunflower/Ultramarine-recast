@@ -322,34 +322,34 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
 
    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
       super.loadAdditional(pTag, provider);
-      this.litTime = pTag.getInt("BurnTime");
-      this.cookingProgress = pTag.getInt("CookTime");
-      this.cookingTotalTime = pTag.getInt("CookTimeTotal");
-      ListTag itemListTag = pTag.getList("Items", 10);
+      this.litTime = pTag.getIntOr("BurnTime", 0);
+      this.cookingProgress = pTag.getIntOr("CookTime", 0);
+      this.cookingTotalTime = pTag.getIntOr("CookTimeTotal", 0);
+      ListTag itemListTag = pTag.getListOrEmpty("Items");
 
       for (int i = 0; i < itemListTag.size(); i++) {
-         CompoundTag itemTag = itemListTag.getCompound(i);
-         int j = itemTag.getByte("Slot") & 255;
+         CompoundTag itemTag = itemListTag.getCompoundOrEmpty(i);
+         int j = itemTag.getByteOr("Slot", (byte)0) & 255;
          switch (j) {
             case 0:
-               this.ingredientsHandler.setStackInSlot(0, ItemStack.parseOptional(provider, itemTag));
+               this.ingredientsHandler.setStackInSlot(0, ItemStack.parse(provider, itemTag).orElse(ItemStack.EMPTY));
                break;
             case 1:
-               this.ingredientsHandler.setStackInSlot(1, ItemStack.parseOptional(provider, itemTag));
+               this.ingredientsHandler.setStackInSlot(1, ItemStack.parse(provider, itemTag).orElse(ItemStack.EMPTY));
                break;
             case 2:
-               this.fuelHandler.setStackInSlot(0, ItemStack.parseOptional(provider, itemTag));
+               this.fuelHandler.setStackInSlot(0, ItemStack.parse(provider, itemTag).orElse(ItemStack.EMPTY));
                break;
             case 3:
-               this.resultHandler.setStackInSlot(0, ItemStack.parseOptional(provider, itemTag));
+               this.resultHandler.setStackInSlot(0, ItemStack.parse(provider, itemTag).orElse(ItemStack.EMPTY));
          }
       }
 
       this.litDuration = this.getBurnTime(this.fuelHandler.getStackInSlot(0));
-      CompoundTag recipesTag = pTag.getCompound("RecipesUsed");
+      CompoundTag recipesTag = pTag.getCompoundOrEmpty("RecipesUsed");
 
-      for (String s : recipesTag.getAllKeys()) {
-         this.recipesUsed.put(ResourceLocation.parse(s), recipesTag.getInt(s));
+      for (String s : recipesTag.keySet()) {
+         this.recipesUsed.put(ResourceLocation.parse(s), recipesTag.getIntOr(s, 0));
       }
    }
 

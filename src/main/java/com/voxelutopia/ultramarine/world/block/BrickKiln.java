@@ -71,18 +71,15 @@ public class BrickKiln extends DecorativeBlock implements EntityBlock, BaseBlock
       }
    }
 
-   public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-      if (!pState.is(pNewState.getBlock())) {
+   protected void affectNeighborsAfterRemoval(BlockState pState, ServerLevel pLevel, BlockPos pPos, boolean pIsMoving) {
+      if (!pState.is(pLevel.getBlockState(pPos).getBlock())) {
          if (pLevel.getBlockEntity(pPos) instanceof BrickKilnBlockEntity furnace) {
-            if (pLevel instanceof ServerLevel) {
-               Containers.dropContents(pLevel, pPos, new RecipeWrapper(furnace.wrapHandlers()));
-               furnace.getRecipesToAwardAndPopExperience((ServerLevel)pLevel, Vec3.atCenterOf(pPos));
-            }
-
+            Containers.dropContents(pLevel, pPos, new RecipeWrapper(furnace.wrapHandlers()));
+            furnace.getRecipesToAwardAndPopExperience(pLevel, Vec3.atCenterOf(pPos));
             pLevel.updateNeighbourForOutputSignal(pPos, this);
          }
 
-         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
+         super.affectNeighborsAfterRemoval(pState, pLevel, pPos, pIsMoving);
       }
    }
 

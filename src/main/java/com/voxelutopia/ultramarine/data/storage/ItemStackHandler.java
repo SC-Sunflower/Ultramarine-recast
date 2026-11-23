@@ -141,13 +141,13 @@ public class ItemStackHandler implements SlottedStackStorage {
     }
 
     public void deserializeNBT(CompoundTag nbt, HolderLookup.Provider provider) {
-        this.setSize(nbt.contains("Size") ? nbt.getInt("Size") : this.slots.size());
-        ListTag items = nbt.getList("Items", 10);
+        this.setSize(nbt.getIntOr("Size", this.slots.size()));
+        ListTag items = nbt.getListOrEmpty("Items");
         for (int i = 0; i < items.size(); i++) {
-            CompoundTag tag = items.getCompound(i);
-            int index = tag.getInt("Slot");
+            CompoundTag tag = items.getCompoundOrEmpty(i);
+            int index = tag.getIntOr("Slot", 0);
             if (index >= 0 && index < this.slots.size()) {
-                this.slots.get(index).setStack(ItemStack.parseOptional(provider, tag));
+                this.slots.get(index).setStack(ItemStack.parse(provider, tag).orElse(ItemStack.EMPTY));
             }
         }
         this.onLoad();

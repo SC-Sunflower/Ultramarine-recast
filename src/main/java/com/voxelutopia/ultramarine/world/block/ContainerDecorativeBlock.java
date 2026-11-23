@@ -7,6 +7,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -62,16 +63,14 @@ public class ContainerDecorativeBlock extends DecorativeBlock implements EntityB
       return InteractionResult.SUCCESS;
    }
 
-   public void onRemove(BlockState pState, Level levelIn, BlockPos pos, BlockState pNewState, boolean pIsMoving) {
-      if (!pState.is(pNewState.getBlock())) {
-         BlockEntity blockEntity = levelIn.getBlockEntity(pos);
-         if (blockEntity instanceof Container) {
-            Containers.dropContents(levelIn, pos, (Container)blockEntity);
-            levelIn.updateNeighbourForOutputSignal(pos, this);
-         }
-
-         super.onRemove(pState, levelIn, pos, pNewState, pIsMoving);
+   protected void affectNeighborsAfterRemoval(BlockState pState, ServerLevel levelIn, BlockPos pos, boolean pIsMoving) {
+      BlockEntity blockEntity = levelIn.getBlockEntity(pos);
+      if (blockEntity instanceof Container) {
+         Containers.dropContents(levelIn, pos, (Container)blockEntity);
+         levelIn.updateNeighbourForOutputSignal(pos, this);
       }
+
+      super.affectNeighborsAfterRemoval(pState, levelIn, pos, pIsMoving);
    }
 
    public ContainerType getContainerType() {

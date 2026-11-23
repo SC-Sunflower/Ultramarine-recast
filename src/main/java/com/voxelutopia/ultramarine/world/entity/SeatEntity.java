@@ -27,7 +27,7 @@ public class SeatEntity extends Entity {
 
    public SeatEntity(Level level, Vec3 pos) {
       this(EntityTypeRegistry.SEAT, level);
-      this.moveTo(pos);
+      this.setPos(pos);
    }
 
    public void tick() {

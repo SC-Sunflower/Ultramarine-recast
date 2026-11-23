@@ -10,6 +10,7 @@ import com.voxelutopia.ultramarine.world.entity.TravellingMerchant;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -145,7 +146,7 @@ public class CommonEventHandler {
       EntityEvents.VILLAGER_TRADE
          .register(
             (EntityEvents.VillagerTrade)(trades, profession) -> {
-               if (profession == VillagerProfession.MASON) {
+               if (profession.equals(VillagerProfession.MASON)) {
                   ((List<ItemListing>)trades.get(4))
                      .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 5), new ItemStack(ItemRegistry.RAW_HEMATITE, 2), 12, 10, 0.05F));
                   ((List<ItemListing>)trades.get(4))
@@ -154,14 +155,14 @@ public class CommonEventHandler {
                      .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 10), new ItemStack(ItemRegistry.JADE, 1), 6, 20, 0.05F));
                }
 
-               if (profession == VillagerProfession.TOOLSMITH) {
+               if (profession.equals(VillagerProfession.TOOLSMITH)) {
                   ((List<ItemListing>)trades.get(4))
                      .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 6), new ItemStack(ItemRegistry.BRONZE_INGOT, 1), 12, 10, 0.05F));
                   ((List<ItemListing>)trades.get(5))
                      .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 40), new ItemStack(ItemRegistry.CARRIAGE, 1), 1, 10, 0.05F));
                }
 
-               if (profession == VillagerProfession.FARMER) {
+               if (profession.equals(VillagerProfession.FARMER)) {
                   ((List<ItemListing>)trades.get(3))
                      .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 4), new ItemStack(ItemRegistry.POLISHED_ROSEWOOD_PLANK, 8), 12, 5, 0.05F));
                   ((List<ItemListing>)trades.get(3))
@@ -172,14 +173,14 @@ public class CommonEventHandler {
                      .add((trader, random) -> new MerchantOffer(new ItemCost((ItemRegistry.EMPTY_BAMBOO_TEA_BASKET), 1), Optional.of(new ItemCost((Items.EMERALD), 20)), new ItemStack(ItemRegistry.BAMBOO_TEA_BASKET, 1), 4, 10, 0.05F));
                }
 
-               if (profession == VillagerProfession.LIBRARIAN) {
+               if (profession.equals(VillagerProfession.LIBRARIAN)) {
                   ((List<ItemListing>)trades.get(4))
                      .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 20), new ItemStack(ItemRegistry.XUAN_PAPER, 4), 10, 20, 0.05F));
                   ((List<ItemListing>)trades.get(5))
                      .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 30), new ItemStack(ItemRegistry.PORCELAIN_TEAPOT, 1), 2, 20, 0.05F));
                }
 
-               if (profession == VillagerProfession.CLERIC) {
+               if (profession.equals(VillagerProfession.CLERIC)) {
                   ((List<ItemListing>)trades.get(5))
                      .add((trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 40), new ItemStack(ItemRegistry.SUNDIAL, 1), 1, 20, 0.05F));
                }

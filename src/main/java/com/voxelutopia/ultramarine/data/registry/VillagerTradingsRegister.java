@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import net.minecraft.resources.ResourceKey;
+import org.apache.commons.lang3.tuple.Pair;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.ServerStarting;
 import net.minecraft.core.NonNullList;
@@ -21,7 +23,7 @@ import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 
 public class VillagerTradingsRegister {
-   private static final Map<VillagerProfession, Int2ObjectMap<ItemListing[]>> VANILLA_TRADES = new HashMap<>();
+   private static final Map<ResourceKey<VillagerProfession>, Int2ObjectMap<ItemListing[]>> VANILLA_TRADES = new HashMap<>();
    private static final Int2ObjectMap<ItemListing[]> WANDERER_TRADES = new Int2ObjectOpenHashMap();
 
    public static void loadTrades() {
@@ -48,8 +50,8 @@ public class VillagerTradingsRegister {
       List<ItemListing> rare = NonNullList.create();
       generic.addAll(Arrays.asList((ItemListing[])WANDERER_TRADES.get(1)));
       rare.addAll(Arrays.asList((ItemListing[])WANDERER_TRADES.get(2)));
-      VillagerTrades.WANDERING_TRADER_TRADES.put(1, generic.toArray(new ItemListing[0]));
-      VillagerTrades.WANDERING_TRADER_TRADES.put(2, rare.toArray(new ItemListing[0]));
+      VillagerTrades.WANDERING_TRADER_TRADES.add(Pair.of(generic.toArray(new ItemListing[0]), 1));
+      VillagerTrades.WANDERING_TRADER_TRADES.add(Pair.of(rare.toArray(new ItemListing[0]), 2));
    }
 
    private static void postVillagerEvents() {
@@ -65,7 +67,7 @@ public class VillagerTradingsRegister {
          ((EntityEvents.VillagerTrade)EntityEvents.VILLAGER_TRADE.invoker()).modifyVillagerTrade(mutableTrades, prof);
          Int2ObjectMap<ItemListing[]> newTrades = new Int2ObjectOpenHashMap();
          mutableTrades.int2ObjectEntrySet().forEach(e -> newTrades.put(e.getIntKey(), ((List<ItemListing>)e.getValue()).toArray(new ItemListing[0])));
-         VillagerTrades.TRADES.put(prof, newTrades);
+         VillagerTrades.TRADES.put(BuiltInRegistries.VILLAGER_PROFESSION.getResourceKey(prof).orElseThrow(), newTrades);
       }
    }
 
@@ -81,8 +83,8 @@ public class VillagerTradingsRegister {
                VANILLA_TRADES.put(key, copy);
             }
          );
-      VillagerTrades.WANDERING_TRADER_TRADES
-         .int2ObjectEntrySet()
-         .forEach(e -> WANDERER_TRADES.put(e.getIntKey(), (ItemListing[])Arrays.copyOf((ItemListing[])e.getValue(), ((ItemListing[])e.getValue()).length)));
+      for (Pair<ItemListing[], Integer> pair : VillagerTrades.WANDERING_TRADER_TRADES) {
+         WANDERER_TRADES.put(pair.getRight(), (ItemListing[])Arrays.copyOf((ItemListing[])pair.getLeft(), ((ItemListing[])pair.getLeft()).length));
+      }
    }
 }

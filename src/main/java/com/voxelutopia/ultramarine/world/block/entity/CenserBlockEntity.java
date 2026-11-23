@@ -70,7 +70,7 @@ public class CenserBlockEntity extends BlockEntity {
 
    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
       super.loadAdditional(pTag, provider);
-      this.remainingTime = pTag.getInt("BurnTime");
+      this.remainingTime = pTag.getIntOr("BurnTime", 0);
    }
 
    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
