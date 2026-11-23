@@ -127,7 +127,7 @@ public final class BaseBlockProperty {
             return Blocks.AIR;
          }
       };
-      Properties properties1 = Properties.ofFullCopy(dummy);
+      Properties properties1 = Properties.ofFullCopy(dummy).setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("ultramarine", "dummy")));
       return new BaseBlockProperty(properties1, this.material);
    }
 
