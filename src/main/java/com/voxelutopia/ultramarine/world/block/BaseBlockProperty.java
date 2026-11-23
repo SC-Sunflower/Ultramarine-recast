@@ -108,7 +108,7 @@ public final class BaseBlockProperty {
 
    public BaseBlockProperty copy() {
       // 1.20.6 起 Properties.copy 接受 Block（不再接受 BlockBehaviour），且匿名方块需实现 codec()。
-      BlockBehaviour dummy = new BlockBehaviour(this.properties) {
+      BlockBehaviour dummy = new BlockBehaviour(this.properties.copy().setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("ultramarine", "dummy")))) {
          @Override
          protected MapCodec<? extends Block> codec() {
             return BlockBehaviour.simpleCodec(props -> new Block(props));
