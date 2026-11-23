@@ -8,7 +8,6 @@
     "SnowLayerBlockMixin",
     "BlockBehaviourMixin",
     "ItemMixin",
-    "VillagerTradesMixin"
   ],
   "client": [],
   "minVersion": "0.8.5"
