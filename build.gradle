@@ -42,8 +42,11 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
     // Porting Lib 2.3.8：
     // - 编译期用本地提取的模块 jar（Modrinth 聚合 jar 的嵌套模块不在编译 classpath）
-    // - 打包期 include Modrinth 的聚合 jar，Loom 会递归展开其全部嵌套模块，
-    //   让玩家无需单独安装 Porting Lib（与原版 fat jar 结构一致）。
+    // - 打包期先 include 聚合 jar 占位（Loom 只接受 module component），随后由
+    //   scripts/fix-1.20-fatjar.ps1 把 libs/porting-lib 下的 39 个模块 jar 平铺注入
+    //   META-INF/jars 并重写 fabric.mod.json 的 jars 数组。
+    //   原因：两层嵌套（fat jar -> 聚合 jar -> 模块 jar）下 Fabric Loader 加载不到
+    //   porting_lib_common（IPlantable 等），一启动就 NoClassDefFoundError。
     modImplementation fileTree(dir: 'libs/porting-lib', include: '*.jar')
     include "maven.modrinth:porting_lib:${project.porting_lib_version}"
 
