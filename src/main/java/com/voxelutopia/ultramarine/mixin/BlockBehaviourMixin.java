@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BlockBehaviour.class)
 public abstract class BlockBehaviourMixin {    @Inject(method = "<init>(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V", at = @At("HEAD"))
     private static void ultramarine$ensureBlockId(BlockBehaviour.Properties properties, CallbackInfo ci) {
-        if (properties.getId() == null) {
+        if (properties.id == null) {
 
            properties.setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("ultramarine", "dummy")));
 
