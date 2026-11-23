@@ -72,6 +72,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.block.Block;
