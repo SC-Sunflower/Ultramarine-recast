@@ -1,7 +1,6 @@
 package com.voxelutopia.ultramarine.data.registry;
 
 import com.voxelutopia.ultramarine.event.EntityEvents;
-import com.voxelutopia.ultramarine.mixin.VillagerTradesMixin;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import java.util.ArrayList;
@@ -59,7 +58,7 @@ public class VillagerTradingsRegister {
       List<Pair<ItemListing[], Integer>> newWandering = new ArrayList<>(VillagerTrades.WANDERING_TRADER_TRADES);
       newWandering.add(Pair.of(generic.toArray(new ItemListing[0]), 1));
       newWandering.add(Pair.of(rare.toArray(new ItemListing[0]), 2));
-      VillagerTradesMixin.ultramarine$replaceWanderingTraderTrades(newWandering);
+      VillagerTrades.WANDERING_TRADER_TRADES = newWandering;
    }
 
    private static void postVillagerEvents() {
@@ -78,7 +77,7 @@ public class VillagerTradingsRegister {
          mutableTrades.int2ObjectEntrySet().forEach(e -> newTrades.put(e.getIntKey(), ((List<ItemListing>)e.getValue()).toArray(new ItemListing[0])));
          newTradesMap.put(BuiltInRegistries.VILLAGER_PROFESSION.getResourceKey(prof).orElseThrow(), newTrades);
       }
-      VillagerTradesMixin.ultramarine$replaceVillagerTrades(newTradesMap);
+      VillagerTrades.TRADES = newTradesMap;
    }
 
    static {
