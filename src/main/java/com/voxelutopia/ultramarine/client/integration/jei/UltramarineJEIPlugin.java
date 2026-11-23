@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 @JeiPlugin
 public class UltramarineJEIPlugin implements IModPlugin {
-   public static final ResourceLocation JEI_GUI_VANILLA = new ResourceLocation("jei", "textures/gui/gui_vanilla.png");
+   public static final ResourceLocation JEI_GUI_VANILLA = ResourceLocation.fromNamespaceAndPath("jei", "textures/gui/gui_vanilla.png");
    private static final Logger LOGGER = LoggerFactory.getLogger(UltramarineJEIPlugin.class);
 
    public UltramarineJEIPlugin() {
@@ -38,7 +38,7 @@ public class UltramarineJEIPlugin implements IModPlugin {
    }
 
    public ResourceLocation getPluginUid() {
-      return new ResourceLocation("ultramarine", "jei_plugin");
+      return ResourceLocation.fromNamespaceAndPath("ultramarine", "jei_plugin");
    }
 
    public void registerGuiHandlers(IGuiHandlerRegistration registration) {

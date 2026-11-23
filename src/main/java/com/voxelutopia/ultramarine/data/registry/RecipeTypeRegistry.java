@@ -21,10 +21,10 @@ public class RecipeTypeRegistry {
    }
 
    private static <T extends Recipe<?>> RecipeType<T> register(String name) {
-      return (RecipeType<T>)Registry.register(BuiltInRegistries.RECIPE_TYPE, new ResourceLocation("ultramarine", name), new RecipeType<T>() {
+      return (RecipeType<T>)Registry.register(BuiltInRegistries.RECIPE_TYPE, ResourceLocation.fromNamespaceAndPath("ultramarine", name), new RecipeType<T>() {
          @Override
          public String toString() {
-            return new ResourceLocation("ultramarine", name).toString();
+            return ResourceLocation.fromNamespaceAndPath("ultramarine", name).toString();
          }
       });
    }

@@ -133,6 +133,6 @@ public class CreativeTabRegistry {
    }
 
    private static CreativeModeTab register(String name, CreativeModeTab tab) {
-      return (CreativeModeTab)Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, new ResourceLocation("ultramarine", name), tab);
+      return (CreativeModeTab)Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath("ultramarine", name), tab);
    }
 }

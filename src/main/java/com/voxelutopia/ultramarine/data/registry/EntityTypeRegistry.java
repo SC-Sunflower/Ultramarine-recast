@@ -16,12 +16,12 @@ public class EntityTypeRegistry {
    public static void registerModEntities() {
       SEAT = (EntityType<SeatEntity>)Registry.register(
          BuiltInRegistries.ENTITY_TYPE,
-         new ResourceLocation("ultramarine", "seat"),
+         ResourceLocation.fromNamespaceAndPath("ultramarine", "seat"),
          Builder.<SeatEntity>of(SeatEntity::new, MobCategory.MISC).sized(0.1F, 0.1F).clientTrackingRange(64).updateInterval(20).build("seat")
       );
       TRAVELLING_MERCHANT = (EntityType<TravellingMerchant>)Registry.register(
          BuiltInRegistries.ENTITY_TYPE,
-         new ResourceLocation("ultramarine", "travelling_merchant"),
+         ResourceLocation.fromNamespaceAndPath("ultramarine", "travelling_merchant"),
          Builder.of(TravellingMerchant::new, MobCategory.MISC)
             .sized(0.6F, 0.2F)
             .clientTrackingRange(64)

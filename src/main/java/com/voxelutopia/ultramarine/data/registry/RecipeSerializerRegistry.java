@@ -15,13 +15,13 @@ public class RecipeSerializerRegistry {
 
    public static void registerModRecipeSerializers() {
       WOODWORKING_SERIALIZER = (RecipeSerializer<WoodworkingRecipe>)Registry.register(
-         BuiltInRegistries.RECIPE_SERIALIZER, new ResourceLocation("ultramarine", "woodworking"), WoodworkingRecipe.Serializer.INSTANCE
+         BuiltInRegistries.RECIPE_SERIALIZER, ResourceLocation.fromNamespaceAndPath("ultramarine", "woodworking"), WoodworkingRecipe.Serializer.INSTANCE
       );
       COMPOSITE_SMELTING_SERIALIZER = (RecipeSerializer<CompositeSmeltingRecipe>)Registry.register(
-         BuiltInRegistries.RECIPE_SERIALIZER, new ResourceLocation("ultramarine", "composite_smelting"), CompositeSmeltingRecipe.Serializer.INSTANCE
+         BuiltInRegistries.RECIPE_SERIALIZER, ResourceLocation.fromNamespaceAndPath("ultramarine", "composite_smelting"), CompositeSmeltingRecipe.Serializer.INSTANCE
       );
       CHISEL_TABLE_SERIALIZER = (RecipeSerializer<ChiselTableRecipe>)Registry.register(
-         BuiltInRegistries.RECIPE_SERIALIZER, new ResourceLocation("ultramarine", "chisel_table"), ChiselTableRecipe.Serializer.INSTANCE
+         BuiltInRegistries.RECIPE_SERIALIZER, ResourceLocation.fromNamespaceAndPath("ultramarine", "chisel_table"), ChiselTableRecipe.Serializer.INSTANCE
       );
    }
 }

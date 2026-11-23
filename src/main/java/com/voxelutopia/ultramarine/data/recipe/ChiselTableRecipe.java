@@ -14,15 +14,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-public class ChiselTableRecipe implements Recipe<Container> {
+public class ChiselTableRecipe implements Recipe<CraftingInput> {
     protected final String group;
     protected final Ingredient material;
     protected final Ingredient template;
@@ -47,14 +47,14 @@ public class ChiselTableRecipe implements Recipe<Container> {
         this.result = pResult;
     }
 
-    public boolean matches(Container pContainer, Level pLevel) {
-        ItemStack usedMaterial = pContainer.getItem(0);
-        ItemStack usedTemplate = pContainer.getItem(1);
+    public boolean matches(CraftingInput input, Level pLevel) {
+        ItemStack usedMaterial = input.getItem(0);
+        ItemStack usedTemplate = input.getItem(1);
         List<ItemStack> usedColors = Arrays.asList(ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY);
         int i = 0;
 
-        for (int j = 2; j < pContainer.getContainerSize(); j++) {
-            usedColors.set(i, pContainer.getItem(j));
+        for (int j = 2; j < input.size(); j++) {
+            usedColors.set(i, input.getItem(j));
             i++;
         }
 
@@ -62,7 +62,7 @@ public class ChiselTableRecipe implements Recipe<Container> {
         return this.material.test(usedMaterial) && this.template.test(usedTemplate) && compareColors(this.colors, usedColors);
     }
 
-    public ItemStack assemble(Container pContainer, HolderLookup.Provider provider) {
+    public ItemStack assemble(CraftingInput input, HolderLookup.Provider provider) {
         return this.result.copy();
     }
 

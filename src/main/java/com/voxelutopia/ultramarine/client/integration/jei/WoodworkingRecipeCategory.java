@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class WoodworkingRecipeCategory extends AbstractRecipeCategory<WoodworkingRecipe> implements IRecipeCategory<WoodworkingRecipe> {
-   public static final ResourceLocation UID = new ResourceLocation("ultramarine", "woodworking");
+   public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath("ultramarine", "woodworking");
    public static final RecipeType<WoodworkingRecipe> WOODWORKING_RECIPE_TYPE = new RecipeType(UID, WoodworkingRecipe.class);
    public static final int WIDTH = 82;
    public static final int HEIGHT = 34;

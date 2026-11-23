@@ -35,22 +35,22 @@ public class BlockEntityRegistry {
    public static void registerModBlockEntities() {
       CONTAINER_DECORATIVE_BLOCK = (BlockEntityType<ContainerDecorativeBlockEntity>)Registry.register(
          BuiltInRegistries.BLOCK_ENTITY_TYPE,
-         new ResourceLocation("ultramarine", "container_decorative_block_entity"),
+         ResourceLocation.fromNamespaceAndPath("ultramarine", "container_decorative_block_entity"),
          Builder.of(ContainerDecorativeBlockEntity::new, new HashSet<>(CONTAINER_BLOCKS).toArray(new Block[0])).build(null)
       );
       CENSER = (BlockEntityType<CenserBlockEntity>)Registry.register(
          BuiltInRegistries.BLOCK_ENTITY_TYPE,
-         new ResourceLocation("ultramarine", "censer_block_entity"),
+         ResourceLocation.fromNamespaceAndPath("ultramarine", "censer_block_entity"),
          Builder.of(CenserBlockEntity::new, new HashSet<>(CENSERS).toArray(new Block[0])).build(null)
       );
       BOTTLE_GOURD = (BlockEntityType<BottleGourdBlockEntity>)Registry.register(
          BuiltInRegistries.BLOCK_ENTITY_TYPE,
-         new ResourceLocation("ultramarine", "bottle_gourd_entity"),
+         ResourceLocation.fromNamespaceAndPath("ultramarine", "bottle_gourd_entity"),
          Builder.of(BottleGourdBlockEntity::new, new Block[]{BlockRegistry.BOTTLE_GOURD}).build(null)
       );
       BRICK_KILN = (BlockEntityType<BrickKilnBlockEntity>)Registry.register(
          BuiltInRegistries.BLOCK_ENTITY_TYPE,
-         new ResourceLocation("ultramarine", "brick_kiln_block_entity"),
+         ResourceLocation.fromNamespaceAndPath("ultramarine", "brick_kiln_block_entity"),
          Builder.of(BrickKilnBlockEntity::new, new Block[]{BlockRegistry.BRICK_KILN}).build(null)
       );
    }

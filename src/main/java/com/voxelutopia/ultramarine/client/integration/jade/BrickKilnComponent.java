@@ -17,7 +17,7 @@ import snownee.jade.impl.ui.ProgressArrowElement;
 public enum BrickKilnComponent implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
    INSTANCE;
 
-   public static final ResourceLocation BRICK_KILN = new ResourceLocation("ultramarine", "brick_kiln");
+   public static final ResourceLocation BRICK_KILN = ResourceLocation.fromNamespaceAndPath("ultramarine", "brick_kiln");
 
    public void appendTooltip(ITooltip tooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
       CompoundTag data = blockAccessor.getServerData();

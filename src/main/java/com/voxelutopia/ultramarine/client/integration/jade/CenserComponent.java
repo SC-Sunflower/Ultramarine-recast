@@ -13,7 +13,7 @@ import snownee.jade.api.config.IPluginConfig;
 public enum CenserComponent implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
    INSTANCE;
 
-   public static final ResourceLocation CENSER_BURN_TIME = new ResourceLocation("ultramarine", "censer_burn_time");
+   public static final ResourceLocation CENSER_BURN_TIME = ResourceLocation.fromNamespaceAndPath("ultramarine", "censer_burn_time");
 
    public void appendTooltip(ITooltip tooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
       if (blockAccessor.getServerData().contains("BurnTime")) {

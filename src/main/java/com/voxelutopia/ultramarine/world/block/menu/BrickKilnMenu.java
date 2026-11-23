@@ -1,5 +1,7 @@
 package com.voxelutopia.ultramarine.world.block.menu;
 
+import net.minecraft.world.item.crafting.CraftingInput;
+
 import com.voxelutopia.ultramarine.data.recipe.CompositeSmeltingRecipe;
 
 import com.voxelutopia.ultramarine.data.registry.BlockRegistry;
@@ -122,7 +124,7 @@ public class BrickKilnMenu extends AbstractContainerMenu {
             .getRecipeManager()
             .getAllRecipesFor(RecipeTypeRegistry.COMPOSITE_SMELTING)
             .stream()
-            .anyMatch(holder -> ((CompositeSmeltingRecipe)holder.value()).partialMatch(new SimpleContainer(new ItemStack[]{item}), this.blockEntity.getLevel()))
+            .anyMatch(holder -> ((CompositeSmeltingRecipe)holder.value()).partialMatch(CraftingInput.of(2, 1, java.util.List.of(item, ItemStack.EMPTY)), this.blockEntity.getLevel()))
          : false;
    }
 

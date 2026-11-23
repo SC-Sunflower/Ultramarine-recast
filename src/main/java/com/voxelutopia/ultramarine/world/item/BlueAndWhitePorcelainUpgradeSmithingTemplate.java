@@ -11,28 +11,28 @@ public class BlueAndWhitePorcelainUpgradeSmithingTemplate extends SmithingTempla
    private static final ChatFormatting TITLE_FORMAT = ChatFormatting.GRAY;
    private static final ChatFormatting DESCRIPTION_FORMAT = ChatFormatting.BLUE;
    private static final Component BLUE_AND_WHITE_PORCELAIN_UPGRADE_APPLIES_TO = Component.translatable(
-         Util.makeDescriptionId("item", new ResourceLocation("ultramarine", "smithing_template.blue_and_white_porcelain_upgrade.applies_to"))
+         Util.makeDescriptionId("item", ResourceLocation.fromNamespaceAndPath("ultramarine", "smithing_template.blue_and_white_porcelain_upgrade.applies_to"))
       )
       .withStyle(DESCRIPTION_FORMAT);
    private static final Component BLUE_AND_WHITE_PORCELAIN_UPGRADE_INGREDIENT = Component.translatable(
-         Util.makeDescriptionId("item", new ResourceLocation("ultramarine", "smithing_template.blue_and_white_porcelain_upgrade.ingredients"))
+         Util.makeDescriptionId("item", ResourceLocation.fromNamespaceAndPath("ultramarine", "smithing_template.blue_and_white_porcelain_upgrade.ingredients"))
       )
       .withStyle(DESCRIPTION_FORMAT);
    private static final Component BLUE_AND_WHITE_PORCELAIN_UPGRADE = Component.translatable(
-         Util.makeDescriptionId("upgrade", new ResourceLocation("ultramarine", "blue_and_white_porcelain_upgrade"))
+         Util.makeDescriptionId("upgrade", ResourceLocation.fromNamespaceAndPath("ultramarine", "blue_and_white_porcelain_upgrade"))
       )
       .withStyle(TITLE_FORMAT);
    private static final Component BLUE_AND_WHITE_PORCELAIN_UPGRADE_BASE_SLOT_DESCRIPTION = Component.translatable(
-      Util.makeDescriptionId("item", new ResourceLocation("ultramarine", "smithing_template.blue_and_white_porcelain_upgrade.base_slot_description"))
+      Util.makeDescriptionId("item", ResourceLocation.fromNamespaceAndPath("ultramarine", "smithing_template.blue_and_white_porcelain_upgrade.base_slot_description"))
    );
    private static final Component BLUE_AND_WHITE_PORCELAIN_UPGRADE_ADDITIONS_SLOT_DESCRIPTION = Component.translatable(
-      Util.makeDescriptionId("item", new ResourceLocation("ultramarine", "smithing_template.blue_and_white_porcelain_upgrade.additions_slot_description"))
+      Util.makeDescriptionId("item", ResourceLocation.fromNamespaceAndPath("ultramarine", "smithing_template.blue_and_white_porcelain_upgrade.additions_slot_description"))
    );
-   private static final ResourceLocation EMPTY_SLOT_PIECE = new ResourceLocation("ultramarine", "item/empty_slot_piece");
-   private static final ResourceLocation EMPTY_SLOT_AXE = new ResourceLocation("item/empty_slot_axe");
-   private static final ResourceLocation EMPTY_SLOT_SWORD = new ResourceLocation("item/empty_slot_sword");
-   private static final ResourceLocation EMPTY_SLOT_SHOVEL = new ResourceLocation("item/empty_slot_shovel");
-   private static final ResourceLocation EMPTY_SLOT_PICKAXE = new ResourceLocation("item/empty_slot_pickaxe");
+   private static final ResourceLocation EMPTY_SLOT_PIECE = ResourceLocation.fromNamespaceAndPath("ultramarine", "item/empty_slot_piece");
+   private static final ResourceLocation EMPTY_SLOT_AXE = ResourceLocation.withDefaultNamespace("item/empty_slot_axe");
+   private static final ResourceLocation EMPTY_SLOT_SWORD = ResourceLocation.withDefaultNamespace("item/empty_slot_sword");
+   private static final ResourceLocation EMPTY_SLOT_SHOVEL = ResourceLocation.withDefaultNamespace("item/empty_slot_shovel");
+   private static final ResourceLocation EMPTY_SLOT_PICKAXE = ResourceLocation.withDefaultNamespace("item/empty_slot_pickaxe");
 
    public BlueAndWhitePorcelainUpgradeSmithingTemplate() {
       super(

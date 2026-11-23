@@ -10,7 +10,7 @@ public class PoiTypeRegistry {
    public static PoiType TRADE_POI;
 
    public static void registerModPOI() {
-      COOKING_POI = PointOfInterestHelper.register(new ResourceLocation("ultramarine", "cooking_poi"), 1, 1, new Block[]{BlockRegistry.FOOD_HAMPER});
-      TRADE_POI = PointOfInterestHelper.register(new ResourceLocation("ultramarine", "trade_poi"), 1, 5, new Block[]{BlockRegistry.TEAHOUSE_FLAG});
+      COOKING_POI = PointOfInterestHelper.register(ResourceLocation.fromNamespaceAndPath("ultramarine", "cooking_poi"), 1, 1, new Block[]{BlockRegistry.FOOD_HAMPER});
+      TRADE_POI = PointOfInterestHelper.register(ResourceLocation.fromNamespaceAndPath("ultramarine", "trade_poi"), 1, 5, new Block[]{BlockRegistry.TEAHOUSE_FLAG});
    }
 }

@@ -21,6 +21,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 
 public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
@@ -140,7 +141,7 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
       this.selectedRecipeIndex.set(-1);
       this.resultSlot.set(ItemStack.EMPTY);
       if (!pStack.isEmpty()) {
-         this.recipes = this.level.getRecipeManager().getRecipesFor(RecipeTypeRegistry.WOODWORKING, pInventory, this.level);
+         this.recipes = this.level.getRecipeManager().getRecipesFor(RecipeTypeRegistry.WOODWORKING, new SingleRecipeInput(pStack), this.level);
       }
    }
 
@@ -148,7 +149,7 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
       if (!this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
          RecipeHolder<WoodworkingRecipe> holder = this.recipes.get(this.selectedRecipeIndex.get());
          this.resultContainer.setRecipeUsed(holder);
-         this.resultSlot.set(((WoodworkingRecipe)holder.value()).assemble(this.container, this.level.registryAccess()));
+         this.resultSlot.set(((WoodworkingRecipe)holder.value()).assemble(new SingleRecipeInput(this.container.getItem(0)), this.level.registryAccess()));
       } else {
          this.resultSlot.set(ItemStack.EMPTY);
       }
@@ -188,7 +189,7 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
             }
          } else if (this.level
             .getRecipeManager()
-            .getRecipeFor(RecipeTypeRegistry.WOODWORKING, new SimpleContainer(new ItemStack[]{slotItem}), this.level)
+            .getRecipeFor(RecipeTypeRegistry.WOODWORKING, new SingleRecipeInput(slotItem), this.level)
             .isPresent()) {
             if (!this.moveItemStackTo(slotItem, 0, 1, false)) {
                return ItemStack.EMPTY;

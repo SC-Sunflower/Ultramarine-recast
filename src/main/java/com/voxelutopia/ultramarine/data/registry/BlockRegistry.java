@@ -1961,11 +1961,11 @@ public class BlockRegistry {
    );
 
    public static Block registerBlock(String name, Block block) {
-      return (Block)Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation("ultramarine", name), block);
+      return (Block)Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath("ultramarine", name), block);
    }
 
    public static void registerBlockItem(String name, Block block) {
-      Registry.register(BuiltInRegistries.ITEM, new ResourceLocation("ultramarine", name), new BlockItem(block, new Properties()));
+      Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath("ultramarine", name), new BlockItem(block, new Properties()));
    }
 
    public static void registerModBlocks() {

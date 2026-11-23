@@ -24,6 +24,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -88,7 +89,8 @@ public class ChiselTableMenu extends AbstractContainerMenu {
    public void createResult() {
       Level level = this.player.level();
       Container ingredients = this.wrapIngredients();
-      List<RecipeHolder<ChiselTableRecipe>> list = level.getRecipeManager().getRecipesFor(RecipeTypeRegistry.CHISEL_TABLE, ingredients, level);
+      CraftingInput input = CraftingInput.of(2, 3, java.util.stream.IntStream.range(0, 6).mapToObj(ingredients::getItem).toList());
+      List<RecipeHolder<ChiselTableRecipe>> list = level.getRecipeManager().getRecipesFor(RecipeTypeRegistry.CHISEL_TABLE, input, level);
       if (list.size() > 1) {
          Ultramarine.LOGGER.warn("Duplicate chisel table recipe: ");
          list.forEach(recipe -> Ultramarine.LOGGER.warn(recipe.id().getPath()));
@@ -98,7 +100,7 @@ public class ChiselTableMenu extends AbstractContainerMenu {
          this.result.setStackInSlot(0, ItemStack.EMPTY);
       } else {
          ChiselTableRecipe recipe = (ChiselTableRecipe)list.get(0).value();
-         ItemStack resultItemStack = recipe.assemble(ingredients, level.registryAccess());
+         ItemStack resultItemStack = recipe.assemble(input, level.registryAccess());
          this.result.setStackInSlot(0, resultItemStack);
       }
    }

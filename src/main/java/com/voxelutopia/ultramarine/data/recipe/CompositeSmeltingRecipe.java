@@ -9,15 +9,15 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import com.voxelutopia.ultramarine.data.registry.RecipeSerializerRegistry;
 import com.voxelutopia.ultramarine.data.registry.RecipeTypeRegistry;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-public class CompositeSmeltingRecipe implements Recipe<Container> {
+public class CompositeSmeltingRecipe implements Recipe<CraftingInput> {
     protected final String group;
     protected final Ingredient primaryIngredient;
     protected final Ingredient secondaryIngredient;
@@ -46,15 +46,15 @@ public class CompositeSmeltingRecipe implements Recipe<Container> {
         this.cookingTime = pCookingTime;
     }
 
-    public boolean matches(Container pContainer, Level pLevel) {
-        return this.primaryIngredient.test(pContainer.getItem(0)) && this.secondaryIngredient.test(pContainer.getItem(1));
+    public boolean matches(CraftingInput input, Level pLevel) {
+        return this.primaryIngredient.test(input.getItem(0)) && this.secondaryIngredient.test(input.getItem(1));
     }
 
-    public boolean partialMatch(Container pContainer, Level pLevel) {
-        return this.primaryIngredient.or(this.secondaryIngredient).test(pContainer.getItem(0));
+    public boolean partialMatch(CraftingInput input, Level pLevel) {
+        return this.primaryIngredient.or(this.secondaryIngredient).test(input.getItem(0));
     }
 
-    public ItemStack assemble(Container pContainer, HolderLookup.Provider provider) {
+    public ItemStack assemble(CraftingInput input, HolderLookup.Provider provider) {
         return this.result.copy();
     }
 

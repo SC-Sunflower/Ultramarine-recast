@@ -39,7 +39,7 @@ public class SoundRegistry {
    }
 
    private static SoundEvent register(String name) {
-      return (SoundEvent)Registry.register(BuiltInRegistries.SOUND_EVENT, name, SoundEvent.createVariableRangeEvent(new ResourceLocation("ultramarine", name)));
+      return (SoundEvent)Registry.register(BuiltInRegistries.SOUND_EVENT, name, SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath("ultramarine", name)));
    }
 
    private static SoundEvent register(String name, SoundEvent soundEvent) {

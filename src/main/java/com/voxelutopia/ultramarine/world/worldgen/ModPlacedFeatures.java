@@ -64,7 +64,7 @@ public class ModPlacedFeatures {
    }
 
    public static ResourceKey<PlacedFeature> key(String name) {
-      return ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation("ultramarine", name));
+      return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath("ultramarine", name));
    }
 
    private static void register(

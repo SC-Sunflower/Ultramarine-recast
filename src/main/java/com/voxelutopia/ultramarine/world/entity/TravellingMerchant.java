@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -47,8 +48,8 @@ public class TravellingMerchant extends WanderingTrader {
       return ImmutableList.copyOf(TRADE_OPTIONS);
    }
 
-   public Packet<ClientGamePacketListener> getAddEntityPacket() {
-      return new ClientboundAddEntityPacket(this);
+   public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
+      return new ClientboundAddEntityPacket(this, entity);
    }
 
    static {

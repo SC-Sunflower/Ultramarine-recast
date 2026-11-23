@@ -9,10 +9,10 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import com.voxelutopia.ultramarine.data.registry.RecipeSerializerRegistry;
 import com.voxelutopia.ultramarine.data.registry.RecipeTypeRegistry;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleItemRecipe;
 import net.minecraft.world.level.Level;
@@ -28,11 +28,11 @@ public class WoodworkingRecipe extends SingleItemRecipe {
         super(RecipeTypeRegistry.WOODWORKING, RecipeSerializerRegistry.WOODWORKING_SERIALIZER, pGroup, pIngredient, pResult);
     }
 
-    public boolean matches(Container pContainer, Level pLevel) {
-        return this.ingredient.test(pContainer.getItem(0));
-    }
+    public boolean matches(SingleRecipeInput input, Level pLevel) {
+      return this.ingredient.test(input.item());
+   }
 
-    public ItemStack assemble(Container pContainer, HolderLookup.Provider provider) {
+    public ItemStack assemble(SingleRecipeInput input, HolderLookup.Provider provider) {
         return this.result.copy();
     }
 

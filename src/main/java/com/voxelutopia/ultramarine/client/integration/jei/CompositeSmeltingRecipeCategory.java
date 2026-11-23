@@ -20,9 +20,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public class CompositeSmeltingRecipeCategory implements IRecipeCategory<CompositeSmeltingRecipe> {
-   public static final ResourceLocation UID = new ResourceLocation("ultramarine", "composite_smelting");
+   public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath("ultramarine", "composite_smelting");
    public static final RecipeType<CompositeSmeltingRecipe> COMPOSITE_SMELTING_RECIPE_TYPE = new RecipeType(UID, CompositeSmeltingRecipe.class);
-   public static final ResourceLocation TEXTURE_GUI = new ResourceLocation("ultramarine", "textures/gui/brick_kiln.png");
+   public static final ResourceLocation TEXTURE_GUI = ResourceLocation.fromNamespaceAndPath("ultramarine", "textures/gui/brick_kiln.png");
    private final IDrawable background;
    private final int regularCookTime;
    private final IDrawable icon;

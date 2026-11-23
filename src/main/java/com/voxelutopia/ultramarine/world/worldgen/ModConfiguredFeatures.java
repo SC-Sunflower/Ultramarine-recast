@@ -57,7 +57,7 @@ public class ModConfiguredFeatures {
    }
 
    public static ResourceKey<ConfiguredFeature<?, ?>> key(String name) {
-      return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation("ultramarine", name));
+      return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath("ultramarine", name));
    }
 
    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(

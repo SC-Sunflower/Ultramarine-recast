@@ -30,10 +30,10 @@ public class ModItemTags {
    public static final TagKey<Item> BLACK_DYES = commonTag("black_dyes");
 
    private static TagKey<Item> commonTag(String path) {
-      return TagKey.create(Registries.ITEM, new ResourceLocation("c", path));
+      return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", path));
    }
 
    private static TagKey<Item> modTag(String path) {
-      return TagKey.create(Registries.ITEM, new ResourceLocation("ultramarine", path));
+      return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("ultramarine", path));
    }
 }

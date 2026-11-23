@@ -40,6 +40,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
@@ -207,9 +208,9 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
       }
    }
 
-   private boolean canBurn(@Nullable Recipe<Container> pRecipe, ItemStack fuel, ItemStack primary, ItemStack secondary, ItemStack resultPrev, int maxStackSize) {
+   private boolean canBurn(@Nullable Recipe<CraftingInput> pRecipe, ItemStack fuel, ItemStack primary, ItemStack secondary, ItemStack resultPrev, int maxStackSize) {
       if (!primary.isEmpty() && !secondary.isEmpty() && pRecipe != null) {
-         ItemStack result = pRecipe.assemble(new SimpleContainer(new ItemStack[]{primary, secondary}), this.level.registryAccess());
+         ItemStack result = pRecipe.assemble(CraftingInput.of(2, 1, List.of(primary, secondary)), this.level.registryAccess());
          if (result.isEmpty()) {
             return false;
          } else if (resultPrev.isEmpty()) {
@@ -228,10 +229,10 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
    }
 
    private boolean burn(
-      Recipe<Container> pRecipe, BrickKilnBlockEntity entity, ItemStack fuel, ItemStack primary, ItemStack secondary, ItemStack resultPrev, int maxStackSize
+      Recipe<CraftingInput> pRecipe, BrickKilnBlockEntity entity, ItemStack fuel, ItemStack primary, ItemStack secondary, ItemStack resultPrev, int maxStackSize
    ) {
       if (this.canBurn(pRecipe, fuel, primary, secondary, resultPrev, maxStackSize)) {
-         ItemStack newResult = pRecipe.assemble(new SimpleContainer(new ItemStack[]{primary, secondary}), this.level.registryAccess());
+         ItemStack newResult = pRecipe.assemble(CraftingInput.of(2, 1, List.of(primary, secondary)), this.level.registryAccess());
          if (resultPrev.isEmpty()) {
             entity.resultHandler.setStackInSlot(0, newResult.copy());
          } else if (resultPrev.is(newResult.getItem())) {
@@ -312,8 +313,8 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
       return new BrickKilnMenu(pContainerId, this.worldPosition, pInventory, this, this.dataAccess);
    }
 
-   private static RecipeWrapper wrapRecipe(BrickKilnBlockEntity entity) {
-      return new RecipeWrapper(entity.ingredientsHandler);
+   private static CraftingInput wrapRecipe(BrickKilnBlockEntity entity) {
+      return CraftingInput.of(2, 1, List.of(entity.ingredientsHandler.getStackInSlot(0), entity.ingredientsHandler.getStackInSlot(1)));
    }
 
    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
@@ -345,7 +346,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
       CompoundTag recipesTag = pTag.getCompound("RecipesUsed");
 
       for (String s : recipesTag.getAllKeys()) {
-         this.recipesUsed.put(new ResourceLocation(s), recipesTag.getInt(s));
+         this.recipesUsed.put(ResourceLocation.parse(s), recipesTag.getInt(s));
       }
    }
 

@@ -788,7 +788,7 @@ public class ItemRegistry {
    }
 
    private static Item registerItem(String name, Item item) {
-      return (Item)Registry.register(BuiltInRegistries.ITEM, new ResourceLocation("ultramarine", name), item);
+      return (Item)Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath("ultramarine", name), item);
    }
 
    public static void registerModItems() {
