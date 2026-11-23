@@ -16,13 +16,11 @@ public class ChiselTableScreen extends AbstractContainerScreen<ChiselTableMenu> 
    }
 
    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-      this.renderBackground(guiGraphics, mouseX, mouseY, partialTicks);
       super.render(guiGraphics, mouseX, mouseY, partialTicks);
       this.renderTooltip(guiGraphics, mouseX, mouseY);
    }
 
    protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-      this.renderBackground(guiGraphics, pMouseX, pMouseY, pPartialTick);
                         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, BACKGROUND, this.leftPos, this.topPos, this.imageWidth, this.imageHeight);
    }
 }
