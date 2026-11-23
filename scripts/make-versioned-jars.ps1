@@ -7,7 +7,8 @@
 $ErrorActionPreference = 'Stop'
 $Repo = "C:\Users\34324\Desktop\Ultramarine-recast-fabric"
 $OutDir = Join-Path $Repo "release"
-$BaseDir = Join-Path $Repo "build\collected"
+# 收集目录放在 build 之外：gradle clean 会删除整个 build/，放里面会被清掉
+$BaseDir = Join-Path $Repo "build-collected"
 New-Item -ItemType Directory -Force -Path $OutDir | Out-Null
 
 # base jar name in build/collected -> target game versions

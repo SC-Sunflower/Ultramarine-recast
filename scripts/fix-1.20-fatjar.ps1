@@ -27,11 +27,36 @@ try {
     Write-Output ("removed nested jars: {0}" -f $existing.Count)
 
     # 2. add each module jar flat
+    # 2. add each module jar flat, patching its minecraft declaration so it also
+    #    loads on 1.20 (modules declare "=1.20.1"; 1.20 and 1.20.1 share identical
+    #    intermediary mappings, so the patch is safe).
+    $patchPattern = '"minecraft"\s*:\s*"(?:\\u003d|=)1\.20\.1"'
     foreach ($m in $moduleJars) {
+        $tmpJar = Join-Path $env:TEMP ("um-pl-" + [guid]::NewGuid().ToString('N') + ".jar")
+        Copy-Item $m.FullName $tmpJar -Force
+        $z = [System.IO.Compression.ZipFile]::Open($tmpJar, [System.IO.Compression.ZipArchiveMode]::Update)
+        try {
+            $fe = $z.GetEntry("fabric.mod.json")
+            if ($fe) {
+                $fsr = New-Object System.IO.StreamReader($fe.Open())
+                $fjson = $fsr.ReadToEnd()
+                $fsr.Close()
+                $fnew = [regex]::Replace($fjson, $patchPattern, '"minecraft": ">=1.20 <1.20.2"')
+                if ($fnew -ne $fjson) {
+                    $fe.Delete()
+                    $fne = $z.CreateEntry("fabric.mod.json")
+                    $fsw = New-Object System.IO.StreamWriter($fne.Open())
+                    $fsw.Write($fnew)
+                    $fsw.Close()
+                }
+            }
+        }
+        finally { $z.Dispose() }
         $target = "META-INF/jars/" + $m.Name
-        [void][System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip, $m.FullName, $target, [System.IO.Compression.CompressionLevel]::Optimal)
+        [void][System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip, $tmpJar, $target, [System.IO.Compression.CompressionLevel]::Optimal)
+        Remove-Item $tmpJar -Force
     }
-    Write-Output ("added module jars: {0}" -f $moduleJars.Count)
+    Write-Output ("added module jars: {0} (minecraft declaration patched)" -f $moduleJars.Count)
 
     # 3. rewrite fabric.mod.json "jars" array
     $entry = $zip.GetEntry("fabric.mod.json")
