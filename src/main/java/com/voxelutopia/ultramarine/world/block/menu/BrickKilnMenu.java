@@ -1,5 +1,9 @@
 package com.voxelutopia.ultramarine.world.block.menu;
 
+import com.voxelutopia.ultramarine.data.RecipeManagerAccess;
+
+import net.minecraft.world.level.Level;
+
 import net.minecraft.world.item.crafting.CraftingInput;
 
 import com.voxelutopia.ultramarine.data.recipe.CompositeSmeltingRecipe;
@@ -11,7 +15,6 @@ import com.voxelutopia.ultramarine.data.storage.ItemStackHandler;
 import com.voxelutopia.ultramarine.data.storage.SlotItemHandler;
 import com.voxelutopia.ultramarine.data.storage.SlottedStackStorage;
 import javax.annotation.Nonnull;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
@@ -53,7 +56,7 @@ public class BrickKilnMenu extends AbstractContainerMenu {
       this.data = containerData;
       this.addSlot(new BrickKilnMenu.IngredientSlot(container, 0, 46, 17));
       this.addSlot(new BrickKilnMenu.IngredientSlot(container, 1, 66, 17));
-      this.addSlot(new BrickKilnMenu.FuelSlot(container, 2, 56, 53));
+      this.addSlot(new BrickKilnMenu.FuelSlot(this.playerEntity.level(), container, 2, 56, 53));
       this.addSlot(new BrickKilnMenu.OutputSlot(container, 3, 116, 35));
 
       for (int r = 0; r < 3; r++) {
@@ -86,7 +89,7 @@ public class BrickKilnMenu extends AbstractContainerMenu {
                if (!this.moveItemStackTo(slotItem, 0, 2, false)) {
                   return ItemStack.EMPTY;
                }
-            } else if (isFuel(slotItem)) {
+            } else if (this.blockEntity.getLevel().fuelValues().isFuel(slotItem)) {
                if (!this.moveItemStackTo(slotItem, 2, 3, false)) {
                   return ItemStack.EMPTY;
                }
@@ -119,11 +122,10 @@ public class BrickKilnMenu extends AbstractContainerMenu {
 
    protected boolean canProcess(ItemStack item) {
       return this.blockEntity != null && this.blockEntity.getLevel() != null
-         ? this.blockEntity
-            .getLevel()
-            .getRecipeManager()
-            .getAllRecipesFor(RecipeTypeRegistry.COMPOSITE_SMELTING)
+         ? RecipeManagerAccess.get(this.blockEntity.getLevel())
+            .getRecipes()
             .stream()
+            .filter(holder -> holder.value().getType() == RecipeTypeRegistry.COMPOSITE_SMELTING)
             .anyMatch(holder -> ((CompositeSmeltingRecipe)holder.value()).partialMatch(CraftingInput.of(2, 1, java.util.List.of(item, ItemStack.EMPTY)), this.blockEntity.getLevel()))
          : false;
    }
@@ -155,17 +157,16 @@ public class BrickKilnMenu extends AbstractContainerMenu {
       return this.data.get(0) * 13 / i;
    }
 
-   private static boolean isFuel(@NotNull ItemStack stack) {
-      return FuelRegistry.INSTANCE.get(stack.getItem()) != null;
-   }
-
    static class FuelSlot extends SlotItemHandler {
-      public FuelSlot(SlottedStackStorage itemHandler, int index, int xPosition, int yPosition) {
+      private final Level level;
+
+      public FuelSlot(Level level, SlottedStackStorage itemHandler, int index, int xPosition, int yPosition) {
          super(itemHandler, index, xPosition, yPosition);
+         this.level = level;
       }
 
       public boolean mayPlace(@Nonnull ItemStack stack) {
-         return BrickKilnMenu.isFuel(stack);
+         return this.level != null && this.level.fuelValues().isFuel(stack);
       }
    }
 

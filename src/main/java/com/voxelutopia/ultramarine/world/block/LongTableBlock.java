@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.function.Function;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -85,7 +86,7 @@ public class LongTableBlock extends Block implements BaseBlockPropertyHolder {
          .setValue(RIGHT, false);
    }
 
-   public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
+   public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, Orientation pFromPos, boolean pIsMoving) {
       super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
       this.update(pLevel, pPos, new HashSet<>());
    }

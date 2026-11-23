@@ -8,7 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -83,7 +82,7 @@ public class HangingLantern extends DecorativeBlock {
       }
    }
 
-   public ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+   public InteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
       ItemStack item = pPlayer.getItemInHand(pHand);
       int lanterns = (Integer)pState.getValue(LANTERNS);
       if (item.is(ItemRegistry.SMALL_RED_LANTERN) && lanterns < 3) {
@@ -92,9 +91,9 @@ public class HangingLantern extends DecorativeBlock {
             item.shrink(1);
          }
 
-         return ItemInteractionResult.sidedSuccess(pLevel.isClientSide());
+         return InteractionResult.SUCCESS;
       } else {
-         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+         return InteractionResult.PASS;
       }
    }
 

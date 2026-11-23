@@ -5,6 +5,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.SmithingTemplateItem;
 
 public class BlueAndWhitePorcelainUpgradeSmithingTemplate extends SmithingTemplateItem {
@@ -40,9 +41,10 @@ public class BlueAndWhitePorcelainUpgradeSmithingTemplate extends SmithingTempla
          BLUE_AND_WHITE_PORCELAIN_UPGRADE_INGREDIENT,
          BLUE_AND_WHITE_PORCELAIN_UPGRADE,
          BLUE_AND_WHITE_PORCELAIN_UPGRADE_BASE_SLOT_DESCRIPTION,
-         BLUE_AND_WHITE_PORCELAIN_UPGRADE_ADDITIONS_SLOT_DESCRIPTION,
+         
          List.of(EMPTY_SLOT_SWORD, EMPTY_SLOT_PICKAXE, EMPTY_SLOT_AXE, EMPTY_SLOT_SHOVEL),
-         List.of(EMPTY_SLOT_PIECE)
+         List.of(EMPTY_SLOT_PIECE),
+         new Properties()
       );
    }
 }

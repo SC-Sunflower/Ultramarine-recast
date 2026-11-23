@@ -9,8 +9,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -46,13 +44,8 @@ public class ConsumableDecorativeBlock extends DecorativeBlock {
          FoodProperties food = consumable.getFood();
          pPlayer.getFoodData().eat(food.nutrition(), food.saturation());
 
-         for (FoodProperties.PossibleEffect possibleEffect : food.effects()) {
-            if (!pLevel.isClientSide && possibleEffect.effect() != null && pLevel.random.nextFloat() < (Float)possibleEffect.probability()) {
-               pPlayer.addEffect(new MobEffectInstance((MobEffectInstance)possibleEffect.effect()));
-            }
-         }
 
-         pLevel.playSound(pPlayer, pPos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 1.0F, 0.75F);
+         pLevel.playSound(pPlayer, pPos, SoundEvents.GENERIC_EAT.value(), SoundSource.PLAYERS, 1.0F, 0.75F);
          pLevel.gameEvent(pPlayer, GameEvent.EAT, pPos);
       }
    };
@@ -78,10 +71,10 @@ public class ConsumableDecorativeBlock extends DecorativeBlock {
       return state.hasProperty(BITES) ? (BlockState)state.setValue(BITES, this.getMaxBites()) : state;
    }
 
-   public ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+   public InteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
       int bitesRemaining = pState.hasProperty(BITES) ? (Integer)pState.getValue(BITES) : 0;
       if (!pPlayer.canEat(false)) {
-         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+         return InteractionResult.PASS;
       }
 
       if (bitesRemaining > 0) {
@@ -95,7 +88,7 @@ public class ConsumableDecorativeBlock extends DecorativeBlock {
          pLevel.setBlock(pPos, (BlockState)pState.setValue(BITES, bitesRemaining), 3);
       }
 
-      return ItemInteractionResult.sidedSuccess(pLevel.isClientSide());
+      return InteractionResult.SUCCESS;
    }
 
    public int getMaxBites() {

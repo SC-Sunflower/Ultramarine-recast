@@ -7,9 +7,11 @@ import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
@@ -114,14 +116,14 @@ public class RailingBlock extends Block implements BaseBlockPropertyHolder, Simp
          .setValue(UP, up);
    }
 
-   public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
+   public BlockState updateShape(BlockState pState, LevelReader pLevel, ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pFacing, BlockPos pFacingPos, BlockState pFacingState, RandomSource random) {
       boolean north = (Boolean)pState.getValue(NORTH);
       boolean south = (Boolean)pState.getValue(SOUTH);
       boolean east = (Boolean)pState.getValue(EAST);
       boolean west = (Boolean)pState.getValue(WEST);
       boolean shifted = (Boolean)pState.getValue(SHIFTED);
       if ((Boolean)pState.getValue(WATERLOGGED)) {
-         pLevel.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
+         tickAccess.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
       }
 
       if (pFacing != Direction.DOWN && pFacing != Direction.UP) {
@@ -147,7 +149,7 @@ public class RailingBlock extends Block implements BaseBlockPropertyHolder, Simp
                .setValue(WEST, west))
             .setValue(UP, up);
       } else {
-         return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+         return super.updateShape(pState, pLevel, tickAccess, pCurrentPos, pFacing, pFacingPos, pFacingState, random);
       }
    }
 

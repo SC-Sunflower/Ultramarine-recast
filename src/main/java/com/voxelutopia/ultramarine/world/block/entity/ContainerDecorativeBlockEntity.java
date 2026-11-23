@@ -6,6 +6,7 @@ import com.voxelutopia.ultramarine.data.registry.BlockEntityRegistry;
 import com.voxelutopia.ultramarine.world.block.ContainerDecorativeBlock;
 import com.voxelutopia.ultramarine.world.block.menu.ContainerDecorativeBlockMenu;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -83,7 +85,7 @@ public class ContainerDecorativeBlockEntity extends RandomizableContainerBlockEn
 
    protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider provider) {
       super.loadAdditional(nbt, provider);
-      this.block = (Block)BuiltInRegistries.BLOCK.get(ResourceLocation.tryParse(nbt.getString("Block")));
+      this.block = BuiltInRegistries.BLOCK.get(ResourceLocation.tryParse(nbt.getString("Block"))).map(Holder.Reference::value).orElse(Blocks.AIR);
       this.rows = nbt.getByte("Rows");
       this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
       if (!this.tryLoadLootTable(nbt)) {

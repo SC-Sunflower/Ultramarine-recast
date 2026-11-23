@@ -6,7 +6,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -33,15 +32,15 @@ public class CandleStick extends DecorativeBlock {
       return this.isLuminous() ? (BlockState)state.setValue(LIT, false) : state;
    }
 
-   public ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+   public InteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
       ItemStack item = pPlayer.getItemInHand(pHand);
       if (item.is(Items.FLINT_AND_STEEL) && pState.hasProperty(LIT) && !(Boolean)pState.getValue(LIT)) {
          item.hurtAndBreak(1, pPlayer, EquipmentSlot.MAINHAND);
          pLevel.setBlock(pPos, (BlockState)pState.setValue(LIT, true), 3);
          pLevel.updateNeighborsAt(pPos, this);
-         return ItemInteractionResult.sidedSuccess(pLevel.isClientSide);
+         return InteractionResult.SUCCESS;
       } else {
-         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+         return InteractionResult.PASS;
       }
    }
 

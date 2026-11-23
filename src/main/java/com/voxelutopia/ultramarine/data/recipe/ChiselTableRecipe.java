@@ -18,6 +18,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -70,6 +72,14 @@ public class ChiselTableRecipe implements Recipe<CraftingInput> {
         return true;
     }
 
+   public RecipeBookCategory recipeBookCategory() {
+      return new RecipeBookCategory();
+   }
+
+   public PlacementInfo placementInfo() {
+      return PlacementInfo.NOT_PLACEABLE;
+   }
+
     public ItemStack getResultItem(HolderLookup.Provider provider) {
         return this.result.copy();
     }
@@ -86,11 +96,11 @@ public class ChiselTableRecipe implements Recipe<CraftingInput> {
         return this.colors;
     }
 
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<ChiselTableRecipe> getSerializer() {
         return RecipeSerializerRegistry.CHISEL_TABLE_SERIALIZER;
     }
 
-    public RecipeType<?> getType() {
+    public RecipeType<ChiselTableRecipe> getType() {
         return RecipeTypeRegistry.CHISEL_TABLE;
     }
 
@@ -136,7 +146,7 @@ public class ChiselTableRecipe implements Recipe<CraftingInput> {
             for (int i = 0; i < 4; i++) {
                 colors[i] = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
             }
-            colors = Arrays.stream(colors).filter(i -> !i.isEmpty()).toList().toArray(new Ingredient[0]);
+            colors = Arrays.stream(colors).filter(i -> !i.items().isEmpty()).toList().toArray(new Ingredient[0]);
             ItemStack result = ItemStack.STREAM_CODEC.decode(buf);
             return new ChiselTableRecipe(group, material, template, colors, result);
         }
@@ -147,7 +157,7 @@ public class ChiselTableRecipe implements Recipe<CraftingInput> {
             Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.template);
             Ingredient[] colors = new Ingredient[4];
             for (int i = 0; i < 4; i++) {
-                colors[i] = i < recipe.colors.size() ? recipe.colors.get(i) : Ingredient.EMPTY;
+                colors[i] = i < recipe.colors.size() ? recipe.colors.get(i) : Ingredient.of();
             }
             for (int i = 0; i < 4; i++) {
                 Ingredient.CONTENTS_STREAM_CODEC.encode(buf, colors[i]);

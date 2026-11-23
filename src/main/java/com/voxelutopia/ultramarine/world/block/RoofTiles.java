@@ -4,13 +4,13 @@ import com.voxelutopia.ultramarine.data.shape.RawVoxelShape;
 import com.voxelutopia.ultramarine.world.block.state.ModBlockStateProperties;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
@@ -41,7 +40,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 public class RoofTiles extends ShiftableBlock {
    public static final Properties PROPERTIES = Properties.of().requiresCorrectToolForDrops().strength(1.5F, 4.0F).sound(SoundType.DEEPSLATE_TILES);
-   public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+   public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
    public static final IntegerProperty SNOW_LAYERS = ModBlockStateProperties.SNOW_LAYERS;
    public static final EnumProperty<RoofTiles.SnowSide> SNOW_SIDE = ModBlockStateProperties.SNOW_SIDE;
    private static final VoxelShape BOTTOM_AABB = Block.box(0.0, 0.0, 0.0, 16.0, 8.0, 16.0);
@@ -130,7 +129,7 @@ public class RoofTiles extends ShiftableBlock {
       }
    }
 
-   public ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+   public InteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
       ItemStack item = pPlayer.getItemInHand(pHand);
       if (item.is(Items.SNOWBALL)) {
          this.handleSnow(pState, pLevel, pPos);
@@ -138,20 +137,20 @@ public class RoofTiles extends ShiftableBlock {
             item.shrink(1);
          }
 
-         return ItemInteractionResult.sidedSuccess(pLevel.isClientSide);
+         return InteractionResult.SUCCESS;
       } else if (item.getItem() instanceof ShovelItem) {
          this.removeSnow(pState, pLevel, pPos);
          if (!pPlayer.isCreative()) {
             item.hurtAndBreak(1, pPlayer, EquipmentSlot.MAINHAND);
          }
 
-         return ItemInteractionResult.sidedSuccess(pLevel.isClientSide);
+         return InteractionResult.SUCCESS;
       } else {
-         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+         return InteractionResult.PASS;
       }
    }
 
-   public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
+   public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, Orientation pFromPos, boolean pIsMoving) {
       this.updateSideSnow(pState, pLevel, pPos);
       super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
    }

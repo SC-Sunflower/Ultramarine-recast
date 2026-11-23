@@ -13,14 +13,15 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class RafterEnd extends ShiftableBlock {
-   public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+   public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
    public static final Function<BlockState, VoxelShape> RAFTER_SHAPE = ShapeFunction.cardinalRotations(new RawVoxelShape(5.0, 10.0, -4.0, 11.0, 16.0, 16.0));
    public static final Function<BlockState, VoxelShape> RAFTER_SHAPE_SHIFTED = ShapeFunction.cardinalRotations(
       new RawVoxelShape(5.0, 18.0, -4.0, 11.0, 24.0, 16.0)

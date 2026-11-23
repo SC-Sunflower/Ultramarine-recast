@@ -7,7 +7,6 @@ import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -51,16 +50,16 @@ public class ContainerDecorativeBlock extends DecorativeBlock implements EntityB
       return new ContainerDecorativeBlockEntity(pPos, state, this.rowCount);
    }
 
-   public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayIn) {
+   public InteractionResult useItemOn(ItemStack stack, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayIn) {
       if (worldIn.isClientSide) {
-         return ItemInteractionResult.SUCCESS;
+         return InteractionResult.SUCCESS;
       }
 
       if (worldIn.getBlockEntity(pos) instanceof ContainerDecorativeBlockEntity container) {
          player.openMenu(container);
       }
 
-      return ItemInteractionResult.SUCCESS;
+      return InteractionResult.SUCCESS;
    }
 
    public void onRemove(BlockState pState, Level levelIn, BlockPos pos, BlockState pNewState, boolean pIsMoving) {

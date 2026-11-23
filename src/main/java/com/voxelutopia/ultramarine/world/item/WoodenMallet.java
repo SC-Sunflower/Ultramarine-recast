@@ -68,7 +68,7 @@ public class WoodenMallet extends Item {
             player1.awardStat(Stats.ITEM_USED.get(item.getItem()));
             level.playSound(player.get(), blockpos, SoundRegistry.WOOD_HAMMER, SoundSource.BLOCKS, 1.0F, 0.75F);
          });
-         return InteractionResult.sidedSuccess(level.isClientSide());
+         return InteractionResult.SUCCESS;
       } else {
          return super.useOn(pContext);
       }

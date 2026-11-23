@@ -1,5 +1,7 @@
 package com.voxelutopia.ultramarine.world.block.entity;
 
+import com.voxelutopia.ultramarine.data.RecipeManagerAccess;
+
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -15,7 +17,6 @@ import it.unimi.dsi.fastutil.objects.ObjectIterator;
 import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
 import java.util.List;
 import javax.annotation.ParametersAreNonnullByDefault;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
@@ -25,6 +26,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -99,7 +102,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
 
       public boolean isItemValid(int slot, ItemVariant resource, int amount) {
          ItemStack stack = resource.toStack(amount);
-         return FuelRegistry.INSTANCE.get(stack.getItem()) != null;
+         return BrickKilnBlockEntity.this.level.fuelValues().isFuel(stack);
       }
    };
    private final ItemStackHandler resultHandler = new ItemStackHandler(1) {
@@ -155,7 +158,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
       ItemStack primaryItem = pBlockEntity.ingredientsHandler.getStackInSlot(0);
       ItemStack secondaryItem = pBlockEntity.ingredientsHandler.getStackInSlot(1);
       ItemStack resultItem = pBlockEntity.resultHandler.getStackInSlot(0);
-      RecipeHolder<CompositeSmeltingRecipe> holder = pLevel.getRecipeManager()
+      RecipeHolder<CompositeSmeltingRecipe> holder = RecipeManagerAccess.get(pLevel)
          .getRecipeFor(RecipeTypeRegistry.COMPOSITE_SMELTING, wrapRecipe(pBlockEntity), pLevel)
          .orElse(null);
       CompositeSmeltingRecipe recipe = holder == null ? null : (CompositeSmeltingRecipe)holder.value();
@@ -170,7 +173,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
       if (pBlockEntity.isLit() || !fuelItem.isEmpty() && !primaryItem.isEmpty() && !secondaryItem.isEmpty()) {
          int maxStack = 64;
          if (!pBlockEntity.isLit() && recipe != null && pBlockEntity.canBurn(recipe, fuelItem, primaryItem, secondaryItem, resultItem, maxStack)) {
-            pBlockEntity.litTime = (Integer)FuelRegistry.INSTANCE.get(fuelItem.getItem());
+            pBlockEntity.litTime = pLevel.fuelValues().burnDuration(fuelItem);
             pBlockEntity.litDuration = pBlockEntity.litTime;
             if (pBlockEntity.isLit()) {
                changed = true;
@@ -250,7 +253,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
    }
 
    private static int getTotalCookTime(Level pLevel, BrickKilnBlockEntity entity) {
-      return pLevel.getRecipeManager()
+      return RecipeManagerAccess.get(pLevel)
          .getRecipeFor(RecipeTypeRegistry.COMPOSITE_SMELTING, wrapRecipe(entity), pLevel)
          .map(holder -> ((CompositeSmeltingRecipe)holder.value()).getCookingTime())
          .orElse(200);
@@ -258,7 +261,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
 
    public void setRecipeUsed(@Nullable RecipeHolder<?> pRecipe) {
       if (pRecipe != null) {
-         this.recipesUsed.addTo(pRecipe.id(), 1);
+         this.recipesUsed.addTo(pRecipe.id().location(), 1);
       }
    }
 
@@ -279,10 +282,10 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
 
       while (var4.hasNext()) {
          Entry<ResourceLocation> entry = (Entry<ResourceLocation>)var4.next();
-         pLevel.getRecipeManager().byKey((ResourceLocation)entry.getKey()).ifPresent(holder -> {
+         RecipeManagerAccess.get(pLevel).byKey(ResourceKey.create(Registries.RECIPE, (ResourceLocation)entry.getKey())).ifPresent(holder -> {
             list.add((RecipeHolder<?>)holder);
-            if (holder.value() instanceof AbstractCookingRecipe cookingRecipe) {
-               createExperience(pLevel, pos, entry.getIntValue(), cookingRecipe.getExperience());
+            if (holder.value() instanceof CompositeSmeltingRecipe smeltingRecipe) {
+               createExperience(pLevel, pos, entry.getIntValue(), smeltingRecipe.getExp());
             }
          });
       }
@@ -379,7 +382,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
 
 
    private int getBurnTime(ItemStack stack) {
-      return stack.isEmpty() ? 0 : (Integer)FuelRegistry.INSTANCE.get(stack.getItem());
+      return stack.isEmpty() ? 0 : this.level.fuelValues().burnDuration(stack);
    }
 
 
@@ -416,7 +419,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
          inserted += this.ingredientsHandler.insert(resource, maxAmount - inserted, transaction);
       }
 
-      if (inserted < maxAmount && FuelRegistry.INSTANCE.get(resource.getItem()) != null) {
+      if (inserted < maxAmount && this.level.fuelValues().isFuel(resource.toStack(1))) {
          inserted += this.fuelHandler.insert(resource, maxAmount - inserted, transaction);
       }
 
@@ -470,7 +473,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
    public boolean isItemValid(int slot, ItemVariant resource, int count) {
       return switch (slot) {
          case 0, 1 -> true;
-         case 2 -> FuelRegistry.INSTANCE.get(resource.getItem()) != null;
+         case 2 -> this.level.fuelValues().isFuel(resource.toStack(1));
          case 3 -> false;
          default -> false;
       };

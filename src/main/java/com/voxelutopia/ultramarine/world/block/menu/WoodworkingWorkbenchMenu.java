@@ -1,5 +1,7 @@
 package com.voxelutopia.ultramarine.world.block.menu;
 
+import com.voxelutopia.ultramarine.data.RecipeManagerAccess;
+
 import com.google.common.collect.Lists;
 import com.voxelutopia.ultramarine.data.recipe.WoodworkingRecipe;
 import com.voxelutopia.ultramarine.data.registry.BlockRegistry;
@@ -141,7 +143,12 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
       this.selectedRecipeIndex.set(-1);
       this.resultSlot.set(ItemStack.EMPTY);
       if (!pStack.isEmpty()) {
-         this.recipes = this.level.getRecipeManager().getRecipesFor(RecipeTypeRegistry.WOODWORKING, new SingleRecipeInput(pStack), this.level);
+         SingleRecipeInput input = new SingleRecipeInput(pStack);
+         this.recipes = RecipeManagerAccess.get(this.level).getRecipes().stream()
+               .filter(holder -> holder.value().getType() == RecipeTypeRegistry.WOODWORKING)
+               .map(holder -> (RecipeHolder<WoodworkingRecipe>)holder)
+               .filter(holder -> ((WoodworkingRecipe)holder.value()).matches(input, this.level))
+               .toList();
       }
    }
 
@@ -187,10 +194,11 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
             if (!this.moveItemStackTo(slotItem, 2, 38, false)) {
                return ItemStack.EMPTY;
             }
-         } else if (this.level
-            .getRecipeManager()
-            .getRecipeFor(RecipeTypeRegistry.WOODWORKING, new SingleRecipeInput(slotItem), this.level)
-            .isPresent()) {
+         } else if (RecipeManagerAccess.get(this.level)
+            .getRecipes()
+            .stream()
+            .filter(holder -> holder.value().getType() == RecipeTypeRegistry.WOODWORKING)
+            .anyMatch(holder -> ((WoodworkingRecipe)holder.value()).matches(new SingleRecipeInput(slotItem), this.level))) {
             if (!this.moveItemStackTo(slotItem, 0, 1, false)) {
                return ItemStack.EMPTY;
             }

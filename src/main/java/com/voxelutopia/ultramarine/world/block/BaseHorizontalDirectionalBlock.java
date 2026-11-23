@@ -8,8 +8,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 
 public class BaseHorizontalDirectionalBlock extends HorizontalDirectionalBlock implements BaseBlockPropertyHolder {
@@ -22,7 +23,7 @@ public class BaseHorizontalDirectionalBlock extends HorizontalDirectionalBlock i
       return BlockBehaviour.simpleCodec(props -> this);
    }
    protected final BaseBlockProperty property;
-   public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+   public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
    public BaseHorizontalDirectionalBlock(BaseBlock block) {
       this(block.getProperty());

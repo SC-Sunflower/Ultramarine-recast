@@ -1,5 +1,7 @@
 package com.voxelutopia.ultramarine.client.integration.jei;
 
+import com.voxelutopia.ultramarine.data.RecipeManagerAccess;
+
 import com.voxelutopia.ultramarine.client.screen.BrickKilnScreen;
 import com.voxelutopia.ultramarine.client.screen.ChiselTableScreen;
 import com.voxelutopia.ultramarine.data.recipe.ChiselTableRecipe;
@@ -57,7 +59,7 @@ public class UltramarineJEIPlugin implements IModPlugin {
 
    public void registerRecipes(IRecipeRegistration registration) {
       Objects.requireNonNull(Minecraft.getInstance().level);
-      RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
+      RecipeManager recipeManager = Minecraft.getInstance().RecipeManagerAccess.get(level);
       List<RecipeHolder<WoodworkingRecipe>> woodworkingHolders = recipeManager.getAllRecipesFor(RecipeTypeRegistry.WOODWORKING);
       registration.addRecipes(WoodworkingRecipeCategory.WOODWORKING_RECIPE_TYPE, woodworkingHolders.stream().map(holder -> (WoodworkingRecipe)holder.value()).toList());
       List<RecipeHolder<CompositeSmeltingRecipe>> compositeSmeltingHolders = recipeManager.getAllRecipesFor(RecipeTypeRegistry.COMPOSITE_SMELTING);

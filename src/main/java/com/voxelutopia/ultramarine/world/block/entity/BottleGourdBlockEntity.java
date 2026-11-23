@@ -6,6 +6,7 @@ import com.voxelutopia.ultramarine.data.registry.BlockEntityRegistry;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -82,7 +83,7 @@ public class BottleGourdBlockEntity extends BlockEntity {
 
    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
       super.loadAdditional(pTag, provider);
-      this.potion = BuiltInRegistries.POTION.get(ResourceLocation.tryParse(pTag.getString("Potion")));
+      this.potion = BuiltInRegistries.POTION.get(ResourceLocation.tryParse(pTag.getString("Potion"))).map(Holder.Reference::value).orElse(null);
       this.charges = pTag.getInt("Charges");
       this.filled = pTag.getBoolean("Filled");
    }

@@ -4,6 +4,8 @@ import com.voxelutopia.ultramarine.world.entity.SeatEntity;
 import com.voxelutopia.ultramarine.world.entity.TravellingMerchant;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -17,7 +19,7 @@ public class EntityTypeRegistry {
       SEAT = (EntityType<SeatEntity>)Registry.register(
          BuiltInRegistries.ENTITY_TYPE,
          ResourceLocation.fromNamespaceAndPath("ultramarine", "seat"),
-         Builder.<SeatEntity>of(SeatEntity::new, MobCategory.MISC).sized(0.1F, 0.1F).clientTrackingRange(64).updateInterval(20).build("seat")
+         Builder.<SeatEntity>of(SeatEntity::new, MobCategory.MISC).sized(0.1F, 0.1F).clientTrackingRange(64).updateInterval(20).build(ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("ultramarine", "seat")))
       );
       TRAVELLING_MERCHANT = (EntityType<TravellingMerchant>)Registry.register(
          BuiltInRegistries.ENTITY_TYPE,
@@ -26,7 +28,7 @@ public class EntityTypeRegistry {
             .sized(0.6F, 0.2F)
             .clientTrackingRange(64)
             .updateInterval(20)
-            .build("travelling_merchant")
+            .build(ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("ultramarine", "travelling_merchant")))
       );
    }
 }

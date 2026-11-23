@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -36,11 +37,11 @@ public class BottleGourd extends DecorativeBlock implements EntityBlock {
       super(builder);
    }
 
-   public ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+   public InteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
       ItemStack item = pPlayer.getItemInHand(pHand);
       Optional<BottleGourdBlockEntity> optionalBlockEntity = pLevel.getBlockEntity(pPos, BlockEntityRegistry.BOTTLE_GOURD);
       if (!optionalBlockEntity.isPresent()) {
-         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+         return InteractionResult.PASS;
       }
 
       BottleGourdBlockEntity blockEntity = optionalBlockEntity.get();
@@ -53,29 +54,29 @@ public class BottleGourd extends DecorativeBlock implements EntityBlock {
             }
 
             pLevel.playSound(null, pPos, SoundEvents.BREWING_STAND_BREW, SoundSource.PLAYERS, 1.0F, 1.0F);
-            return ItemInteractionResult.sidedSuccess(pLevel.isClientSide);
+            return InteractionResult.SUCCESS;
          }
       } else if (blockEntity.hasCharges()) {
          Optional<Potion> potion1 = blockEntity.takePotionCharge();
          if (!potion1.isPresent()) {
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
          }
 
          if (!pLevel.isClientSide()) {
             for (MobEffectInstance effectInstance : potion1.get().getEffects()) {
                if (effectInstance.getEffect().value().isInstantenous()) {
-                  effectInstance.getEffect().value().applyInstantenousEffect(pPlayer, pPlayer, pPlayer, effectInstance.getAmplifier(), 1.0);
+                  effectInstance.getEffect().value().applyInstantenousEffect((ServerLevel)pLevel, pPlayer, pPlayer, (LivingEntity)pPlayer, effectInstance.getAmplifier(), 1.0);
                } else {
                   pPlayer.addEffect(new MobEffectInstance(effectInstance));
                }
             }
          }
 
-         pLevel.playSound(null, pPlayer, SoundEvents.GENERIC_DRINK, SoundSource.PLAYERS, 1.0F, 1.0F);
-         return ItemInteractionResult.sidedSuccess(pLevel.isClientSide);
+         pLevel.playSound(pPlayer, pPos, SoundEvents.GENERIC_DRINK.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
+         return InteractionResult.SUCCESS;
       }
 
-      return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+      return InteractionResult.PASS;
    }
 
    public BlockState playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {

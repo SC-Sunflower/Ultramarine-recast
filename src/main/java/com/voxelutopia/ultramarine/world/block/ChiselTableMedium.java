@@ -8,7 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
@@ -24,13 +23,13 @@ public class ChiselTableMedium extends DecorativeBlock implements BaseBlockPrope
       super(DecorativeBlock.with(BaseBlockProperty.PAPER).shaped(BlockShapes.S16_H4).directional().noCollision().noOcclusion());
    }
 
-   public ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+   public InteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
       if (pLevel.isClientSide) {
-         return ItemInteractionResult.SUCCESS;
+         return InteractionResult.SUCCESS;
       }
 
       pPlayer.openMenu(this.getMenuProvider(pState, pLevel, pPos));
-      return ItemInteractionResult.SUCCESS;
+      return InteractionResult.SUCCESS;
    }
 
    public MenuProvider getMenuProvider(BlockState pState, Level pLevel, BlockPos pPos) {

@@ -2,23 +2,22 @@ package com.voxelutopia.ultramarine.client.screen;
 
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.voxelutopia.ultramarine.data.recipe.WoodworkingRecipe;
 import com.voxelutopia.ultramarine.world.block.menu.WoodworkingWorkbenchMenu;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 
 public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<WoodworkingWorkbenchMenu> {
-   private static final ResourceLocation BG_LOCATION = ResourceLocation.withDefaultNamespace("textures/gui/container/stonecutter.png");
+   private static final ResourceLocation BG_LOCATION = ResourceLocation.withDefaultNamespace("container/stonecutter");
    private static final int SCROLLER_WIDTH = 12;
    private static final int SCROLLER_HEIGHT = 15;
    private static final int RECIPES_COLUMNS = 4;
@@ -46,14 +45,11 @@ public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<Woodwork
 
    protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pX, int pY) {
       this.renderBackground(guiGraphics, pX, pY, pPartialTick);
-      RenderSystem.setShader(GameRenderer::getPositionTexShader);
-      RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-      RenderSystem.setShaderTexture(0, BG_LOCATION);
-      int i = this.leftPos;
+                        int i = this.leftPos;
       int j = this.topPos;
-      guiGraphics.blit(BG_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
+      guiGraphics.blitSprite(RenderType::guiTextured, BG_LOCATION, i, j, this.imageWidth, this.imageHeight);
       int k = (int)(41.0F * this.scrollOffs);
-      guiGraphics.blit(BG_LOCATION, i + 119, j + 15 + k, 176 + (this.isScrollBarActive() ? 0 : 12), 0, 12, 15);
+      guiGraphics.blit(RenderType::guiTextured, BG_LOCATION, i + 119, j + 15 + k, 176 + (this.isScrollBarActive() ? 0 : 12), 0, 12, 15, 256, 256);
       int l = this.leftPos + 52;
       int i1 = this.topPos + 14;
       int j1 = this.startIndex + 12;
@@ -74,7 +70,7 @@ public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<Woodwork
             int j1 = i + i1 % 4 * 16;
             int k1 = j + i1 / 4 * 18 + 2;
             if (pX >= j1 && pX < j1 + 16 && pY >= k1 && pY < k1 + 18) {
-               guiGraphics.renderTooltip(this.font, ((WoodworkingRecipe)list.get(l).value()).getResultItem(this.minecraft.level.registryAccess()), pX, pY);
+               guiGraphics.renderTooltip(this.font, ((WoodworkingRecipe)list.get(l).value()).getResultStack(), pX, pY);
             }
          }
       }
@@ -93,7 +89,7 @@ public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<Woodwork
             j1 += 36;
          }
 
-         guiGraphics.blit(BG_LOCATION, k, i1 - 1, 0, j1, 16, 18);
+         guiGraphics.blit(RenderType::guiTextured, BG_LOCATION, k, i1 - 1, 0, j1, 16, 18, 256, 256);
       }
    }
 
@@ -105,7 +101,7 @@ public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<Woodwork
          int k = pLeft + j % 4 * 16;
          int l = j / 4;
          int i1 = pTop + l * 18 + 2;
-         guiGraphics.renderItem(((WoodworkingRecipe)list.get(i).value()).getResultItem(this.minecraft.level.registryAccess()), k, i1);
+         guiGraphics.renderItem(((WoodworkingRecipe)list.get(i).value()).getResultStack(), k, i1);
       }
    }
 

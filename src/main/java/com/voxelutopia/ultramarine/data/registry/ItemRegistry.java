@@ -695,16 +695,16 @@ public class ItemRegistry {
    public static final Item BAOZI = foodItem("baozi", ModFoods.BAOZI);
    public static final Item WOODEN_MALLET = toolItem("wooden_mallet", WoodenMallet::new);
    public static final Item BLUE_AND_WHITE_PORCELAIN_SWORD = registerItem(
-      "blue_and_white_porcelain_sword", new SwordItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, new Properties())
+      "blue_and_white_porcelain_sword", new SwordItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, 3.0F, -2.4F, new Properties())
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_SHOVEL = registerItem(
-      "blue_and_white_porcelain_shovel", new ShovelItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, new Properties())
+      "blue_and_white_porcelain_shovel", new ShovelItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, 1.5F, -3.0F, new Properties())
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_PICKAXE = registerItem(
-      "blue_and_white_porcelain_pickaxe", new PickaxeItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, new Properties())
+      "blue_and_white_porcelain_pickaxe", new PickaxeItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, 1.0F, -2.8F, new Properties())
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_AXE = registerItem(
-      "blue_and_white_porcelain_axe", new AxeItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, new Properties())
+      "blue_and_white_porcelain_axe", new AxeItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, 6.0F, -3.2F, new Properties())
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_UPGRADE_SMITHING_TEMPLATE = toolItem(
       "blue_and_white_porcelain_upgrade_smithing_template", BlueAndWhitePorcelainUpgradeSmithingTemplate::new

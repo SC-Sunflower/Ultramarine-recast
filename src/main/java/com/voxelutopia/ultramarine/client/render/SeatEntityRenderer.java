@@ -1,21 +1,22 @@
 package com.voxelutopia.ultramarine.client.render;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.voxelutopia.ultramarine.world.entity.SeatEntity;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 
-public class SeatEntityRenderer<T extends SeatEntity> extends EntityRenderer<T> {
-   public SeatEntityRenderer(Context context) {
-      super(context);
-   }
+/**
+ * Seat entities are invisible; only the block underneath is rendered. Minecraft 1.21.2
+ * moved entity rendering to a render-state model, so this renderer only creates an
+ * empty state and draws nothing.
+ */
+public class SeatEntityRenderer extends EntityRenderer<SeatEntity, EntityRenderState> {
+    public SeatEntityRenderer(Context context) {
+        super(context);
+    }
 
-   public ResourceLocation getTextureLocation(T pEntity) {
-      return null;
-   }
-
-   public void render(T pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
-   }
+    @Override
+    public EntityRenderState createRenderState() {
+        return new EntityRenderState();
+    }
 }

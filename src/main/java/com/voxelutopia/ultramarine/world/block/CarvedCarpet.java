@@ -6,7 +6,10 @@ import net.minecraft.core.Direction.Axis;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
@@ -14,7 +17,6 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.block.state.properties.StairsShape;
@@ -24,7 +26,7 @@ import net.minecraft.world.level.block.state.properties.StairsShape;
  * Connects like stairs, carries a dye color.
  */
 public class CarvedCarpet extends BaseBlock {
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final EnumProperty<StairsShape> SHAPE = BlockStateProperties.STAIRS_SHAPE;
     private final DyeColor color;
 
@@ -60,10 +62,10 @@ public class CarvedCarpet extends BaseBlock {
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess tickAccess, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource random) {
         return facing.getAxis().isHorizontal()
                 ? state.setValue(SHAPE, getStairsShape(state, level, currentPos))
-                : super.updateShape(state, facing, facingState, level, currentPos, facingPos);
+                : super.updateShape(state, level, tickAccess, currentPos, facing, facingPos, facingState, random);
     }
 
     private static StairsShape getStairsShape(BlockState state, BlockGetter level, BlockPos pos) {

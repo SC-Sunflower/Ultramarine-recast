@@ -13,6 +13,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -62,6 +64,14 @@ public class CompositeSmeltingRecipe implements Recipe<CraftingInput> {
         return true;
     }
 
+   public RecipeBookCategory recipeBookCategory() {
+      return new RecipeBookCategory();
+   }
+
+   public PlacementInfo placementInfo() {
+      return PlacementInfo.NOT_PLACEABLE;
+   }
+
     public Ingredient getPrimaryIngredient() {
         return this.primaryIngredient;
     }
@@ -74,11 +84,11 @@ public class CompositeSmeltingRecipe implements Recipe<CraftingInput> {
         return this.result.copy();
     }
 
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<CompositeSmeltingRecipe> getSerializer() {
         return RecipeSerializerRegistry.COMPOSITE_SMELTING_SERIALIZER;
     }
 
-    public RecipeType<?> getType() {
+    public RecipeType<CompositeSmeltingRecipe> getType() {
         return RecipeTypeRegistry.COMPOSITE_SMELTING;
     }
 

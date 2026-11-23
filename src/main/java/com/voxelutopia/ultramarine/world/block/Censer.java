@@ -9,7 +9,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -33,7 +32,7 @@ public class Censer extends DecorativeBlock implements EntityBlock {
       this.smokeOffset = smokeOffset;
    }
 
-   public ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+   public InteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
       ItemStack item = pPlayer.getItemInHand(pHand);
       if (item.is(ItemRegistry.INCENSE)) {
          if (!pPlayer.getAbilities().instabuild) {
@@ -41,9 +40,9 @@ public class Censer extends DecorativeBlock implements EntityBlock {
          }
 
          pLevel.getBlockEntity(pPos, BlockEntityRegistry.CENSER).ifPresent(entity -> entity.lightIncense(pLevel, pPos, pState));
-         return ItemInteractionResult.sidedSuccess(pLevel.isClientSide);
+         return InteractionResult.SUCCESS;
       } else {
-         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+         return InteractionResult.PASS;
       }
    }
 

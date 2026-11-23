@@ -1,5 +1,7 @@
 package com.voxelutopia.ultramarine.world.block.menu;
 
+import com.voxelutopia.ultramarine.data.RecipeManagerAccess;
+
 import com.voxelutopia.ultramarine.Ultramarine;
 import com.voxelutopia.ultramarine.data.ModItemTags;
 import com.voxelutopia.ultramarine.data.recipe.ChiselTableRecipe;
@@ -90,10 +92,14 @@ public class ChiselTableMenu extends AbstractContainerMenu {
       Level level = this.player.level();
       Container ingredients = this.wrapIngredients();
       CraftingInput input = CraftingInput.of(2, 3, java.util.stream.IntStream.range(0, 6).mapToObj(ingredients::getItem).toList());
-      List<RecipeHolder<ChiselTableRecipe>> list = level.getRecipeManager().getRecipesFor(RecipeTypeRegistry.CHISEL_TABLE, input, level);
+      List<RecipeHolder<ChiselTableRecipe>> list = RecipeManagerAccess.get(level).getRecipes().stream()
+            .filter(holder -> holder.value().getType() == RecipeTypeRegistry.CHISEL_TABLE)
+            .map(holder -> (RecipeHolder<ChiselTableRecipe>)holder)
+            .filter(holder -> ((ChiselTableRecipe)holder.value()).matches(input, level))
+            .toList();
       if (list.size() > 1) {
          Ultramarine.LOGGER.warn("Duplicate chisel table recipe: ");
-         list.forEach(recipe -> Ultramarine.LOGGER.warn(recipe.id().getPath()));
+         list.forEach(recipe -> Ultramarine.LOGGER.warn(recipe.id().location().getPath()));
       }
 
       if (list.isEmpty()) {

@@ -7,7 +7,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
@@ -22,13 +21,13 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class WoodworkingWorkBench extends Block {
    private static final Component CONTAINER_TITLE = Component.translatable("container.woodworking_workbench");
-   public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+   public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 
    public WoodworkingWorkBench() {
       super(BaseBlockProperty.WOOD.properties);
@@ -47,13 +46,13 @@ public class WoodworkingWorkBench extends Block {
       return pState.rotate(pMirror.getRotation((Direction)pState.getValue(FACING)));
    }
 
-   public ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+   public InteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
       if (pLevel.isClientSide) {
-         return ItemInteractionResult.SUCCESS;
+         return InteractionResult.SUCCESS;
       }
 
       pPlayer.openMenu(pState.getMenuProvider(pLevel, pPos));
-      return ItemInteractionResult.SUCCESS;
+      return InteractionResult.SUCCESS;
    }
 
    @Nullable

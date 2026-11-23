@@ -1,23 +1,28 @@
 package com.voxelutopia.ultramarine.data.recipe;
 
-import net.minecraft.core.HolderLookup;
-
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
 import com.voxelutopia.ultramarine.data.registry.RecipeSerializerRegistry;
 import com.voxelutopia.ultramarine.data.registry.RecipeTypeRegistry;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleItemRecipe;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 
 public class WoodworkingRecipe extends SingleItemRecipe {
+    private final String group;
+    private final Ingredient ingredient;
+    private final ItemStack result;
+
     public static final MapCodec<WoodworkingRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
             Ingredient.CODEC.fieldOf("ingredient").forGetter(recipe -> recipe.ingredient),
@@ -25,36 +30,49 @@ public class WoodworkingRecipe extends SingleItemRecipe {
     ).apply(instance, (group, ingredient, result) -> new WoodworkingRecipe(group, ingredient, result)));
 
     public WoodworkingRecipe(String pGroup, Ingredient pIngredient, ItemStack pResult) {
-        super(RecipeTypeRegistry.WOODWORKING, RecipeSerializerRegistry.WOODWORKING_SERIALIZER, pGroup, pIngredient, pResult);
+        super(pGroup, pIngredient, pResult);
+        this.group = pGroup;
+        this.ingredient = pIngredient;
+        this.result = pResult;
     }
 
+    @Override
     public boolean matches(SingleRecipeInput input, Level pLevel) {
-      return this.ingredient.test(input.item());
-   }
+        return this.ingredient.test(input.item());
+    }
 
+    @Override
     public ItemStack assemble(SingleRecipeInput input, HolderLookup.Provider provider) {
         return this.result.copy();
     }
 
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
+    public ItemStack getResultStack() {
+        return this.result.copy();
     }
 
+    @Override
     public boolean isSpecial() {
         return true;
     }
 
-    public ItemStack getResultItem(HolderLookup.Provider provider) {
-        return this.result.copy();
-    }
-
-    public RecipeType<?> getType() {
+    @Override
+    public RecipeType<WoodworkingRecipe> getType() {
         return RecipeTypeRegistry.WOODWORKING;
     }
 
-    public RecipeSerializer<?> getSerializer() {
+    @Override
+    public RecipeSerializer<WoodworkingRecipe> getSerializer() {
         return RecipeSerializerRegistry.WOODWORKING_SERIALIZER;
     }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return new RecipeBookCategory();
+    }
+
+   public PlacementInfo placementInfo() {
+      return PlacementInfo.NOT_PLACEABLE;
+   }
 
     public static class Serializer implements RecipeSerializer<WoodworkingRecipe> {
         public static final WoodworkingRecipe.Serializer INSTANCE = new WoodworkingRecipe.Serializer();

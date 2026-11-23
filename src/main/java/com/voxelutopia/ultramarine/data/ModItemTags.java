@@ -11,6 +11,7 @@ public class ModItemTags {
    public static final TagKey<Item> PARTS = modTag("parts");
    public static final TagKey<Item> CHISEL_TEMPLATES = modTag("chisel_templates");
    public static final TagKey<Item> PAINTING_SCROLL_ITEMS = modTag("painting_scroll_items");
+   public static final TagKey<Item> BLUE_AND_WHITE_PORCELAIN_REPAIR = modTag("blue_and_white_porcelain_repair");
    public static final TagKey<Item> DYES = commonTag("dyes");
    public static final TagKey<Item> WHITE_DYES = commonTag("white_dyes");
    public static final TagKey<Item> ORANGE_DYES = commonTag("orange_dyes");

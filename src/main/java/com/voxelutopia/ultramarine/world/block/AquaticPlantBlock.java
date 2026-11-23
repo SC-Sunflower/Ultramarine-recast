@@ -4,7 +4,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -16,10 +19,10 @@ public class AquaticPlantBlock extends DecorativeBlock {
       super(builder);
    }
 
-   public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
-      return !pState.canSurvive(pLevel, pCurrentPos)
+   public BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess tickAccess, BlockPos pos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource random) {
+      return !state.canSurvive(level, pos)
          ? Blocks.AIR.defaultBlockState()
-         : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+         : super.updateShape(state, level, tickAccess, pos, facing, facingPos, facingState, random);
    }
 
    // Note: the original Forge implementation delegates to BlockState#canSustainPlant here, but

@@ -12,10 +12,13 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.npc.VillagerTrades.ItemListing;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -30,6 +33,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.ServerLevelData;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 
 import java.util.Optional;
@@ -119,7 +123,7 @@ public class CommonEventHandler {
             }
 
             if (hasSpaceAtSpawn && !world.getBiome(pos).is(Biomes.THE_VOID)) {
-               TravellingMerchant merchant = EntityTypeRegistry.TRAVELLING_MERCHANT.spawn(world, potentialSpawn, MobSpawnType.EVENT);
+               TravellingMerchant merchant = EntityTypeRegistry.TRAVELLING_MERCHANT.spawn(world, potentialSpawn, EntitySpawnReason.EVENT);
                if (merchant == null) {
                   return;
                }

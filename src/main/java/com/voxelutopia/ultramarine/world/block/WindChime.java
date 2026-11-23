@@ -39,6 +39,6 @@ public class WindChime extends DecorativeBlock {
    }
 
    private void playSound(ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-      pLevel.playSound(null, pPos, (SoundEvent)SoundEvents.NOTE_BLOCK_CHIME.value(), SoundSource.BLOCKS, 1.5F, 2.0F - pRandom.nextFloat() * 0.15F);
+      pLevel.playSound(null, pPos, SoundEvents.NOTE_BLOCK_CHIME.value(), SoundSource.BLOCKS, 1.5F, 2.0F - pRandom.nextFloat() * 0.15F);
    }
 }
