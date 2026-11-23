@@ -45,7 +45,6 @@ public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<Woodwork
    }
 
    protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pX, int pY) {
-      this.renderBackground(guiGraphics, pX, pY, pPartialTick);
       RenderSystem.setShader(GameRenderer::getPositionTexShader);
       RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
       RenderSystem.setShaderTexture(0, BG_LOCATION);
