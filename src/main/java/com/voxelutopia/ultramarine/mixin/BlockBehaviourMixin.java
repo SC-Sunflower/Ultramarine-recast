@@ -6,12 +6,19 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BlockBehaviour.class)
 public abstract class BlockBehaviourMixin {
+    @Shadow
+    protected BlockBehaviour.Properties properties;
+
+    public static void ultramarine$setBlockId(Block block, ResourceKey<Block> key) {
+        ((BlockBehaviourMixin)(Object)block).properties.setId(key);
+    }
     @Inject(method = "<init>(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V", at = @At("HEAD"))
     private static void ultramarine$ensureBlockId(BlockBehaviour.Properties properties, CallbackInfo ci) {
         properties.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("ultramarine", "dummy")));
