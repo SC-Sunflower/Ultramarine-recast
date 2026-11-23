@@ -5,7 +5,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
 
 public class BaseFood extends Item {
-   public BaseFood(FoodProperties food) {
-      super(new Properties().food(food));
+   public BaseFood(FoodProperties food, Item.Properties properties) {
+      super(properties.food(food));
    }
 }
