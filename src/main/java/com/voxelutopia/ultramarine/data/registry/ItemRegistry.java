@@ -792,7 +792,6 @@ public class ItemRegistry {
    }
 
       private static Item registerItem(String name, Item item) {
-      item.properties.setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("ultramarine", name)));
       return Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath("ultramarine", name), item);
    }
 
