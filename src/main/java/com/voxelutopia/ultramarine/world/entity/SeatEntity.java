@@ -1,7 +1,6 @@
 package com.voxelutopia.ultramarine.world.entity;
 
 import com.voxelutopia.ultramarine.data.registry.EntityTypeRegistry;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerEntity;
@@ -14,6 +13,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
 public class SeatEntity extends Entity {
@@ -59,12 +60,12 @@ public class SeatEntity extends Entity {
       builder.define(LIFE, 0);
    }
 
-   protected void readAdditionalSaveData(CompoundTag pCompound) {
-      pCompound.getInt("Life");
+   protected void readAdditionalSaveData(ValueInput input) {
+      this.life = input.getIntOr("Life", 0);
    }
 
-   protected void addAdditionalSaveData(CompoundTag pCompound) {
-      pCompound.putInt("Life", this.life);
+   protected void addAdditionalSaveData(ValueOutput output) {
+      output.putInt("Life", this.life);
    }
 
    public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {

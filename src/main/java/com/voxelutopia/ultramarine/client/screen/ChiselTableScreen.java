@@ -4,6 +4,7 @@ import com.voxelutopia.ultramarine.world.block.menu.ChiselTableMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -23,6 +24,6 @@ public class ChiselTableScreen extends AbstractContainerScreen<ChiselTableMenu> 
 
    protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
       this.renderBackground(guiGraphics, pMouseX, pMouseY, pPartialTick);
-                        guiGraphics.blitSprite(RenderType::guiTextured, BACKGROUND, this.leftPos, this.topPos, this.imageWidth, this.imageHeight);
+                        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, BACKGROUND, this.leftPos, this.topPos, this.imageWidth, this.imageHeight);
    }
 }

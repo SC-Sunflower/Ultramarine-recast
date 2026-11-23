@@ -6,9 +6,9 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 /**
  * Simple item stack storage backed by an {@link ItemStack} array.
@@ -124,31 +124,23 @@ public class ItemStackHandler implements SlottedStackStorage {
         return extracted;
     }
 
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        CompoundTag nbt = new CompoundTag();
-        nbt.putInt("Size", this.slots.size());
-        ListTag items = new ListTag();
+    public void save(ValueOutput output, HolderLookup.Provider provider) {
+        ValueOutput.TypedOutputList<ItemStack> items = output.list("Items", ItemStack.CODEC);
         for (ItemStackHandlerSlot slot : this.slots) {
-            if (!slot.getStack().isEmpty()) {
-                CompoundTag tag = new CompoundTag();
-                tag.putInt("Slot", slot.getIndex());
-                slot.getStack().save(provider, tag);
-                items.add(tag);
-            }
+            items.add(slot.getStack());
         }
-        nbt.put("Items", items);
-        return nbt;
     }
 
-    public void deserializeNBT(CompoundTag nbt, HolderLookup.Provider provider) {
-        this.setSize(nbt.getIntOr("Size", this.slots.size()));
-        ListTag items = nbt.getListOrEmpty("Items");
-        for (int i = 0; i < items.size(); i++) {
-            CompoundTag tag = items.getCompoundOrEmpty(i);
-            int index = tag.getIntOr("Slot", 0);
-            if (index >= 0 && index < this.slots.size()) {
-                this.slots.get(index).setStack(ItemStack.parse(provider, tag).orElse(ItemStack.EMPTY));
+    public void load(ValueInput input, HolderLookup.Provider provider) {
+        ValueInput.TypedInputList<ItemStack> items = input.listOrEmpty("Items", ItemStack.CODEC);
+        int i = 0;
+        for (ItemStack item : items) {
+            if (i >= this.slots.size()) {
+                break;
             }
+
+            this.slots.get(i).setStack(item);
+            i++;
         }
         this.onLoad();
     }

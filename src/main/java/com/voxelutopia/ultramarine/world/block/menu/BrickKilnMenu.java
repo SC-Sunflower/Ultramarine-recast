@@ -51,7 +51,7 @@ public class BrickKilnMenu extends AbstractContainerMenu {
    public BrickKilnMenu(int id, BlockPos pos, Inventory inventory, SlottedStackStorage container, ContainerData containerData) {
       super(MenuTypeRegistry.BRICK_KILN, id);
       this.playerEntity = inventory.player;
-      this.blockEntity = this.playerEntity.getCommandSenderWorld().getBlockEntity(pos);
+      this.blockEntity = this.playerEntity.level().getBlockEntity(pos);
       SlottedStackStorage inventory1 = new BrickKilnMenu.InventoryWrapper(inventory);
       this.data = containerData;
       this.addSlot(new BrickKilnMenu.IngredientSlot(container, 0, 46, 17));

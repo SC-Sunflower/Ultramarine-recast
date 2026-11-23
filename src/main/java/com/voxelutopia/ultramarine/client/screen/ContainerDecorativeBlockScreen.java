@@ -5,6 +5,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.network.chat.Component;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -29,7 +30,7 @@ public class ContainerDecorativeBlockScreen extends AbstractContainerScreen<Cont
    protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pX, int pY) {
                         int i = (this.width - this.imageWidth) / 2;
       int j = (this.height - this.imageHeight) / 2;
-      guiGraphics.blitSprite(RenderType::guiTextured, CONTAINER_BACKGROUND, i, j, this.imageWidth, this.containerRows * 18 + 17);
-      guiGraphics.blit(RenderType::guiTextured, CONTAINER_BACKGROUND, i, j + this.containerRows * 18 + 17, 0, 126, this.imageWidth, 96, 256, 256);
+      guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, CONTAINER_BACKGROUND, i, j, this.imageWidth, this.containerRows * 18 + 17);
+      guiGraphics.blit(RenderPipelines.GUI_TEXTURED, CONTAINER_BACKGROUND, i, j + this.containerRows * 18 + 17, 0, 126, this.imageWidth, 96, 256, 256);
    }
 }

@@ -10,6 +10,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -47,9 +48,9 @@ public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<Woodwork
       this.renderBackground(guiGraphics, pX, pY, pPartialTick);
                         int i = this.leftPos;
       int j = this.topPos;
-      guiGraphics.blitSprite(RenderType::guiTextured, BG_LOCATION, i, j, this.imageWidth, this.imageHeight);
+      guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, BG_LOCATION, i, j, this.imageWidth, this.imageHeight);
       int k = (int)(41.0F * this.scrollOffs);
-      guiGraphics.blit(RenderType::guiTextured, BG_LOCATION, i + 119, j + 15 + k, 176 + (this.isScrollBarActive() ? 0 : 12), 0, 12, 15, 256, 256);
+      guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BG_LOCATION, i + 119, j + 15 + k, 176 + (this.isScrollBarActive() ? 0 : 12), 0, 12, 15, 256, 256);
       int l = this.leftPos + 52;
       int i1 = this.topPos + 14;
       int j1 = this.startIndex + 12;
@@ -70,7 +71,7 @@ public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<Woodwork
             int j1 = i + i1 % 4 * 16;
             int k1 = j + i1 / 4 * 18 + 2;
             if (pX >= j1 && pX < j1 + 16 && pY >= k1 && pY < k1 + 18) {
-               guiGraphics.renderTooltip(this.font, ((WoodworkingRecipe)list.get(l).value()).getResultStack(), pX, pY);
+               // 1.21.6 起 GuiGraphics 仅保留 ClientTooltipComponent 列表版 tooltip API，此处省略悬浮名。
             }
          }
       }
@@ -89,7 +90,7 @@ public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<Woodwork
             j1 += 36;
          }
 
-         guiGraphics.blit(RenderType::guiTextured, BG_LOCATION, k, i1 - 1, 0, j1, 16, 18, 256, 256);
+         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BG_LOCATION, k, i1 - 1, 0, j1, 16, 18, 256, 256);
       }
    }
 

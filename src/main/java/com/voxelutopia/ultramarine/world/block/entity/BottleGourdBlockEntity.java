@@ -8,7 +8,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -81,15 +82,15 @@ public class BottleGourdBlockEntity extends BlockEntity {
       return this.potion;
    }
 
-   protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
-      super.loadAdditional(pTag, provider);
+   protected void loadAdditional(ValueInput pTag) {
+      super.loadAdditional(pTag);
       this.potion = BuiltInRegistries.POTION.get(ResourceLocation.tryParse(pTag.getStringOr("Potion", ""))).map(Holder.Reference::value).orElse(null);
       this.charges = pTag.getIntOr("Charges", 0);
       this.filled = pTag.getBooleanOr("Filled", false);
    }
 
-   protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
-      super.saveAdditional(pTag, provider);
+   protected void saveAdditional(ValueOutput pTag) {
+      super.saveAdditional(pTag);
       pTag.putString("Potion", BuiltInRegistries.POTION.getKey(this.potion).toString());
       pTag.putInt("Charges", this.charges);
       pTag.putBoolean("Filled", this.filled);

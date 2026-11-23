@@ -130,7 +130,7 @@ public class CommonEventHandler {
                }
                merchant.setDespawnDelay(12000);
                merchant.setWanderTarget(potentialSpawn);
-               merchant.restrictTo(potentialSpawn, 8);
+               merchant.setHomeTo(potentialSpawn, 8);
             }
          });
    }

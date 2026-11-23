@@ -22,6 +22,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class ContainerDecorativeBlockEntity extends RandomizableContainerBlockEntity {
    public static final Codec<ContainerDecorativeBlockEntity> CODEC = RecordCodecBuilder.create(
@@ -74,22 +76,22 @@ public class ContainerDecorativeBlockEntity extends RandomizableContainerBlockEn
       return this.rows * 9;
    }
 
-   protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider provider) {
-      super.saveAdditional(nbt, provider);
+   protected void saveAdditional(ValueOutput nbt) {
+      super.saveAdditional(nbt);
       nbt.putString("Block", BuiltInRegistries.BLOCK.getKey(this.block).toString());
       nbt.putByte("Rows", (byte)this.rows);
       if (!this.trySaveLootTable(nbt)) {
-         ContainerHelper.saveAllItems(nbt, this.items, provider);
+         ContainerHelper.saveAllItems(nbt, this.items);
       }
    }
 
-   protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider provider) {
-      super.loadAdditional(nbt, provider);
+   protected void loadAdditional(ValueInput nbt) {
+      super.loadAdditional(nbt);
       this.block = BuiltInRegistries.BLOCK.get(ResourceLocation.tryParse(nbt.getStringOr("Block", ""))).map(Holder.Reference::value).orElse(Blocks.AIR);
       this.rows = nbt.getByteOr("Rows", (byte)3);
       this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
       if (!this.tryLoadLootTable(nbt)) {
-         ContainerHelper.loadAllItems(nbt, this.items, provider);
+         ContainerHelper.loadAllItems(nbt, this.items);
       }
    }
 }

@@ -15,7 +15,9 @@ import com.voxelutopia.ultramarine.data.storage.SlottedStackStorage;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectIterator;
 import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.ParametersAreNonnullByDefault;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
@@ -24,7 +26,6 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -46,6 +47,8 @@ import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -320,64 +323,58 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
       return CraftingInput.of(2, 1, List.of(entity.ingredientsHandler.getStackInSlot(0), entity.ingredientsHandler.getStackInSlot(1)));
    }
 
-   protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
-      super.loadAdditional(pTag, provider);
-      this.litTime = pTag.getIntOr("BurnTime", 0);
-      this.cookingProgress = pTag.getIntOr("CookTime", 0);
-      this.cookingTotalTime = pTag.getIntOr("CookTimeTotal", 0);
-      ListTag itemListTag = pTag.getListOrEmpty("Items");
+   protected void loadAdditional(ValueInput input) {
+      super.loadAdditional(input);
+      this.litTime = input.getIntOr("BurnTime", 0);
+      this.cookingProgress = input.getIntOr("CookTime", 0);
+      this.cookingTotalTime = input.getIntOr("CookTimeTotal", 0);
+      ValueInput.TypedInputList<ItemStack> itemList = input.listOrEmpty("Items", ItemStack.CODEC);
 
-      for (int i = 0; i < itemListTag.size(); i++) {
-         CompoundTag itemTag = itemListTag.getCompoundOrEmpty(i);
-         int j = itemTag.getByteOr("Slot", (byte)0) & 255;
-         switch (j) {
+      int i = 0;
+      for (ItemStack item : itemList) {
+         if (i >= 4) {
+            break;
+         }
+
+         switch (i) {
             case 0:
-               this.ingredientsHandler.setStackInSlot(0, ItemStack.parse(provider, itemTag).orElse(ItemStack.EMPTY));
+               this.ingredientsHandler.setStackInSlot(0, item);
                break;
             case 1:
-               this.ingredientsHandler.setStackInSlot(1, ItemStack.parse(provider, itemTag).orElse(ItemStack.EMPTY));
+               this.ingredientsHandler.setStackInSlot(1, item);
                break;
             case 2:
-               this.fuelHandler.setStackInSlot(0, ItemStack.parse(provider, itemTag).orElse(ItemStack.EMPTY));
+               this.fuelHandler.setStackInSlot(0, item);
                break;
             case 3:
-               this.resultHandler.setStackInSlot(0, ItemStack.parse(provider, itemTag).orElse(ItemStack.EMPTY));
+               this.resultHandler.setStackInSlot(0, item);
          }
+
+         i++;
       }
 
       this.litDuration = this.getBurnTime(this.fuelHandler.getStackInSlot(0));
-      CompoundTag recipesTag = pTag.getCompoundOrEmpty("RecipesUsed");
+      Map<String, Integer> recipesMap = new HashMap<>();
+      input.read("RecipesUsed", Codec.unboundedMap(Codec.STRING, Codec.INT)).ifPresent(recipesMap::putAll);
 
-      for (String s : recipesTag.keySet()) {
-         this.recipesUsed.put(ResourceLocation.parse(s), recipesTag.getIntOr(s, 0));
-      }
+      recipesMap.forEach((s, count) -> this.recipesUsed.put(ResourceLocation.parse(s), count));
    }
 
-   protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
-      super.saveAdditional(pTag, provider);
-      pTag.putInt("BurnTime", this.litTime);
-      pTag.putInt("CookTime", this.cookingProgress);
-      pTag.putInt("CookTimeTotal", this.cookingTotalTime);
-      ListTag itemListTag = new ListTag();
+   protected void saveAdditional(ValueOutput output) {
+      super.saveAdditional(output);
+      output.putInt("BurnTime", this.litTime);
+      output.putInt("CookTime", this.cookingProgress);
+      output.putInt("CookTimeTotal", this.cookingTotalTime);
+      ValueOutput.TypedOutputList<ItemStack> itemList = output.list("Items", ItemStack.CODEC);
       ItemStackHandler items = this.wrapHandlers();
 
       for (int i = 0; i < items.getSlots().size(); i++) {
-         ItemStack item = items.getStackInSlot(i);
-         if (!item.isEmpty()) {
-            CompoundTag itemTag = new CompoundTag();
-            itemTag.putByte("Slot", (byte)i);
-            item.save(provider, itemTag);
-            itemListTag.add(itemTag);
-         }
+         itemList.add(items.getStackInSlot(i));
       }
 
-      if (!itemListTag.isEmpty()) {
-         pTag.put("Items", itemListTag);
-      }
-
-      CompoundTag recipesTag = new CompoundTag();
-      this.recipesUsed.forEach((resourceLocation, count) -> recipesTag.putInt(resourceLocation.toString(), count));
-      pTag.put("RecipesUsed", recipesTag);
+      Map<String, Integer> recipesMap = new HashMap<>();
+      this.recipesUsed.forEach((resourceLocation, count) -> recipesMap.put(resourceLocation.toString(), count));
+      output.store("RecipesUsed", Codec.unboundedMap(Codec.STRING, Codec.INT), recipesMap);
    }
 
 

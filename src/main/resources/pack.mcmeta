@@ -1,7 +1,7 @@
 {
   "pack": {
-    "pack_format": 55,
-    "supported_formats": [55, 55],
+    "pack_format": 59,
+    "supported_formats": [59, 62],
     "description": "Ultramarine: Recast"
   }
 }
