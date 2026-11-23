@@ -791,7 +791,7 @@ public class ItemRegistry {
    }
 
       private static Item registerItem(String name, Item item) {
-      ItemMixin.ultramarine$setItemId(item, ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", name)));
+      item.properties.setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", name)));
       return Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath("ultramarine", name), item);
    }
 
