@@ -1,4 +1,4 @@
-﻿# make-versioned-jars.ps1
+# make-versioned-jars.ps1
 # Produces one jar per Minecraft game version (independent file names) and rewrites the
 # "minecraft" dependency inside fabric.mod.json to the exact version.
 # Usage (from repo root): powershell -ExecutionPolicy Bypass -File scripts/make-versioned-jars.ps1
