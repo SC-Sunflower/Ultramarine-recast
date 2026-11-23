@@ -1978,7 +1978,9 @@ public class BlockRegistry {
    }
 
       public static void registerBlockItem(String name, Block block) {
-      Item item = new BlockItem(block, new Properties());
+      Item.Properties itemProperties = new Item.Properties();
+      itemProperties.setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("ultramarine", name)));
+      Item item = new BlockItem(block, itemProperties);
       Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath("ultramarine", name), item);
    }
 
