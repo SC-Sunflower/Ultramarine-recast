@@ -30,11 +30,11 @@ public class BlueAndWhitePorcelainUpgradeSmithingTemplate extends SmithingTempla
    private static final Component BLUE_AND_WHITE_PORCELAIN_UPGRADE_ADDITIONS_SLOT_DESCRIPTION = Component.translatable(
       Util.makeDescriptionId("item", Identifier.fromNamespaceAndPath("ultramarine", "smithing_template.blue_and_white_porcelain_upgrade.additions_slot_description"))
    );
-   private static final ResourceLocation EMPTY_SLOT_PIECE = Identifier.fromNamespaceAndPath("ultramarine", "item/empty_slot_piece");
-   private static final ResourceLocation EMPTY_SLOT_AXE = ResourceLocation.withDefaultNamespace("item/empty_slot_axe");
-   private static final ResourceLocation EMPTY_SLOT_SWORD = ResourceLocation.withDefaultNamespace("item/empty_slot_sword");
-   private static final ResourceLocation EMPTY_SLOT_SHOVEL = ResourceLocation.withDefaultNamespace("item/empty_slot_shovel");
-   private static final ResourceLocation EMPTY_SLOT_PICKAXE = ResourceLocation.withDefaultNamespace("item/empty_slot_pickaxe");
+   private static final Identifier EMPTY_SLOT_PIECE = Identifier.fromNamespaceAndPath("ultramarine", "item/empty_slot_piece");
+   private static final Identifier EMPTY_SLOT_AXE = Identifier.withDefaultNamespace("item/empty_slot_axe");
+   private static final Identifier EMPTY_SLOT_SWORD = Identifier.withDefaultNamespace("item/empty_slot_sword");
+   private static final Identifier EMPTY_SLOT_SHOVEL = Identifier.withDefaultNamespace("item/empty_slot_shovel");
+   private static final Identifier EMPTY_SLOT_PICKAXE = Identifier.withDefaultNamespace("item/empty_slot_pickaxe");
 
    public BlueAndWhitePorcelainUpgradeSmithingTemplate(Item.Properties properties) {
       super(
