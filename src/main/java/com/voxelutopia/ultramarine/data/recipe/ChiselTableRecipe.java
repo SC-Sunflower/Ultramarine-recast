@@ -41,8 +41,8 @@ public class ChiselTableRecipe implements Recipe<CraftingInput> {
             Codec.INT.optionalFieldOf("count", 1).forGetter(recipe -> recipe.result.getCount()),
             Codec.STRING.fieldOf("result").forGetter(recipe -> BuiltInRegistries.ITEM.getKey(recipe.result.getItem()).toString())
     ).apply(instance, (group, material, template, colors, count, result) ->
-            new ChiselTableRecipe(group, material, template, colors.toArray(new Ingredient[0]), new ItemStack(BuiltInRegistries.ITEM.getValue(ResourceLocation.parse(result)), count)));
-
+            new ChiselTableRecipe(group, material, template, colors.toArray(new Ingredient[0]),
+                    new ItemStack(BuiltInRegistries.ITEM.getValue(ResourceLocation.parse(result)), count))));
     public ChiselTableRecipe(String pGroup, Ingredient material, Ingredient template, Ingredient[] colors, ItemStack pResult) {
         this.group = pGroup;
         this.material = material;
