@@ -13,17 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BlockBehaviour.class)
-public abstract class BlockBehaviourMixin {
-    @Shadow
-    protected BlockBehaviour.Properties properties;
-
-    @Unique
-
-
-    public static void ultramarine$setBlockId(Block block, ResourceKey<Block> key) {
-        ((BlockBehaviourMixin)(Object)block).properties.setId(key);
-    }
-    @Inject(method = "<init>(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V", at = @At("HEAD"))
+public abstract class BlockBehaviourMixin {    @Inject(method = "<init>(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V", at = @At("HEAD"))
     private static void ultramarine$ensureBlockId(BlockBehaviour.Properties properties, CallbackInfo ci) {
         properties.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("ultramarine", "dummy")));
     }
