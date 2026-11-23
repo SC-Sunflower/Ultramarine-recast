@@ -1,5 +1,8 @@
 package com.voxelutopia.ultramarine.data.registry;
 
+import com.voxelutopia.ultramarine.mixin.BlockBehaviourMixin;
+import com.voxelutopia.ultramarine.mixin.ItemMixin;
+
 import com.voxelutopia.ultramarine.Ultramarine;
 import com.voxelutopia.ultramarine.data.ContainerType;
 import com.voxelutopia.ultramarine.data.ModFoods;
