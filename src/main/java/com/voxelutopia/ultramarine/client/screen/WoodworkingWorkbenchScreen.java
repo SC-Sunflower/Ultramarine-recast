@@ -17,7 +17,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 
 public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<WoodworkingWorkbenchMenu> {
-   private static final ResourceLocation BG_LOCATION = ResourceLocation.withDefaultNamespace("container/stonecutter");
+   private static final ResourceLocation BG_LOCATION = ResourceLocation.withDefaultNamespace("textures/gui/container/stonecutter.png");
    private static final int SCROLLER_WIDTH = 12;
    private static final int SCROLLER_HEIGHT = 15;
    private static final int RECIPES_COLUMNS = 4;
@@ -46,7 +46,7 @@ public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<Woodwork
    protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pX, int pY) {
                         int i = this.leftPos;
       int j = this.topPos;
-      guiGraphics.blitSprite(RenderType::guiTextured, BG_LOCATION, i, j, this.imageWidth, this.imageHeight);
+      guiGraphics.blit(RenderType::guiTextured, BG_LOCATION, i, j, this.imageWidth, this.imageHeight);
       int k = (int)(41.0F * this.scrollOffs);
       guiGraphics.blit(RenderType::guiTextured, BG_LOCATION, i + 119, j + 15 + k, 176 + (this.isScrollBarActive() ? 0 : 12), 0, 12, 15, 256, 256);
       int l = this.leftPos + 52;
