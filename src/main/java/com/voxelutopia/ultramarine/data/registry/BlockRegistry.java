@@ -1,6 +1,6 @@
 package com.voxelutopia.ultramarine.data.registry;
 
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
