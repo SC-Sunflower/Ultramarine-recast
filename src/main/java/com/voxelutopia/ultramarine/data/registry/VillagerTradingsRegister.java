@@ -23,6 +23,10 @@ import net.minecraft.world.item.trading.MerchantOffer;
 public class VillagerTradingsRegister {
    private static final Map<VillagerProfession, Int2ObjectMap<ItemListing[]>> VANILLA_TRADES = new HashMap<>();
    private static final Int2ObjectMap<ItemListing[]> WANDERER_TRADES = new Int2ObjectOpenHashMap();
+   private static ItemListing[] safeTrades(ItemListing[] arr) {
+      return arr == null ? new ItemListing[0] : arr;
+   }
+
 
    public static void loadTrades() {
       ServerLifecycleEvents.SERVER_STARTING.register((ServerStarting)server -> {
