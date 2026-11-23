@@ -45,6 +45,9 @@ public class ContainerDecorativeBlockEntity extends RandomizableContainerBlockEn
 
    public ContainerDecorativeBlockEntity(BlockPos pos, BlockState state) {
       super(BlockEntityRegistry.CONTAINER_DECORATIVE_BLOCK, pos, state);
+      this.block = state.getBlock();
+      this.rows = this.block instanceof ContainerDecorativeBlock container ? container.getContainerType().getRows() : 3;
+      this.items = NonNullList.withSize(this.rows * 9, ItemStack.EMPTY);
    }
 
    public ContainerDecorativeBlockEntity(BlockPos pos, BlockState state, int rows) {
