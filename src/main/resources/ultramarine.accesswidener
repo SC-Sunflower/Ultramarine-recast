@@ -1,3 +1,5 @@
 accessWidener	v2	named
 accessible	method	net/minecraft/world/item/Item	getCraftingRemainder	()Lnet/minecraft/world/item/ItemStack;
 accessible	field	net/minecraft/world/level/block/entity/BlockEntity	remove	Z
+accessible field net/minecraft/world/level/block/state/BlockBehaviour properties Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
+accessible field net/minecraft/world/item/Item properties Lnet/minecraft/world/item/Item$Properties;
