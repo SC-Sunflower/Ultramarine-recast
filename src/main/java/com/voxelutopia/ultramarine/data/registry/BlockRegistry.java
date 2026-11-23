@@ -1961,7 +1961,8 @@ public class BlockRegistry {
    );
 
    public static Block registerBlock(String name, Block block) {
-      return (Block)Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath("ultramarine", name), block);
+      return (Block)block.properties.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("ultramarine", name)));
+      return Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath("ultramarine", name), block);
    }
 
    public static void registerBlockItem(String name, Block block) {
