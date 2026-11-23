@@ -1,4 +1,4 @@
-ackage com.voxelutopia.ultramarine.world.block;
+package com.voxelutopia.ultramarine.world.block;
 
 import com.voxelutopia.ultramarine.data.registry.BlockEntityRegistry;
 import com.voxelutopia.ultramarine.world.block.entity.BottleGourdBlockEntity;
