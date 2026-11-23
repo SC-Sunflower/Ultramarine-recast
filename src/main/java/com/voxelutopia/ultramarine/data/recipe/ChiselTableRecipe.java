@@ -149,7 +149,7 @@ public class ChiselTableRecipe implements Recipe<CraftingInput> {
             for (int i = 0; i < 4; i++) {
                 colors[i] = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
             }
-            colors = Arrays.stream(colors).filter(i -> !i.items().isEmpty()).toList().toArray(new Ingredient[0]);
+            colors = Arrays.stream(colors).filter(i -> i.items().findAny().isPresent()).toList().toArray(new Ingredient[0]);
             ItemStack result = ItemStack.STREAM_CODEC.decode(buf);
             return new ChiselTableRecipe(group, material, template, colors, result);
         }
