@@ -6,11 +6,15 @@ import com.voxelutopia.ultramarine.data.recipe.CompositeSmeltingRecipe;
 import com.voxelutopia.ultramarine.data.recipe.WoodworkingRecipe;
 import com.voxelutopia.ultramarine.data.registry.RecipeTypeRegistry;
 import java.util.List;
+import java.util.Optional;
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.DisplaySerializerRegistry;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.plugins.REICommonPlugin;
 import me.shedaniel.rei.api.common.registry.display.ServerDisplayRegistry;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 /**
  * Common (server + client) REI plugin for Ultramarine Recast.
@@ -24,27 +28,59 @@ public class UltramarineReiCommonPlugin implements REICommonPlugin {
     public void registerDisplays(ServerDisplayRegistry registry) {
         registry.beginRecipeFiller(WoodworkingRecipe.class)
                 .filterType(RecipeTypeRegistry.WOODWORKING)
-                .fill(holder -> new UltramarineDisplay(
-                        UltramarineReiPlugin.WOODWORKING, UltramarineReiPlugin.WOODWORKING.getNamespace(), UltramarineReiPlugin.WOODWORKING.getPath(),
-                        List.of(EntryIngredients.ofIngredient(holder.value().getIngredient())),
-                        List.of(EntryIngredients.of(holder.value().getResultStack())),
-                        java.util.Optional.of(holder.id().location())));
+                .fill(UltramarineReiCommonPlugin::woodworkingDisplay);
 
         registry.beginRecipeFiller(ChiselTableRecipe.class)
                 .filterType(RecipeTypeRegistry.CHISEL_TABLE)
-                .fill(holder -> new UltramarineDisplay(
-                        UltramarineReiPlugin.CHISEL_TABLE, UltramarineReiPlugin.CHISEL_TABLE.getNamespace(), UltramarineReiPlugin.CHISEL_TABLE.getPath(),
-                        List.of(EntryIngredients.ofIngredient(holder.value().getMaterial()), EntryIngredients.ofIngredient(holder.value().getTemplate())),
-                        List.of(EntryIngredients.of(holder.value().getResultStack())),
-                        java.util.Optional.of(holder.id().location())));
+                .fill(UltramarineReiCommonPlugin::chiselTableDisplay);
 
         registry.beginRecipeFiller(CompositeSmeltingRecipe.class)
                 .filterType(RecipeTypeRegistry.COMPOSITE_SMELTING)
-                .fill(holder -> new UltramarineDisplay(
-                        UltramarineReiPlugin.COMPOSITE_SMELTING, UltramarineReiPlugin.COMPOSITE_SMELTING.getNamespace(), UltramarineReiPlugin.COMPOSITE_SMELTING.getPath(),
-                        List.of(EntryIngredients.ofIngredient(holder.value().getPrimaryIngredient()), EntryIngredients.ofIngredient(holder.value().getSecondaryIngredient())),
-                        List.of(EntryIngredients.of(holder.value().getResultStack())),
-                        java.util.Optional.of(holder.id().location())));
+                .fill(UltramarineReiCommonPlugin::compositeSmeltingDisplay);
+    }
+
+    private static UltramarineDisplay woodworkingDisplay(RecipeHolder<WoodworkingRecipe> holder) {
+        try {
+            return newDisplay(UltramarineReiCategories.WOODWORKING,
+                    List.of(EntryIngredients.ofIngredient(holder.value().getIngredient())),
+                    List.of(EntryIngredients.of(holder.value().getResultStack())),
+                    holder);
+        } catch (Throwable t) {
+            Ultramarine.LOGGER.error("REI woodworking filler failed for recipe {}", holder.id(), t);
+            throw t;
+        }
+    }
+
+    private static UltramarineDisplay chiselTableDisplay(RecipeHolder<ChiselTableRecipe> holder) {
+        try {
+            return newDisplay(UltramarineReiCategories.CHISEL_TABLE,
+                    List.of(EntryIngredients.ofIngredient(holder.value().getMaterial()), EntryIngredients.ofIngredient(holder.value().getTemplate())),
+                    List.of(EntryIngredients.of(holder.value().getResultStack())),
+                    holder);
+        } catch (Throwable t) {
+            Ultramarine.LOGGER.error("REI chisel table filler failed for recipe {}", holder.id(), t);
+            throw t;
+        }
+    }
+
+    private static UltramarineDisplay compositeSmeltingDisplay(RecipeHolder<CompositeSmeltingRecipe> holder) {
+        try {
+            return newDisplay(UltramarineReiCategories.COMPOSITE_SMELTING,
+                    List.of(EntryIngredients.ofIngredient(holder.value().getPrimaryIngredient()), EntryIngredients.ofIngredient(holder.value().getSecondaryIngredient())),
+                    List.of(EntryIngredients.of(holder.value().getResultStack())),
+                    holder);
+        } catch (Throwable t) {
+            Ultramarine.LOGGER.error("REI composite smelting filler failed for recipe {}", holder.id(), t);
+            throw t;
+        }
+    }
+
+    private static UltramarineDisplay newDisplay(CategoryIdentifier<UltramarineDisplay> category,
+                                                 List<EntryIngredient> inputs,
+                                                 List<EntryIngredient> outputs,
+                                                 RecipeHolder<?> holder) {
+        return new UltramarineDisplay(category, category.getNamespace(), category.getPath(),
+                inputs, outputs, Optional.of(holder.id().location()));
     }
 
     @Override
@@ -52,3 +88,4 @@ public class UltramarineReiCommonPlugin implements REICommonPlugin {
         registry.register(ResourceLocation.fromNamespaceAndPath(Ultramarine.MOD_ID, "custom_recipe"), UltramarineDisplay.SERIALIZER);
     }
 }
+

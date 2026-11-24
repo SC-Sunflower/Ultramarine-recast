@@ -3,7 +3,6 @@ package com.voxelutopia.ultramarine.compat.rei;
 import com.voxelutopia.ultramarine.data.registry.ItemRegistry;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
-import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -14,9 +13,9 @@ import net.minecraft.world.item.ItemStack;
  * server ({@link UltramarineReiCommonPlugin}) and synced to the client.
  */
 public class UltramarineReiPlugin implements REIClientPlugin {
-    public static final CategoryIdentifier<UltramarineDisplay> WOODWORKING = CategoryIdentifier.of("ultramarine", "woodworking");
-    public static final CategoryIdentifier<UltramarineDisplay> CHISEL_TABLE = CategoryIdentifier.of("ultramarine", "chisel_table");
-    public static final CategoryIdentifier<UltramarineDisplay> COMPOSITE_SMELTING = CategoryIdentifier.of("ultramarine", "composite_smelting");
+    public static final me.shedaniel.rei.api.common.category.CategoryIdentifier<UltramarineDisplay> WOODWORKING = UltramarineReiCategories.WOODWORKING;
+    public static final me.shedaniel.rei.api.common.category.CategoryIdentifier<UltramarineDisplay> CHISEL_TABLE = UltramarineReiCategories.CHISEL_TABLE;
+    public static final me.shedaniel.rei.api.common.category.CategoryIdentifier<UltramarineDisplay> COMPOSITE_SMELTING = UltramarineReiCategories.COMPOSITE_SMELTING;
 
     @Override
     public void registerCategories(CategoryRegistry registry) {
