@@ -8,11 +8,11 @@
       "item": "ultramarine:red_dye_powder"
     },
     {
-      "tag": "c:dyes/light_blue"
+      "tag": "#c:dyes/light_blue"
     }
   ],
   "material": {
-    "tag": "ultramarine:polished_planks"
+    "tag": "#ultramarine:polished_planks"
   },
   "result": "ultramarine:light_blue_su_style_caihua",
   "template": {

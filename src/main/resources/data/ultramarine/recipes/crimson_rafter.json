@@ -1,7 +1,7 @@
 {
   "type": "ultramarine:woodworking",
   "ingredient": {
-    "tag": "minecraft:crimson_stems"
+    "tag": "#minecraft:crimson_stems"
   },
   "result": { "id": "ultramarine:crimson_rafter", "count": 1 }
 }

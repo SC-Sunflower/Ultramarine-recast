@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [],
-            "tag": "minecraft:wooden_fences"
+            "tag": "#minecraft:wooden_fences"
           }
         ]
       },

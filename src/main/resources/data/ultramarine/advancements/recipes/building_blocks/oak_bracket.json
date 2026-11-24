@@ -12,7 +12,7 @@
         "items": [
           {
             "items": [],
-            "tag": "minecraft:oak_logs"
+            "tag": "#minecraft:oak_logs"
           }
         ]
       },

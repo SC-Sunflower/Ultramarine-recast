@@ -9,7 +9,7 @@
       "item": "minecraft:stick"
     },
     "W": {
-      "tag": "ultramarine:polished_planks"
+      "tag": "#ultramarine:polished_planks"
     }
   },
   "pattern": [

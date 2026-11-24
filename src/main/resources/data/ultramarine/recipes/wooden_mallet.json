@@ -3,10 +3,10 @@
   "category": "equipment",
   "key": {
     "S": {
-      "tag": "minecraft:wooden_fences"
+      "tag": "#minecraft:wooden_fences"
     },
     "W": {
-      "tag": "minecraft:planks"
+      "tag": "#minecraft:planks"
     }
   },
   "pattern": [
