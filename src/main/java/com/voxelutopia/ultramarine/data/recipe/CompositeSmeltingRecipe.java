@@ -72,7 +72,7 @@ public class CompositeSmeltingRecipe implements Recipe<CraftingInput> {
    }
 
    public PlacementInfo placementInfo() {
-      return PlacementInfo.NOT_PLACEABLE;
+      return PlacementInfo.create(java.util.List.of(this.primaryIngredient, this.secondaryIngredient));
    }
 
     public Ingredient getPrimaryIngredient() {
