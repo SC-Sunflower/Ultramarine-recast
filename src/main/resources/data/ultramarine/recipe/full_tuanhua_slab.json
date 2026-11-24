@@ -1,0 +1,12 @@
+{
+  "type": "ultramarine:chisel_table",
+  "colors": [
+    "#c:dyes/cyan",
+    "ultramarine:light_blue_dye_powder",
+    "ultramarine:yellow_dye_powder",
+    "ultramarine:cyan_dye_powder"
+  ],
+  "material": "#minecraft:logs",
+  "result": "ultramarine:full_tuanhua_slab",
+  "template": "ultramarine:architrave_template"
+}

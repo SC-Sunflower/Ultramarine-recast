@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "#minecraft:candles",
+    "D": "minecraft:red_dye",
+    "F": "ultramarine:wooden_frame",
+    "X": "ultramarine:xuan_paper"
+  },
+  "pattern": [
+    "XDX",
+    "XCX",
+    " F "
+  ],
+  "result": {
+    "id": "ultramarine:red_sky_lantern"
+  },
+  "show_notification": true
+}

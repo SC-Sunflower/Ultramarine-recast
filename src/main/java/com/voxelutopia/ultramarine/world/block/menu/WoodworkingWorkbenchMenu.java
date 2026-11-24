@@ -6,9 +6,13 @@ import com.google.common.collect.Lists;
 import com.voxelutopia.ultramarine.data.recipe.WoodworkingRecipe;
 import com.voxelutopia.ultramarine.data.registry.BlockRegistry;
 import com.voxelutopia.ultramarine.data.registry.MenuTypeRegistry;
-import com.voxelutopia.ultramarine.data.registry.RecipeTypeRegistry;
 import com.voxelutopia.ultramarine.data.registry.SoundRegistry;
+import com.voxelutopia.ultramarine.network.WoodworkingRecipesS2CPayload;
+import java.util.ArrayList;
 import java.util.List;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -23,6 +27,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 
@@ -36,7 +41,12 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
    private final ContainerLevelAccess access;
    private final DataSlot selectedRecipeIndex = DataSlot.standalone();
    private final Level level;
+   private final Player player;
+   // Server side: full recipe holders for the current input.
    private List<RecipeHolder<WoodworkingRecipe>> recipes = Lists.newArrayList();
+   // Client side: results/ids synced by the server (the client has no recipe manager in 1.21.2+).
+   private List<ItemStack> clientResults = List.of();
+   private List<ResourceLocation> clientRecipeIds = List.of();
    private ItemStack input = ItemStack.EMPTY;
    final Slot inputSlot;
    final Slot resultSlot;
@@ -59,6 +69,7 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
       super(MenuTypeRegistry.WOODWORKING_WORKBENCH, id);
       this.access = levelAccess;
       this.level = inventory.player.level();
+      this.player = inventory.player;
       this.inputSlot = this.addSlot(new Slot(this.container, 0, 20, 33));
       this.resultSlot = this.addSlot(new Slot(this.resultContainer, 1, 143, 33) {
          public boolean mayPlace(ItemStack itemStack) {
@@ -106,11 +117,18 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
    }
 
    public int getNumRecipes() {
-      return this.recipes.size();
+      return this.level.isClientSide() ? this.clientResults.size() : this.recipes.size();
+   }
+
+   public ItemStack getRecipeResult(int index) {
+      if (this.level.isClientSide()) {
+         return index >= 0 && index < this.clientResults.size() ? this.clientResults.get(index).copy() : ItemStack.EMPTY;
+      }
+      return index >= 0 && index < this.recipes.size() ? this.recipes.get(index).value().getResultStack() : ItemStack.EMPTY;
    }
 
    public boolean hasInputItem() {
-      return this.inputSlot.hasItem() && !this.recipes.isEmpty();
+      return this.inputSlot.hasItem() && this.getNumRecipes() > 0;
    }
 
    public boolean stillValid(Player pPlayer) {
@@ -127,7 +145,7 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
    }
 
    private boolean isValidRecipeIndex(int p_40335_) {
-      return p_40335_ >= 0 && p_40335_ < this.recipes.size();
+      return p_40335_ >= 0 && p_40335_ < this.getNumRecipes();
    }
 
    public void slotsChanged(Container pInventory) {
@@ -140,23 +158,60 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
 
    private void setupRecipeList(Container pInventory, ItemStack pStack) {
       this.recipes.clear();
+      this.clientResults = List.of();
+      this.clientRecipeIds = List.of();
       this.selectedRecipeIndex.set(-1);
       this.resultSlot.set(ItemStack.EMPTY);
+      if (this.level.isClientSide()) {
+         // The client cannot look up recipes itself; the server sends them back
+         // via WoodworkingRecipesS2CPayload after processing the same slot change.
+         return;
+      }
+
       if (!pStack.isEmpty()) {
+         RecipeManager recipeManager = RecipeManagerAccess.get(this.level);
+         if (recipeManager == null) {
+            return;
+         }
          SingleRecipeInput input = new SingleRecipeInput(pStack);
-         this.recipes = RecipeManagerAccess.get(this.level).getRecipes().stream()
+         this.recipes = recipeManager.getRecipes().stream()
                .filter(holder -> holder.value() instanceof WoodworkingRecipe)
                .map(holder -> (RecipeHolder<WoodworkingRecipe>)holder)
-               .filter(holder -> ((WoodworkingRecipe)holder.value()).matches(input, this.level))
-               .collect(java.util.stream.Collectors.toCollection(java.util.ArrayList::new));
+               .filter(holder -> holder.value().matches(input, this.level))
+               .collect(java.util.stream.Collectors.toCollection(ArrayList::new));
+      }
+
+      if (this.player instanceof ServerPlayer serverPlayer) {
+         List<ItemStack> results = this.recipes.stream().map(holder -> holder.value().getResultStack()).toList();
+         List<ResourceLocation> ids = this.recipes.stream().map(holder -> holder.id().location()).toList();
+         ServerPlayNetworking.send(serverPlayer, new WoodworkingRecipesS2CPayload(results, ids));
       }
    }
 
+   /**
+    * Called on the client when the server pushes the matching recipe list.
+    */
+   public void receiveRecipes(List<ItemStack> results, List<ResourceLocation> ids) {
+      if (!this.level.isClientSide()) {
+         return;
+      }
+      this.clientResults = results;
+      this.clientRecipeIds = ids;
+      if (this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
+         this.setupResultSlot();
+      }
+      this.slotUpdateListener.run();
+   }
+
    void setupResultSlot() {
-      if (!this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
-         RecipeHolder<WoodworkingRecipe> holder = this.recipes.get(this.selectedRecipeIndex.get());
-         this.resultContainer.setRecipeUsed(holder);
-         this.resultSlot.set(((WoodworkingRecipe)holder.value()).assemble(new SingleRecipeInput(this.container.getItem(0)), this.level.registryAccess()));
+      if (this.getNumRecipes() > 0 && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
+         if (this.level.isClientSide()) {
+            this.resultSlot.set(this.clientResults.get(this.selectedRecipeIndex.get()).copy());
+         } else {
+            RecipeHolder<WoodworkingRecipe> holder = this.recipes.get(this.selectedRecipeIndex.get());
+            this.resultContainer.setRecipeUsed(holder);
+            this.resultSlot.set(holder.value().assemble(new SingleRecipeInput(this.container.getItem(0)), this.level.registryAccess()));
+         }
       } else {
          this.resultSlot.set(ItemStack.EMPTY);
       }
@@ -194,11 +249,7 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
             if (!this.moveItemStackTo(slotItem, 2, 38, false)) {
                return ItemStack.EMPTY;
             }
-         } else if (RecipeManagerAccess.get(this.level)
-            .getRecipes()
-            .stream()
-            .filter(holder -> holder.value() instanceof WoodworkingRecipe)
-            .anyMatch(holder -> ((WoodworkingRecipe)holder.value()).matches(new SingleRecipeInput(slotItem), this.level))) {
+         } else if (!this.level.isClientSide() && this.acceptsInput(slotItem)) {
             if (!this.moveItemStackTo(slotItem, 0, 1, false)) {
                return ItemStack.EMPTY;
             }
@@ -224,6 +275,16 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
       }
 
       return itemstack;
+   }
+
+   private boolean acceptsInput(ItemStack stack) {
+      RecipeManager recipeManager = RecipeManagerAccess.get(this.level);
+      if (recipeManager == null) {
+         return false;
+      }
+      return recipeManager.getRecipes().stream()
+            .filter(holder -> holder.value() instanceof WoodworkingRecipe)
+            .anyMatch(holder -> ((WoodworkingRecipe)holder.value()).matches(new SingleRecipeInput(stack), this.level));
    }
 
    public void removed(Player pPlayer) {

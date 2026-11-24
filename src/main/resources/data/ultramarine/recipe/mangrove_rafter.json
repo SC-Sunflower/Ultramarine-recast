@@ -1,0 +1,5 @@
+{
+  "type": "ultramarine:woodworking",
+  "ingredient": "#minecraft:mangrove_logs",
+  "result": "ultramarine:mangrove_rafter"
+}
