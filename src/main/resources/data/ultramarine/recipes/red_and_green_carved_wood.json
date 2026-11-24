@@ -2,14 +2,14 @@
   "type": "ultramarine:chisel_table",
   "colors": [
     {
-      "tag": "c:dyes/red"
+      "tag": "#c:dyes/red"
     },
     {
-      "tag": "c:dyes/green"
+      "tag": "#c:dyes/green"
     }
   ],
   "material": {
-    "tag": "minecraft:logs"
+    "tag": "#minecraft:logs"
   },
   "result": "ultramarine:red_and_green_carved_wood",
   "template": {

@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "B": {
-      "tag": "minecraft:banners"
+      "tag": "#minecraft:banners"
     },
     "F": {
-      "tag": "minecraft:wooden_fences"
+      "tag": "#minecraft:wooden_fences"
     },
     "P": {
       "item": "ultramarine:wooden_parts"

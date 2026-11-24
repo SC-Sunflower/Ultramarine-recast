@@ -12,7 +12,7 @@
         "items": [
           {
             "items": [],
-            "tag": "minecraft:birch_logs"
+            "tag": "#minecraft:birch_logs"
           }
         ]
       },
