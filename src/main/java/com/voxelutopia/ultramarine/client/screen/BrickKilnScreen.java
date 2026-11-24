@@ -21,7 +21,7 @@ public class BrickKilnScreen extends AbstractContainerScreen<BrickKilnMenu> {
    }
 
    protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-      guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, BACKGROUND, this.leftPos, this.topPos, this.imageWidth, this.imageHeight);
+      guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
       if (((BrickKilnMenu)this.menu).isLit()) {
          int k = ((BrickKilnMenu)this.menu).getLitProgress();
          guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, this.leftPos + 56, this.topPos + 36 + 12 - k, 176, 12 - k, 14, k + 1, 256, 256);
