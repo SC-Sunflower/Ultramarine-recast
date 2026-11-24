@@ -7,7 +7,7 @@
     "item": "minecraft:golden_pickaxe"
   },
   "result": {
-    "item": "ultramarine:blue_and_white_porcelain_pickaxe"
+    "id": "ultramarine:blue_and_white_porcelain_pickaxe"
   },
   "template": {
     "item": "ultramarine:blue_and_white_porcelain_upgrade_smithing_template"

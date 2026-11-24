@@ -14,7 +14,7 @@
     "G"
   ],
   "result": {
-    "item": "minecraft:white_candle"
+    "id": "minecraft:white_candle"
   },
   "show_notification": true
 }

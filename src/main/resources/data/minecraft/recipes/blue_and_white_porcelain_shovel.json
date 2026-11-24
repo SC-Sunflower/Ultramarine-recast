@@ -7,7 +7,7 @@
     "item": "minecraft:golden_shovel"
   },
   "result": {
-    "item": "ultramarine:blue_and_white_porcelain_shovel"
+    "id": "ultramarine:blue_and_white_porcelain_shovel"
   },
   "template": {
     "item": "ultramarine:blue_and_white_porcelain_upgrade_smithing_template"

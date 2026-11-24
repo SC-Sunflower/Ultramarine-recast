@@ -7,7 +7,7 @@
     "item": "minecraft:golden_sword"
   },
   "result": {
-    "item": "ultramarine:blue_and_white_porcelain_sword"
+    "id": "ultramarine:blue_and_white_porcelain_sword"
   },
   "template": {
     "item": "ultramarine:blue_and_white_porcelain_upgrade_smithing_template"

@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "minecraft:mangrove_planks"
   },
-  "result": "ultramarine:rosewood_planks"
+  "result": {
+    "id": "ultramarine:rosewood_planks"
+  }
 }
