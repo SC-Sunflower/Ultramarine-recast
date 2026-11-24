@@ -5,7 +5,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.voxelutopia.ultramarine.data.registry.RecipeSerializerRegistry;
 import com.voxelutopia.ultramarine.data.registry.RecipeTypeRegistry;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -18,8 +20,10 @@ public class WoodworkingRecipe extends SingleItemRecipe {
     public static final Codec<WoodworkingRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
             Ingredient.CODEC.fieldOf("ingredient").forGetter(recipe -> recipe.ingredient),
-            ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
-    ).apply(instance, (group, ingredient, result) -> new WoodworkingRecipe(group, ingredient, result)));
+            Codec.INT.optionalFieldOf("count", 1).forGetter(recipe -> recipe.result.getCount()),
+            Codec.STRING.fieldOf("result").forGetter(recipe -> BuiltInRegistries.ITEM.getKey(recipe.result.getItem()).toString())
+    ).apply(instance, (group, ingredient, count, resultId) -> new WoodworkingRecipe(group, ingredient,
+            new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(resultId)), count))));
 
     public WoodworkingRecipe(String pGroup, Ingredient pIngredient, ItemStack pResult) {
         super(RecipeTypeRegistry.WOODWORKING, RecipeSerializerRegistry.WOODWORKING_SERIALIZER, pGroup, pIngredient, pResult);

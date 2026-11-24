@@ -17,7 +17,7 @@
   "material": {
     "tag": "ultramarine:polished_planks"
   },
-  "result": { "item": "ultramarine:loong_tuanhua", "count": 1 },
+  "result": "ultramarine:loong_tuanhua",
   "template": {
     "item": "ultramarine:caihua_template"
   }
