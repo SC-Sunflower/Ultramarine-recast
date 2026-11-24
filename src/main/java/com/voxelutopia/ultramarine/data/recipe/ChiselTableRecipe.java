@@ -80,7 +80,7 @@ public class ChiselTableRecipe implements Recipe<CraftingInput> {
    }
 
    public PlacementInfo placementInfo() {
-      return PlacementInfo.NOT_PLACEABLE;
+      return PlacementInfo.create(List.of(this.material, this.template));
    }
 
     public ItemStack getResultItem(HolderLookup.Provider provider) {
