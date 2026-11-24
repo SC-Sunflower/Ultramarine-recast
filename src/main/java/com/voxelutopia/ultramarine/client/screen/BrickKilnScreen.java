@@ -9,7 +9,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
 public class BrickKilnScreen extends AbstractContainerScreen<BrickKilnMenu> {
-   private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath("ultramarine", "container/brick_kiln");
+   private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath("ultramarine", "textures/gui/sprites/container/brick_kiln.png");
 
    public BrickKilnScreen(BrickKilnMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
       super(pMenu, pPlayerInventory, pTitle);

@@ -9,7 +9,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
 public class ChiselTableScreen extends AbstractContainerScreen<ChiselTableMenu> {
-   private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath("ultramarine", "container/chisel_table");
+   private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath("ultramarine", "textures/gui/sprites/container/chisel_table.png");
 
    public ChiselTableScreen(ChiselTableMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
       super(pMenu, pPlayerInventory, pTitle);

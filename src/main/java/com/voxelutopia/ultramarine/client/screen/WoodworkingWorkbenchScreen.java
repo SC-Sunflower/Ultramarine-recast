@@ -18,7 +18,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 
 public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<WoodworkingWorkbenchMenu> {
-   private static final Identifier BG_LOCATION = Identifier.withDefaultNamespace("container/stonecutter");
+   private static final Identifier BG_LOCATION = Identifier.withDefaultNamespace("textures/gui/container/stonecutter.png");
    private static final int SCROLLER_WIDTH = 12;
    private static final int SCROLLER_HEIGHT = 15;
    private static final int RECIPES_COLUMNS = 4;
