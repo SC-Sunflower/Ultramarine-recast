@@ -48,7 +48,7 @@ public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<Woodwork
    protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pX, int pY) {
                         int i = this.leftPos;
       int j = this.topPos;
-      guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, BG_LOCATION, i, j, this.imageWidth, this.imageHeight);
+      guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BG_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
       int k = (int)(41.0F * this.scrollOffs);
       guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BG_LOCATION, i + 119, j + 15 + k, 176 + (this.isScrollBarActive() ? 0 : 12), 0, 12, 15, 256, 256);
       int l = this.leftPos + 52;
