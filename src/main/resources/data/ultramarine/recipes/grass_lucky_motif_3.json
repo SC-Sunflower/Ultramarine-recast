@@ -14,7 +14,7 @@
   "material": {
     "tag": "ultramarine:polished_planks"
   },
-  "result": { "item": "ultramarine:grass_lucky_motif_3", "count": 1 },
+  "result": "ultramarine:grass_lucky_motif_3",
   "template": {
     "item": "ultramarine:caihua_template"
   }

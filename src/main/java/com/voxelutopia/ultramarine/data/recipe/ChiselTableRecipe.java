@@ -10,7 +10,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -31,9 +33,11 @@ public class ChiselTableRecipe implements Recipe<Container> {
             Ingredient.CODEC.fieldOf("material").forGetter(recipe -> recipe.material),
             Ingredient.CODEC.fieldOf("template").forGetter(recipe -> recipe.template),
             Ingredient.CODEC.listOf().fieldOf("colors").forGetter(recipe -> recipe.colors),
-            ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
-    ).apply(instance, (group, material, template, colors, result) ->
-            new ChiselTableRecipe(group, material, template, colors.toArray(new Ingredient[0]), result)));
+            Codec.INT.optionalFieldOf("count", 1).forGetter(recipe -> recipe.result.getCount()),
+            Codec.STRING.fieldOf("result").forGetter(recipe -> BuiltInRegistries.ITEM.getKey(recipe.result.getItem()).toString())
+    ).apply(instance, (group, material, template, colors, count, resultId) ->
+            new ChiselTableRecipe(group, material, template, colors.toArray(new Ingredient[0]),
+                    new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(resultId)), count))));
 
     public ChiselTableRecipe(String pGroup, Ingredient material, Ingredient template, Ingredient[] colors, ItemStack pResult) {
         this.group = pGroup;
