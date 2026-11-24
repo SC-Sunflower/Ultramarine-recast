@@ -7,7 +7,7 @@
 #   powershell -ExecutionPolicy Bypass -File scripts/sync-release.ps1 -OnlySync  # sync existing build/libs jars only
 #
 # Variant jars:
-#   1.20   <- 1.20.1 jar + scripts/patch-mc-version.ps1 (bundled Porting Lib range patch)
+#   1.20   <- same jar as 1.20.1 after fix-1.20-fatjar.ps1 (flat modules, minecraft "*")
 #   1.21   <- copy of the 1.21.1 jar (fabric.mod.json range already covers 1.21.0)
 #   1.21.3 <- copy of the 1.21.2 jar (same datapack formats, range covers 1.21.3)
 #   1.21.8 <- NOT automated: fabric/1.21.9 code uses 1.21.9-only APIs. See
@@ -94,12 +94,23 @@ foreach ($entry in $matrix) {
 }
 
 # --- variants ---
+# 1.20/1.20.1: the main-branch jar must be flattened by fix-1.20-fatjar.ps1 (Loader
+# cannot see classes two nesting levels deep). The script rewrites the 39 bundled
+# module jars flat into META-INF/jars and patches each module's minecraft declaration
+# to "*", so the SAME jar loads on both 1.20 and 1.20.1.
 $r1201 = Join-Path $release 'ultramarine-recast-fabric-1.20.1-0.7.0.jar'
 if (Test-Path $r1201) {
-    $r120 = Join-Path $release 'ultramarine-recast-fabric-1.20-0.7.0.jar'
-    Copy-Item $r1201 $r120 -Force
-    & powershell -ExecutionPolicy Bypass -File (Join-Path $root 'scripts/patch-mc-version.ps1') -JarPath $r120
-    Write-Host '[1.20] patched from 1.20.1 jar'
+    $libDir = Join-Path $root 'libs/porting-lib'
+    if (-not (Test-Path $libDir) -or (Get-ChildItem $libDir -Filter '*.jar' -ErrorAction SilentlyContinue | Measure-Object).Count -lt 39) {
+        & powershell -ExecutionPolicy Bypass -File (Join-Path $root 'scripts/fetch-porting-lib.ps1')
+    }
+    $buildLibs = Join-Path $root 'build/libs'
+    New-Item -ItemType Directory -Force -Path $buildLibs | Out-Null
+    Copy-Item $r1201 (Join-Path $buildLibs 'ultramarine-recast-fabric-1.20.1-0.7.0.jar') -Force
+    & powershell -ExecutionPolicy Bypass -File (Join-Path $root 'scripts/fix-1.20-fatjar.ps1')
+    Copy-Item (Join-Path $buildLibs 'ultramarine-recast-fabric-1.20.1-0.7.0.jar') $r1201 -Force
+    Copy-Item $r1201 (Join-Path $release 'ultramarine-recast-fabric-1.20-0.7.0.jar') -Force
+    Write-Host '[1.20/1.20.1] fatjar flattened (39 modules, minecraft declaration "*")'
 }
 
 $r1211 = Join-Path $release 'ultramarine-recast-fabric-1.21.1-0.7.0.jar'

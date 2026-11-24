@@ -5,7 +5,7 @@
 
 | jar 文件 | 来源分支 | 说明 |
 |---|---|---|
-| ultramarine-recast-fabric-1.20-0.7.0.jar | main（1.20.1 构建）+ patch-mc-version.ps1 | bundled Porting Lib 依赖范围已改为 >=1.20 <1.20.2 |
+| ultramarine-recast-fabric-1.20-0.7.0.jar | main（1.20.1 构建）+ fix-1.20-fatjar.ps1 | 与 1.20.1 同一 jar：39 个 Porting Lib 模块已平铺注入，模块 minecraft 声明为 `*`，1.20/1.20.1 通用 |
 | ultramarine-recast-fabric-1.20.1-0.7.0.jar | main | 需先 fetch-porting-lib.ps1 |
 | ultramarine-recast-fabric-1.20.2 … 1.20.6 | fabric/1.20.2 … fabric/1.20.6 | |
 | ultramarine-recast-fabric-1.21-0.7.0.jar | fabric/1.21.1 构建产物复制 | fabric.mod.json 范围 >=1.21 <1.21.2 |
