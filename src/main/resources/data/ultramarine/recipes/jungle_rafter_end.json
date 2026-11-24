@@ -3,5 +3,6 @@
   "ingredient": {
     "tag": "minecraft:jungle_logs"
   },
-  "result": { "item": "ultramarine:jungle_rafter_end", "count": 1 }
+  "result": "ultramarine:jungle_rafter_end",
+  "count": 1
 }

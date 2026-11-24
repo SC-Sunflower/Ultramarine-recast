@@ -3,5 +3,6 @@
   "ingredient": {
     "tag": "minecraft:birch_logs"
   },
-  "result": { "item": "ultramarine:birch_rafter_end", "count": 1 }
+  "result": "ultramarine:birch_rafter_end",
+  "count": 1
 }

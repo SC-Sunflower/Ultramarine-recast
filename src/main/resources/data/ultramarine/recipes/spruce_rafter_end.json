@@ -3,5 +3,6 @@
   "ingredient": {
     "tag": "minecraft:spruce_logs"
   },
-  "result": { "item": "ultramarine:spruce_rafter_end", "count": 1 }
+  "result": "ultramarine:spruce_rafter_end",
+  "count": 1
 }
