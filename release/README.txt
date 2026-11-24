@@ -1,12 +1,11 @@
 # release 目录说明
 
 本目录按 **Minecraft 版本号** 严格区分：每个正式版本一个独立 jar 文件
-（即使 1.20/1.20.1 与 1.21/1.21.1 内容相同，也各有一个文件）。
+（1.21 与 1.21.1 内容相同也各有一个文件）。**已放弃 Minecraft 1.20 支持**（1.20.1 起）。
 
 | jar 文件 | 来源分支 | 说明 |
 |---|---|---|
-| ultramarine-recast-fabric-1.20-0.7.0.jar | main（1.20.1 构建）+ fix-1.20-fatjar.ps1 | 与 1.20.1 同一 jar：39 个 Porting Lib 模块已平铺注入，模块 minecraft 声明为 `*`，1.20/1.20.1 通用 |
-| ultramarine-recast-fabric-1.20.1-0.7.0.jar | main | 需先 fetch-porting-lib.ps1 |
+| ultramarine-recast-fabric-1.20.1-0.7.0.jar | main | 需先 fetch-porting-lib.ps1，构建后跑 fix-1.20-fatjar.ps1 |
 | ultramarine-recast-fabric-1.20.2 … 1.20.6 | fabric/1.20.2 … fabric/1.20.6 | |
 | ultramarine-recast-fabric-1.21-0.7.0.jar | fabric/1.21.1 构建产物复制 | fabric.mod.json 范围 >=1.21 <1.21.2 |
 | ultramarine-recast-fabric-1.21.1-0.7.0.jar | fabric/1.21.1 | |

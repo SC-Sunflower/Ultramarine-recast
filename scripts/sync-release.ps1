@@ -7,11 +7,12 @@
 #   powershell -ExecutionPolicy Bypass -File scripts/sync-release.ps1 -OnlySync  # sync existing build/libs jars only
 #
 # Variant jars:
-#   1.20   <- same jar as 1.20.1 after fix-1.20-fatjar.ps1 (flat modules, minecraft "*")
+#   1.20.1 <- main branch jar + fix-1.20-fatjar.ps1 (flat 39 modules)
 #   1.21   <- copy of the 1.21.1 jar (fabric.mod.json range already covers 1.21.0)
 #   1.21.3 <- copy of the 1.21.2 jar (same datapack formats, range covers 1.21.3)
 #   1.21.8 <- NOT automated: fabric/1.21.9 code uses 1.21.9-only APIs. See
 #             scripts/notes-1.21.8-build.md for the manual steps.
+# (Minecraft 1.20 support was dropped; only 1.20.1 and newer are shipped.)
 $ErrorActionPreference = 'Stop'
 
 $root = Split-Path -Parent $PSScriptRoot
@@ -94,10 +95,9 @@ foreach ($entry in $matrix) {
 }
 
 # --- variants ---
-# 1.20/1.20.1: the main-branch jar must be flattened by fix-1.20-fatjar.ps1 (Loader
+# 1.20.1: the main-branch jar must be flattened by fix-1.20-fatjar.ps1 (Loader
 # cannot see classes two nesting levels deep). The script rewrites the 39 bundled
-# module jars flat into META-INF/jars and patches each module's minecraft declaration
-# to "*", so the SAME jar loads on both 1.20 and 1.20.1.
+# module jars flat into META-INF/jars. (1.20 support was dropped.)
 $r1201 = Join-Path $release 'ultramarine-recast-fabric-1.20.1-0.7.0.jar'
 if (Test-Path $r1201) {
     $libDir = Join-Path $root 'libs/porting-lib'
@@ -109,8 +109,7 @@ if (Test-Path $r1201) {
     Copy-Item $r1201 (Join-Path $buildLibs 'ultramarine-recast-fabric-1.20.1-0.7.0.jar') -Force
     & powershell -ExecutionPolicy Bypass -File (Join-Path $root 'scripts/fix-1.20-fatjar.ps1')
     Copy-Item (Join-Path $buildLibs 'ultramarine-recast-fabric-1.20.1-0.7.0.jar') $r1201 -Force
-    Copy-Item $r1201 (Join-Path $release 'ultramarine-recast-fabric-1.20-0.7.0.jar') -Force
-    Write-Host '[1.20/1.20.1] fatjar flattened (39 modules, minecraft declaration "*")'
+    Write-Host '[1.20.1] fatjar flattened (39 modules)'
 }
 
 $r1211 = Join-Path $release 'ultramarine-recast-fabric-1.21.1-0.7.0.jar'
