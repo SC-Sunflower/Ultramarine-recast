@@ -7,6 +7,6 @@
   },
   "result": "ultramarine:royal_censer",
   "secondary_ingredient": {
-    "tag": "c:dyes/cyan"
+    "tag": "#c:dyes/cyan"
   }
 }

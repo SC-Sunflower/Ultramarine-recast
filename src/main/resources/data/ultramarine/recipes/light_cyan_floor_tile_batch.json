@@ -6,7 +6,7 @@
       "item": "ultramarine:cyan_floor_tile"
     },
     "D": {
-      "tag": "c:dyes/white"
+      "tag": "#c:dyes/white"
     }
   },
   "pattern": [

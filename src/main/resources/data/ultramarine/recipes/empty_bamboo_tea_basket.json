@@ -6,7 +6,7 @@
       "item": "minecraft:bamboo"
     },
     "P": {
-      "tag": "minecraft:planks"
+      "tag": "#minecraft:planks"
     },
     "R": {
       "item": "minecraft:red_dye"

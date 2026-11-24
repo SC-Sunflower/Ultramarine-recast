@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "P": {
-      "tag": "minecraft:planks"
+      "tag": "#minecraft:planks"
     },
     "R": {
       "item": "ultramarine:small_red_lantern"

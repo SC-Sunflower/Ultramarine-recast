@@ -2,17 +2,17 @@
   "type": "ultramarine:chisel_table",
   "colors": [
     {
-      "tag": "c:dyes/red"
+      "tag": "#c:dyes/red"
     },
     {
-      "tag": "c:dyes/blue"
+      "tag": "#c:dyes/blue"
     },
     {
-      "tag": "c:dyes/red"
+      "tag": "#c:dyes/red"
     }
   ],
   "material": {
-    "tag": "minecraft:logs"
+    "tag": "#minecraft:logs"
   },
   "result": "ultramarine:red_blue_red_fangxin",
   "template": {

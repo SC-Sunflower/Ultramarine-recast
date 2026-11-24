@@ -2,7 +2,7 @@
   "type": "ultramarine:chisel_table",
   "colors": [
     {
-      "tag": "c:dyes/orange"
+      "tag": "#c:dyes/orange"
     },
     {
       "item": "ultramarine:white_dye_powder"
@@ -15,7 +15,7 @@
     }
   ],
   "material": {
-    "tag": "ultramarine:polished_planks"
+    "tag": "#ultramarine:polished_planks"
   },
   "result": "ultramarine:flame_arch_wall_pattern",
   "template": {

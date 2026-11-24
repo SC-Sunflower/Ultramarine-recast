@@ -2,17 +2,17 @@
   "type": "ultramarine:chisel_table",
   "colors": [
     {
-      "tag": "c:dyes/green"
+      "tag": "#c:dyes/green"
     },
     {
       "item": "ultramarine:red_dye_powder"
     },
     {
-      "tag": "c:dyes/blue"
+      "tag": "#c:dyes/blue"
     }
   ],
   "material": {
-    "tag": "minecraft:logs"
+    "tag": "#minecraft:logs"
   },
   "result": "ultramarine:blue_zhaotou_edge",
   "template": {

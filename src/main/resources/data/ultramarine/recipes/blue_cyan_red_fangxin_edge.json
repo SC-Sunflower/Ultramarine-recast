@@ -2,20 +2,20 @@
   "type": "ultramarine:chisel_table",
   "colors": [
     {
-      "tag": "c:dyes/blue"
+      "tag": "#c:dyes/blue"
     },
     {
-      "tag": "c:dyes/cyan"
+      "tag": "#c:dyes/cyan"
     },
     {
-      "tag": "c:dyes/red"
+      "tag": "#c:dyes/red"
     },
     {
       "item": "ultramarine:red_dye_powder"
     }
   ],
   "material": {
-    "tag": "minecraft:logs"
+    "tag": "#minecraft:logs"
   },
   "result": "ultramarine:blue_cyan_red_fangxin_edge",
   "template": {

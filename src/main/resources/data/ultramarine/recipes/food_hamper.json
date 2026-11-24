@@ -12,7 +12,7 @@
       "item": "ultramarine:wooden_frame"
     },
     "P": {
-      "tag": "ultramarine:polished_planks"
+      "tag": "#ultramarine:polished_planks"
     }
   },
   "pattern": [
