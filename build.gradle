@@ -24,6 +24,9 @@ repositories {
         name = 'Modrinth'
         url = 'https://api.modrinth.com/maven'
     }
+    maven {
+        url = 'https://maven.shedaniel.me/'
+    }
 }
 
 loom {
@@ -40,6 +43,7 @@ dependencies {
 
     modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:17.0.807"
     // 1.20.2 分支不依赖 Porting Lib：原作者代码里使用的 Porting Lib 存储/配方包装 API
     // 已由本仓库自带的 com.voxelutopia.ultramarine.data.storage 包提供等价实现。
 
