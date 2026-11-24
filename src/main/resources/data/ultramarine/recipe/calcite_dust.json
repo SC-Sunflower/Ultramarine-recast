@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:calcite",
+  "result": {
+    "id": "ultramarine:calcite_dust",
+    "count": 1
+  }
+}

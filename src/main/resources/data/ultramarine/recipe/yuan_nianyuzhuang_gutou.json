@@ -1,0 +1,12 @@
+{
+  "type": "ultramarine:chisel_table",
+  "colors": [
+    "#c:dyes/blue",
+    "#c:dyes/green",
+    "#c:dyes/brown",
+    "#c:dyes/blue"
+  ],
+  "material": "#minecraft:logs",
+  "result": "ultramarine:yuan_nianyuzhuang_gutou",
+  "template": "ultramarine:gutou_template"
+}

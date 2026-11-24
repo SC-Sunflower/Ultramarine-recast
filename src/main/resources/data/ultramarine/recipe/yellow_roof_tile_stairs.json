@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "T": "ultramarine:yellow_roof_tile"
+  },
+  "pattern": [
+    "T  ",
+    "TT ",
+    "TTT"
+  ],
+  "result": {
+    "id": "ultramarine:yellow_roof_tile_stairs"
+  },
+  "show_notification": true
+}

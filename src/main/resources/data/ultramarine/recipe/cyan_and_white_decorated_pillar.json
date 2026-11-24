@@ -1,0 +1,12 @@
+{
+  "type": "ultramarine:chisel_table",
+  "colors": [
+    "#c:dyes/red",
+    "#c:dyes/green",
+    "#c:dyes/white",
+    "#c:dyes/black"
+  ],
+  "material": "#minecraft:logs",
+  "result": "ultramarine:cyan_and_white_decorated_pillar",
+  "template": "ultramarine:zhaotou_template"
+}

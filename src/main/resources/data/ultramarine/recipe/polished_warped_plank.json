@@ -1,0 +1,6 @@
+{
+  "type": "ultramarine:woodworking",
+  "count": 2,
+  "ingredient": "minecraft:warped_planks",
+  "result": "ultramarine:polished_warped_plank"
+}
