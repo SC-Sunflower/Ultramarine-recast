@@ -148,7 +148,7 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
                .filter(holder -> holder.value().getType() == RecipeTypeRegistry.WOODWORKING)
                .map(holder -> (RecipeHolder<WoodworkingRecipe>)holder)
                .filter(holder -> ((WoodworkingRecipe)holder.value()).matches(input, this.level))
-               .toList();
+               .collect(java.util.stream.Collectors.toCollection(java.util.ArrayList::new));
       }
    }
 
