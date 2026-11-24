@@ -2,6 +2,7 @@ package com.voxelutopia.ultramarine.world.block.menu;
 
 import com.voxelutopia.ultramarine.Ultramarine;
 import com.voxelutopia.ultramarine.data.ModItemTags;
+import com.voxelutopia.ultramarine.data.RecipeManagerAccess;
 import com.voxelutopia.ultramarine.data.recipe.ChiselTableRecipe;
 import com.voxelutopia.ultramarine.data.registry.BlockRegistry;
 import com.voxelutopia.ultramarine.data.registry.MenuTypeRegistry;
@@ -26,6 +27,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -88,9 +90,17 @@ public class ChiselTableMenu extends AbstractContainerMenu {
 
    public void createResult() {
       Level level = this.player.level();
+      if (level.isClientSide) {
+         // The server computes the result; the slot change is synced to the client.
+         return;
+      }
+      RecipeManager recipeManager = RecipeManagerAccess.get(level);
+      if (recipeManager == null) {
+         return;
+      }
       Container ingredients = this.wrapIngredients();
       CraftingInput input = CraftingInput.of(2, 3, java.util.stream.IntStream.range(0, 6).mapToObj(ingredients::getItem).toList());
-      List<RecipeHolder<ChiselTableRecipe>> list = level.getRecipeManager().getRecipesFor(RecipeTypeRegistry.CHISEL_TABLE, input, level);
+      List<RecipeHolder<ChiselTableRecipe>> list = recipeManager.getRecipesFor(RecipeTypeRegistry.CHISEL_TABLE, input, level);
       if (list.size() > 1) {
          Ultramarine.LOGGER.warn("Duplicate chisel table recipe: ");
          list.forEach(recipe -> Ultramarine.LOGGER.warn(recipe.id().getPath()));
@@ -103,6 +113,8 @@ public class ChiselTableMenu extends AbstractContainerMenu {
          ItemStack resultItemStack = recipe.assemble(input, level.registryAccess());
          this.result.setStackInSlot(0, resultItemStack);
       }
+
+      this.broadcastChanges();
    }
 
    protected void onTake(Player player, ItemStack itemStack, SlotItemHandler slot) {

@@ -1,11 +1,7 @@
 package com.voxelutopia.ultramarine.client.screen;
 
-import net.minecraft.world.item.crafting.RecipeHolder;
-
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.voxelutopia.ultramarine.data.recipe.WoodworkingRecipe;
 import com.voxelutopia.ultramarine.world.block.menu.WoodworkingWorkbenchMenu;
-import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -66,14 +62,14 @@ public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<Woodwork
          int i = this.leftPos + 52;
          int j = this.topPos + 14;
          int k = this.startIndex + 12;
-         List<RecipeHolder<WoodworkingRecipe>> list = ((WoodworkingWorkbenchMenu)this.menu).getRecipes();
+         WoodworkingWorkbenchMenu workbenchMenu = (WoodworkingWorkbenchMenu)this.menu;
 
-         for (int l = this.startIndex; l < k && l < ((WoodworkingWorkbenchMenu)this.menu).getNumRecipes(); l++) {
+         for (int l = this.startIndex; l < k && l < workbenchMenu.getNumRecipes(); l++) {
             int i1 = l - this.startIndex;
             int j1 = i + i1 % 4 * 16;
             int k1 = j + i1 / 4 * 18 + 2;
             if (pX >= j1 && pX < j1 + 16 && pY >= k1 && pY < k1 + 18) {
-               guiGraphics.renderTooltip(this.font, ((WoodworkingRecipe)list.get(l).value()).getResultItem(this.minecraft.level.registryAccess()), pX, pY);
+               guiGraphics.renderTooltip(this.font, workbenchMenu.getRecipeResult(l), pX, pY);
             }
          }
       }
@@ -97,14 +93,14 @@ public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<Woodwork
    }
 
    private void renderRecipes(GuiGraphics guiGraphics, int pLeft, int pTop, int pRecipeIndexOffsetMax) {
-      List<RecipeHolder<WoodworkingRecipe>> list = ((WoodworkingWorkbenchMenu)this.menu).getRecipes();
+      WoodworkingWorkbenchMenu workbenchMenu = (WoodworkingWorkbenchMenu)this.menu;
 
-      for (int i = this.startIndex; i < pRecipeIndexOffsetMax && i < ((WoodworkingWorkbenchMenu)this.menu).getNumRecipes(); i++) {
+      for (int i = this.startIndex; i < pRecipeIndexOffsetMax && i < workbenchMenu.getNumRecipes(); i++) {
          int j = i - this.startIndex;
          int k = pLeft + j % 4 * 16;
          int l = j / 4;
          int i1 = pTop + l * 18 + 2;
-         guiGraphics.renderItem(((WoodworkingRecipe)list.get(i).value()).getResultItem(this.minecraft.level.registryAccess()), k, i1);
+         guiGraphics.renderItem(workbenchMenu.getRecipeResult(i), k, i1);
       }
    }
 
