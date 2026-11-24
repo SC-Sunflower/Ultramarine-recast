@@ -11,11 +11,11 @@
       "item": "ultramarine:brown_dye_powder"
     },
     {
-      "tag": "c:dyes/blue"
+      "tag": "#c:dyes/blue"
     }
   ],
   "material": {
-    "tag": "ultramarine:polished_planks"
+    "tag": "#ultramarine:polished_planks"
   },
   "result": "ultramarine:blue_fangxin_pattern_edge",
   "template": {

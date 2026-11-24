@@ -2,20 +2,20 @@
   "type": "ultramarine:chisel_table",
   "colors": [
     {
-      "tag": "c:dyes/cyan"
+      "tag": "#c:dyes/cyan"
     },
     {
       "item": "ultramarine:light_blue_dye_powder"
     },
     {
-      "tag": "c:dyes/yellow"
+      "tag": "#c:dyes/yellow"
     },
     {
       "item": "ultramarine:white_dye_powder"
     }
   ],
   "material": {
-    "tag": "minecraft:logs"
+    "tag": "#minecraft:logs"
   },
   "result": "ultramarine:empty_tuanhua_slab",
   "template": {

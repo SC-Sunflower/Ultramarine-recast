@@ -8,14 +8,14 @@
       "item": "ultramarine:blue_dye_powder"
     },
     {
-      "tag": "c:dyes/gray"
+      "tag": "#c:dyes/gray"
     },
     {
-      "tag": "c:dyes/gray"
+      "tag": "#c:dyes/gray"
     }
   ],
   "material": {
-    "tag": "ultramarine:polished_planks"
+    "tag": "#ultramarine:polished_planks"
   },
   "result": "ultramarine:large_gray_su_style_caihua",
   "template": {

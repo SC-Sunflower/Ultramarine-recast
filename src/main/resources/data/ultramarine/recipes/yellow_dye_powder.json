@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:dyes/yellow"
+      "tag": "#c:dyes/yellow"
     }
   ],
   "result": {

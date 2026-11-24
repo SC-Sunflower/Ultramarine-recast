@@ -2,7 +2,7 @@
   "type": "ultramarine:chisel_table",
   "colors": [
     {
-      "tag": "c:dyes/green"
+      "tag": "#c:dyes/green"
     },
     {
       "item": "ultramarine:yellow_dye_powder"
@@ -15,7 +15,7 @@
     }
   ],
   "material": {
-    "tag": "minecraft:logs"
+    "tag": "#minecraft:logs"
   },
   "result": "ultramarine:green_blue_black_gutou",
   "template": {

@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "C": {
-      "tag": "minecraft:candles"
+      "tag": "#minecraft:candles"
     },
     "F": {
       "item": "ultramarine:wooden_frame"
     },
     "P": {
-      "tag": "ultramarine:polished_planks"
+      "tag": "#ultramarine:polished_planks"
     }
   },
   "pattern": [

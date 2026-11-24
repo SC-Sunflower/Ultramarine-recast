@@ -6,7 +6,7 @@
       "item": "minecraft:vine"
     },
     "D": {
-      "tag": "c:dyes/red"
+      "tag": "#c:dyes/red"
     }
   },
   "pattern": [

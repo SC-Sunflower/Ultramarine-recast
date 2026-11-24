@@ -5,17 +5,17 @@
       "item": "ultramarine:cyan_dye_powder"
     },
     {
-      "tag": "c:dyes/white"
+      "tag": "#c:dyes/white"
     },
     {
-      "tag": "c:dyes/blue"
+      "tag": "#c:dyes/blue"
     },
     {
-      "tag": "c:dyes/blue"
+      "tag": "#c:dyes/blue"
     }
   ],
   "material": {
-    "tag": "minecraft:logs"
+    "tag": "#minecraft:logs"
   },
   "result": "ultramarine:white_and_blue_fangxin_edge",
   "template": {

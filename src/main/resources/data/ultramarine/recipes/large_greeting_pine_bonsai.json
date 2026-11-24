@@ -15,7 +15,7 @@
       "item": "minecraft:spruce_sapling"
     },
     "W": {
-      "tag": "ultramarine:polished_planks"
+      "tag": "#ultramarine:polished_planks"
     }
   },
   "pattern": [
