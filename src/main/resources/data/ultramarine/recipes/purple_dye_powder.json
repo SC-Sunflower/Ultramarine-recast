@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:dyes/purple"
+      "tag": "#c:dyes/purple"
     }
   ],
   "result": {

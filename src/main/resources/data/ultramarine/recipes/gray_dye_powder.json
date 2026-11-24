@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:dyes/gray"
+      "tag": "#c:dyes/gray"
     }
   ],
   "result": {

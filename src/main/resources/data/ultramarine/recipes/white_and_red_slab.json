@@ -5,17 +5,17 @@
       "item": "ultramarine:white_dye_powder"
     },
     {
-      "tag": "c:dyes/red"
+      "tag": "#c:dyes/red"
     },
     {
-      "tag": "c:dyes/red"
+      "tag": "#c:dyes/red"
     },
     {
       "item": "ultramarine:white_dye_powder"
     }
   ],
   "material": {
-    "tag": "minecraft:logs"
+    "tag": "#minecraft:logs"
   },
   "result": "ultramarine:white_and_red_slab",
   "template": {

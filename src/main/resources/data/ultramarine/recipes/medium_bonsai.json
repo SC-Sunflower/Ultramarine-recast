@@ -12,7 +12,7 @@
       "item": "minecraft:flower_pot"
     },
     "S": {
-      "tag": "minecraft:saplings"
+      "tag": "#minecraft:saplings"
     }
   },
   "pattern": [

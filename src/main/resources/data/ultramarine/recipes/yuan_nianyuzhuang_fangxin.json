@@ -5,17 +5,17 @@
       "item": "ultramarine:blue_dye_powder"
     },
     {
-      "tag": "c:dyes/blue"
+      "tag": "#c:dyes/blue"
     },
     {
-      "tag": "c:dyes/blue"
+      "tag": "#c:dyes/blue"
     },
     {
-      "tag": "c:dyes/blue"
+      "tag": "#c:dyes/blue"
     }
   ],
   "material": {
-    "tag": "minecraft:logs"
+    "tag": "#minecraft:logs"
   },
   "result": "ultramarine:yuan_nianyuzhuang_fangxin",
   "template": {

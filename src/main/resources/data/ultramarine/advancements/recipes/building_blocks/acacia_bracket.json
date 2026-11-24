@@ -12,7 +12,7 @@
         "items": [
           {
             "items": [],
-            "tag": "minecraft:acacia_logs"
+            "tag": "#minecraft:acacia_logs"
           }
         ]
       },

@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:dyes/pink"
+      "tag": "#c:dyes/pink"
     }
   ],
   "result": {

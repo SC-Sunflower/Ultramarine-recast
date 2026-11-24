@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "F": {
-      "tag": "minecraft:wooden_fences"
+      "tag": "#minecraft:wooden_fences"
     },
     "P": {
-      "tag": "minecraft:planks"
+      "tag": "#minecraft:planks"
     }
   },
   "pattern": [

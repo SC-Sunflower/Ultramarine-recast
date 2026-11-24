@@ -12,7 +12,7 @@
       "item": "ultramarine:wooden_frame"
     },
     "P": {
-      "tag": "ultramarine:painting_scroll_items"
+      "tag": "#ultramarine:painting_scroll_items"
     },
     "W": {
       "item": "ultramarine:polished_rosewood_plank"

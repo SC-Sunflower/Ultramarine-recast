@@ -1,7 +1,7 @@
 {
   "type": "ultramarine:woodworking",
   "ingredient": {
-    "tag": "minecraft:birch_logs"
+    "tag": "#minecraft:birch_logs"
   },
   "result": { "id": "ultramarine:birch_rafter", "count": 1 }
 }

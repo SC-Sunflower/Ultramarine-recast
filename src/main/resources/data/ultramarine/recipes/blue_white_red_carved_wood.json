@@ -8,14 +8,14 @@
       "item": "ultramarine:white_dye_powder"
     },
     {
-      "tag": "c:dyes/red"
+      "tag": "#c:dyes/red"
     },
     {
       "item": "ultramarine:green_dye_powder"
     }
   ],
   "material": {
-    "tag": "minecraft:logs"
+    "tag": "#minecraft:logs"
   },
   "result": "ultramarine:blue_white_red_carved_wood",
   "template": {
