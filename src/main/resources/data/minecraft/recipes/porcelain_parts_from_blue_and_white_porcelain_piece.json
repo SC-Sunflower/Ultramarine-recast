@@ -4,5 +4,7 @@
   "ingredient": {
     "item": "ultramarine:blue_and_white_porcelain_piece"
   },
-  "result": "ultramarine:porcelain_parts"
+  "result": {
+    "id": "ultramarine:porcelain_parts"
+  }
 }

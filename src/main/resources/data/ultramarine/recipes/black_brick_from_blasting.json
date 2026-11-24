@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "ultramarine:unfired_black_brick"
   },
-  "result": "ultramarine:black_brick"
+  "result": {
+    "id": "ultramarine:black_brick"
+  }
 }

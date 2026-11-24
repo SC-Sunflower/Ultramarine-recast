@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "ultramarine:horizontal_landscape_painting"
   },
-  "result": "ultramarine:damaged_landscape_painting"
+  "result": {
+    "id": "ultramarine:damaged_landscape_painting"
+  }
 }

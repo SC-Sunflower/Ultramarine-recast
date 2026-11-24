@@ -3,5 +3,5 @@
   "ingredient": {
     "tag": "minecraft:acacia_logs"
   },
-  "result": { "id": "ultramarine:acacia_rafter", "count": 1 }
+  "result": "ultramarine:acacia_rafter"
 }

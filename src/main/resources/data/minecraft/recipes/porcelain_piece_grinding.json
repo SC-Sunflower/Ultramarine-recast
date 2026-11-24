@@ -4,5 +4,7 @@
   "ingredient": {
     "item": "ultramarine:porcelain_piece"
   },
-  "result": "minecraft:clay_ball"
+  "result": {
+    "id": "minecraft:clay_ball"
+  }
 }

@@ -7,7 +7,7 @@
     "item": "minecraft:golden_axe"
   },
   "result": {
-    "item": "ultramarine:blue_and_white_porcelain_axe"
+    "id": "ultramarine:blue_and_white_porcelain_axe"
   },
   "template": {
     "item": "ultramarine:blue_and_white_porcelain_upgrade_smithing_template"
