@@ -93,7 +93,7 @@ public class ChiselTableMenu extends AbstractContainerMenu {
       Container ingredients = this.wrapIngredients();
       CraftingInput input = CraftingInput.of(2, 3, java.util.stream.IntStream.range(0, 6).mapToObj(ingredients::getItem).toList());
       List<RecipeHolder<ChiselTableRecipe>> list = RecipeManagerAccess.get(level).getRecipes().stream()
-            .filter(holder -> holder.value().getType() == RecipeTypeRegistry.CHISEL_TABLE)
+            .filter(holder -> holder.value() instanceof ChiselTableRecipe)
             .map(holder -> (RecipeHolder<ChiselTableRecipe>)holder)
             .filter(holder -> ((ChiselTableRecipe)holder.value()).matches(input, level))
             .toList();
