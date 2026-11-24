@@ -1,0 +1,6 @@
+{
+  "type": "ultramarine:woodworking",
+  "count": 1,
+  "ingredient": "#minecraft:birch_logs",
+  "result": "ultramarine:birch_bracket"
+}

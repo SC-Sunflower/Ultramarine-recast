@@ -1,0 +1,16 @@
+{
+  "type": "patchouli:shapeless_book_recipe",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:lapis_lazuli"
+  ],
+  "book": "ultramarine:tiangong_kaiwu",
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "patchouli"
+      ]
+    }
+  ]
+}

@@ -49,13 +49,17 @@ public class WoodworkingRecipe extends SingleItemRecipe {
         return this.result.copy();
     }
 
+    public Ingredient getIngredient() {
+        return this.ingredient;
+    }
+
     public ItemStack getResultStack() {
         return this.result.copy();
     }
 
     @Override
     public boolean isSpecial() {
-        return true;
+        return false;
     }
 
     @Override
@@ -74,7 +78,7 @@ public class WoodworkingRecipe extends SingleItemRecipe {
     }
 
    public PlacementInfo placementInfo() {
-      return PlacementInfo.NOT_PLACEABLE;
+      return PlacementInfo.create(this.ingredient);
    }
 
     public static class Serializer implements RecipeSerializer<WoodworkingRecipe> {

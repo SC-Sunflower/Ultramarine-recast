@@ -1,0 +1,6 @@
+{
+  "type": "ultramarine:woodworking",
+  "count": 1,
+  "ingredient": "#minecraft:logs",
+  "result": "ultramarine:song_wooden_door"
+}
