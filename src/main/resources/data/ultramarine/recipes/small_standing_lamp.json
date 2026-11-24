@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "C": {
-      "tag": "minecraft:candles"
+      "tag": "#minecraft:candles"
     },
     "F": {
       "item": "ultramarine:wooden_frame"

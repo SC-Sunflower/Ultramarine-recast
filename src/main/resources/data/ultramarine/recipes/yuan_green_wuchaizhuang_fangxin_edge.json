@@ -8,14 +8,14 @@
       "item": "ultramarine:green_dye_powder"
     },
     {
-      "tag": "c:dyes/green"
+      "tag": "#c:dyes/green"
     },
     {
-      "tag": "c:dyes/green"
+      "tag": "#c:dyes/green"
     }
   ],
   "material": {
-    "tag": "minecraft:logs"
+    "tag": "#minecraft:logs"
   },
   "result": "ultramarine:yuan_green_wuchaizhuang_fangxin_edge",
   "template": {

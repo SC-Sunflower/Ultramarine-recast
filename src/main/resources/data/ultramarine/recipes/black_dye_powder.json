@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:dyes/black"
+      "tag": "#c:dyes/black"
     }
   ],
   "result": {

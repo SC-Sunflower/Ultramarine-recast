@@ -5,14 +5,14 @@
       "item": "ultramarine:yellow_dye_powder"
     },
     {
-      "tag": "c:dyes/yellow"
+      "tag": "#c:dyes/yellow"
     },
     {
       "item": "ultramarine:yellow_dye_powder"
     }
   ],
   "material": {
-    "tag": "ultramarine:polished_planks"
+    "tag": "#ultramarine:polished_planks"
   },
   "result": "ultramarine:circular_yellow_carved_pattern",
   "template": {

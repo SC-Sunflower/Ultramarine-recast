@@ -5,17 +5,17 @@
       "item": "ultramarine:yellow_dye_powder"
     },
     {
-      "tag": "c:dyes/green"
+      "tag": "#c:dyes/green"
     },
     {
-      "tag": "c:dyes/green"
+      "tag": "#c:dyes/green"
     },
     {
       "item": "ultramarine:gold_dye_powder"
     }
   ],
   "material": {
-    "tag": "minecraft:logs"
+    "tag": "#minecraft:logs"
   },
   "result": "ultramarine:ming_green_gilded_jinzhuomo_shinianyu_xuanzi_fangxin_edge",
   "template": {
