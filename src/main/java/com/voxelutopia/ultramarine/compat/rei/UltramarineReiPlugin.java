@@ -3,7 +3,9 @@ package com.voxelutopia.ultramarine.compat.rei;
 import com.voxelutopia.ultramarine.data.recipe.ChiselTableRecipe;
 import com.voxelutopia.ultramarine.data.recipe.CompositeSmeltingRecipe;
 import com.voxelutopia.ultramarine.data.recipe.WoodworkingRecipe;
+import com.voxelutopia.ultramarine.data.RecipeManagerAccess;
 import com.voxelutopia.ultramarine.data.registry.ItemRegistry;
+import net.minecraft.client.Minecraft;
 import java.util.List;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
@@ -15,6 +17,7 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 /**
@@ -35,35 +38,29 @@ public class UltramarineReiPlugin implements REIClientPlugin {
 
     @Override
     public void registerDisplays(DisplayRegistry registry) {
-        registry.registerDisplaysFillerWithReason(
-                (recipe, reasons) -> recipe instanceof RecipeHolder<?> holder && holder.value() instanceof WoodworkingRecipe,
-                (recipe, reasons) -> {
-                    RecipeHolder<?> holder = (RecipeHolder<?>) recipe;
-                    WoodworkingRecipe r = (WoodworkingRecipe) holder.value();
-                    return List.of(new UltramarineDisplay(WOODWORKING.getNamespace(), WOODWORKING.getPath(),
-                            List.of(EntryIngredients.ofIngredient(r.getIngredient())),
-                            List.of(EntryIngredients.of(r.getResultStack()))));
-                }
-        );
-        registry.registerDisplaysFillerWithReason(
-                (recipe, reasons) -> recipe instanceof RecipeHolder<?> holder && holder.value() instanceof ChiselTableRecipe,
-                (recipe, reasons) -> {
-                    RecipeHolder<?> holder = (RecipeHolder<?>) recipe;
-                    ChiselTableRecipe r = (ChiselTableRecipe) holder.value();
-                    return List.of(new UltramarineDisplay(CHISEL_TABLE.getNamespace(), CHISEL_TABLE.getPath(),
-                            List.of(EntryIngredients.ofIngredient(r.getMaterial()), EntryIngredients.ofIngredient(r.getTemplate())),
-                            List.of(EntryIngredients.of(r.getResultItem(BasicDisplay.registryAccess())))));
-                }
-        );
-        registry.registerDisplaysFillerWithReason(
-                (recipe, reasons) -> recipe instanceof RecipeHolder<?> holder && holder.value() instanceof CompositeSmeltingRecipe,
-                (recipe, reasons) -> {
-                    RecipeHolder<?> holder = (RecipeHolder<?>) recipe;
-                    CompositeSmeltingRecipe r = (CompositeSmeltingRecipe) holder.value();
-                    return List.of(new UltramarineDisplay(COMPOSITE_SMELTING.getNamespace(), COMPOSITE_SMELTING.getPath(),
-                            List.of(EntryIngredients.ofIngredient(r.getPrimaryIngredient()), EntryIngredients.ofIngredient(r.getSecondaryIngredient())),
-                            List.of(EntryIngredients.of(r.getResultItem(BasicDisplay.registryAccess())))));
-                }
-        );
+        // Filler predicates on the holder wrapper did not fire; register displays
+        // directly from the client recipe manager instead.
+        if (Minecraft.getInstance().level == null) {
+            return;
+        }
+        RecipeManager recipeManager = RecipeManagerAccess.get(Minecraft.getInstance().level);
+        if (recipeManager == null) {
+            return;
+        }
+        recipeManager.getRecipes().forEach(holder -> {
+            if (holder.value() instanceof WoodworkingRecipe r) {
+                registry.add(new UltramarineDisplay(WOODWORKING.getNamespace(), WOODWORKING.getPath(),
+                        List.of(EntryIngredients.ofIngredient(r.getIngredient())),
+                        List.of(EntryIngredients.of(r.getResultStack()))));
+            } else if (holder.value() instanceof ChiselTableRecipe r) {
+                registry.add(new UltramarineDisplay(CHISEL_TABLE.getNamespace(), CHISEL_TABLE.getPath(),
+                        List.of(EntryIngredients.ofIngredient(r.getMaterial()), EntryIngredients.ofIngredient(r.getTemplate())),
+                        List.of(EntryIngredients.of(r.getResultItem(BasicDisplay.registryAccess())))));
+            } else if (holder.value() instanceof CompositeSmeltingRecipe r) {
+                registry.add(new UltramarineDisplay(COMPOSITE_SMELTING.getNamespace(), COMPOSITE_SMELTING.getPath(),
+                        List.of(EntryIngredients.ofIngredient(r.getPrimaryIngredient()), EntryIngredients.ofIngredient(r.getSecondaryIngredient())),
+                        List.of(EntryIngredients.of(r.getResultItem(BasicDisplay.registryAccess())))));
+            }
+        });
     }
 }
