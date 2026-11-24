@@ -10,7 +10,8 @@ import json
 import sys
 from pathlib import Path
 
-BASE = Path(r"C:\Users\34324\Desktop\Ultramarine-recast-fabric\src\main\resources\data")
+BASE = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(
+    r"C:\Users\34324\Desktop\Ultramarine-recast-fabric\src\main\resources\data")
 DIRS = [BASE / "ultramarine" / "recipe", BASE / "minecraft" / "recipe"]
 
 OBJECT_RESULT = {"minecraft:crafting_shaped", "minecraft:crafting_shapeless",
