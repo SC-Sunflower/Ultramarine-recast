@@ -1,0 +1,11 @@
+{
+  "type": "ultramarine:chisel_table",
+  "colors": [
+    "ultramarine:yellow_dye_powder",
+    "#c:dyes/yellow",
+    "ultramarine:yellow_dye_powder"
+  ],
+  "material": "#ultramarine:polished_planks",
+  "result": "ultramarine:circular_yellow_carved_pattern",
+  "template": "ultramarine:caihua_template"
+}

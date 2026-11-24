@@ -1,0 +1,6 @@
+{
+  "type": "ultramarine:woodworking",
+  "count": 1,
+  "ingredient": "#minecraft:acacia_logs",
+  "result": "ultramarine:acacia_bracket"
+}

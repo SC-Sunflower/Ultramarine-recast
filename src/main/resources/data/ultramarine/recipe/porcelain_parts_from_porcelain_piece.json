@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ultramarine:porcelain_piece",
+  "result": {
+    "id": "ultramarine:porcelain_parts",
+    "count": 1
+  }
+}
