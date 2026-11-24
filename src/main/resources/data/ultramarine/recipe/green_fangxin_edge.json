@@ -1,0 +1,11 @@
+{
+  "type": "ultramarine:chisel_table",
+  "colors": [
+    "#c:dyes/green",
+    "ultramarine:white_dye_powder",
+    "ultramarine:blue_dye_powder"
+  ],
+  "material": "#minecraft:logs",
+  "result": "ultramarine:green_fangxin_edge",
+  "template": "ultramarine:fangxin_edge_template"
+}

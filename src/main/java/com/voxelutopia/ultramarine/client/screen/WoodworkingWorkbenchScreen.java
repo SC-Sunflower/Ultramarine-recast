@@ -1,10 +1,6 @@
 package com.voxelutopia.ultramarine.client.screen;
 
-import net.minecraft.world.item.crafting.RecipeHolder;
-
-import com.voxelutopia.ultramarine.data.recipe.WoodworkingRecipe;
 import com.voxelutopia.ultramarine.world.block.menu.WoodworkingWorkbenchMenu;
-import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -12,7 +8,6 @@ import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -46,7 +41,7 @@ public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<Woodwork
    }
 
    protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pX, int pY) {
-                        int i = this.leftPos;
+      int i = this.leftPos;
       int j = this.topPos;
       guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BG_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
       int k = (int)(41.0F * this.scrollOffs);
@@ -60,21 +55,8 @@ public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<Woodwork
 
    protected void renderTooltip(GuiGraphics guiGraphics, int pX, int pY) {
       super.renderTooltip(guiGraphics, pX, pY);
-      if (this.displayRecipes) {
-         int i = this.leftPos + 52;
-         int j = this.topPos + 14;
-         int k = this.startIndex + 12;
-         List<RecipeHolder<WoodworkingRecipe>> list = ((WoodworkingWorkbenchMenu)this.menu).getRecipes();
-
-         for (int l = this.startIndex; l < k && l < ((WoodworkingWorkbenchMenu)this.menu).getNumRecipes(); l++) {
-            int i1 = l - this.startIndex;
-            int j1 = i + i1 % 4 * 16;
-            int k1 = j + i1 / 4 * 18 + 2;
-            if (pX >= j1 && pX < j1 + 16 && pY >= k1 && pY < k1 + 18) {
-               // 1.21.6 起 GuiGraphics 仅保留 ClientTooltipComponent 列表版 tooltip API，此处省略悬浮名。
-            }
-         }
-      }
+      // 1.21.6+ GuiGraphics only keeps the ClientTooltipComponent-list tooltip API,
+      // so per-recipe item tooltips are omitted here.
    }
 
    private void renderButtons(GuiGraphics guiGraphics, int pMouseX, int pMouseY, int pX, int pY, int pLastVisibleElementIndex) {
@@ -95,14 +77,14 @@ public class WoodworkingWorkbenchScreen extends AbstractContainerScreen<Woodwork
    }
 
    private void renderRecipes(GuiGraphics guiGraphics, int pLeft, int pTop, int pRecipeIndexOffsetMax) {
-      List<RecipeHolder<WoodworkingRecipe>> list = ((WoodworkingWorkbenchMenu)this.menu).getRecipes();
+      WoodworkingWorkbenchMenu workbenchMenu = (WoodworkingWorkbenchMenu)this.menu;
 
-      for (int i = this.startIndex; i < pRecipeIndexOffsetMax && i < ((WoodworkingWorkbenchMenu)this.menu).getNumRecipes(); i++) {
+      for (int i = this.startIndex; i < pRecipeIndexOffsetMax && i < workbenchMenu.getNumRecipes(); i++) {
          int j = i - this.startIndex;
          int k = pLeft + j % 4 * 16;
          int l = j / 4;
          int i1 = pTop + l * 18 + 2;
-         guiGraphics.renderItem(((WoodworkingRecipe)list.get(i).value()).getResultStack(), k, i1);
+         guiGraphics.renderItem(workbenchMenu.getRecipeResult(i), k, i1);
       }
    }
 

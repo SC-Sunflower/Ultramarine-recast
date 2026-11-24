@@ -1,0 +1,12 @@
+{
+  "type": "ultramarine:chisel_table",
+  "colors": [
+    "#c:dyes/blue",
+    "#c:dyes/green",
+    "#c:dyes/blue",
+    "#c:dyes/green"
+  ],
+  "material": "#minecraft:logs",
+  "result": "ultramarine:ming_yanzhuomo_shinianyu_outer_gutou_edge",
+  "template": "ultramarine:gutou_template"
+}
