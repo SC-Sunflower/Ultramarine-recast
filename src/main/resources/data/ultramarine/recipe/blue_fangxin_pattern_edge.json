@@ -1,0 +1,12 @@
+{
+  "type": "ultramarine:chisel_table",
+  "colors": [
+    "ultramarine:black_dye_powder",
+    "ultramarine:light_blue_dye_powder",
+    "ultramarine:brown_dye_powder",
+    "#c:dyes/blue"
+  ],
+  "material": "#ultramarine:polished_planks",
+  "result": "ultramarine:blue_fangxin_pattern_edge",
+  "template": "ultramarine:fangxin_edge_template"
+}

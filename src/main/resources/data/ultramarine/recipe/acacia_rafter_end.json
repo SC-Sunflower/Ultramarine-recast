@@ -1,0 +1,5 @@
+{
+  "type": "ultramarine:woodworking",
+  "ingredient": "#minecraft:acacia_logs",
+  "result": "ultramarine:acacia_rafter_end"
+}

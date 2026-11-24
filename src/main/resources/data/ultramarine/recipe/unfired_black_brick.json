@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ultramarine:unfired_clay_brick",
+    "ultramarine:unfired_clay_brick",
+    "ultramarine:unfired_clay_brick",
+    "ultramarine:unfired_clay_brick",
+    "ultramarine:unfired_clay_brick",
+    "ultramarine:unfired_clay_brick",
+    "ultramarine:hematite_dust"
+  ],
+  "result": {
+    "count": 6,
+    "id": "ultramarine:unfired_black_brick"
+  }
+}

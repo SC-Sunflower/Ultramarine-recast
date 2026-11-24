@@ -5,6 +5,7 @@ import com.voxelutopia.ultramarine.data.RecipeManagerAccess;
 import net.minecraft.world.level.Level;
 
 import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.RecipeManager;
 
 import com.voxelutopia.ultramarine.data.recipe.CompositeSmeltingRecipe;
 
@@ -121,13 +122,13 @@ public class BrickKilnMenu extends AbstractContainerMenu {
    }
 
    protected boolean canProcess(ItemStack item) {
-      return this.blockEntity != null && this.blockEntity.getLevel() != null
-         ? RecipeManagerAccess.get(this.blockEntity.getLevel())
-            .getRecipes()
-            .stream()
+      if (this.blockEntity == null || this.blockEntity.getLevel() == null || this.blockEntity.getLevel().isClientSide()) {
+         return false;
+      }
+      RecipeManager recipeManager = RecipeManagerAccess.get(this.blockEntity.getLevel());
+      return recipeManager != null && recipeManager.getRecipes().stream()
             .filter(holder -> holder.value() instanceof CompositeSmeltingRecipe)
-            .anyMatch(holder -> ((CompositeSmeltingRecipe)holder.value()).partialMatch(CraftingInput.of(2, 1, java.util.List.of(item, ItemStack.EMPTY)), this.blockEntity.getLevel()))
-         : false;
+            .anyMatch(holder -> ((CompositeSmeltingRecipe)holder.value()).partialMatch(CraftingInput.of(2, 1, java.util.List.of(item, ItemStack.EMPTY)), this.blockEntity.getLevel()));
    }
 
    public boolean stillValid(Player pPlayer) {

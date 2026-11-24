@@ -1,0 +1,5 @@
+{
+  "type": "ultramarine:woodworking",
+  "ingredient": "#minecraft:jungle_logs",
+  "result": "ultramarine:jungle_rafter_end"
+}

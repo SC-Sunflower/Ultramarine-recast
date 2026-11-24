@@ -1,5 +1,7 @@
 package com.voxelutopia.ultramarine.data.recipe;
 
+import java.util.List;
+
 import net.minecraft.core.HolderLookup;
 
 import com.mojang.serialization.Codec;
@@ -72,7 +74,7 @@ public class CompositeSmeltingRecipe implements Recipe<CraftingInput> {
    }
 
    public PlacementInfo placementInfo() {
-      return PlacementInfo.NOT_PLACEABLE;
+      return PlacementInfo.create(List.of(this.primaryIngredient, this.secondaryIngredient));
    }
 
     public Ingredient getPrimaryIngredient() {

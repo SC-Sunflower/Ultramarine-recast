@@ -1,0 +1,12 @@
+{
+  "type": "ultramarine:chisel_table",
+  "colors": [
+    "#c:dyes/red",
+    "#c:dyes/cyan",
+    "#c:dyes/blue",
+    "ultramarine:blue_dye_powder"
+  ],
+  "material": "#minecraft:logs",
+  "result": "ultramarine:red_cyan_blue_fangxin_edge",
+  "template": "ultramarine:fangxin_edge_template"
+}

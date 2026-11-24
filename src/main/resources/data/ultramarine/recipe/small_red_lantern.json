@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "#minecraft:candles",
+    "D": "minecraft:red_dye",
+    "P": "minecraft:paper",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " S ",
+    "PCP",
+    "DPD"
+  ],
+  "result": {
+    "id": "ultramarine:small_red_lantern"
+  },
+  "show_notification": true
+}

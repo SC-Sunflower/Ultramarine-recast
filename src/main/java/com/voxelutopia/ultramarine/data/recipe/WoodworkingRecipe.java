@@ -55,7 +55,7 @@ public class WoodworkingRecipe extends SingleItemRecipe {
 
     @Override
     public boolean isSpecial() {
-        return true;
+        return false;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class WoodworkingRecipe extends SingleItemRecipe {
     }
 
    public PlacementInfo placementInfo() {
-      return PlacementInfo.NOT_PLACEABLE;
+      return PlacementInfo.create(this.ingredient);
    }
 
     public static class Serializer implements RecipeSerializer<WoodworkingRecipe> {
