@@ -21,6 +21,9 @@
     "client": [
       "com.voxelutopia.ultramarine.UltramarineClient"
     ],
+  "rei_client": [
+    "com.voxelutopia.ultramarine.compat.rei.UltramarineReiPlugin"
+  ],
     "main": [
       "com.voxelutopia.ultramarine.Ultramarine"
     ],

@@ -1,8 +1,0 @@
-{
-  "id": "ultramarine",
-  "plugins": [
-    {
-      "class": "com.voxelutopia.ultramarine.compat.rei.UltramarineReiPlugin"
-    }
-  ]
-}
