@@ -87,6 +87,10 @@ public class ChiselTableRecipe implements Recipe<CraftingInput> {
         return this.result.copy();
     }
 
+    public ItemStack getResultStack() {
+        return this.result.copy();
+    }
+
     public Ingredient getMaterial() {
         return this.material;
     }

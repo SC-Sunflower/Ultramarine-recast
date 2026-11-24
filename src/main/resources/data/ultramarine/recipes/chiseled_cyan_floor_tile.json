@@ -1,7 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-    "ingredient": {
-    "item": "ultramarine:cyan_floor_tile"
-  },
-  "result": {"id": "ultramarine:chiseled_cyan_floor_tile", "count": 1}
-}

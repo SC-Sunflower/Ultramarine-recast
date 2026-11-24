@@ -53,6 +53,10 @@ public class WoodworkingRecipe extends SingleItemRecipe {
         return this.result.copy();
     }
 
+    public Ingredient getIngredient() {
+        return this.ingredient;
+    }
+
     @Override
     public boolean isSpecial() {
         return true;
