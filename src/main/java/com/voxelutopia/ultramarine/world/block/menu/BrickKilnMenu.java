@@ -125,7 +125,7 @@ public class BrickKilnMenu extends AbstractContainerMenu {
          ? RecipeManagerAccess.get(this.blockEntity.getLevel())
             .getRecipes()
             .stream()
-            .filter(holder -> holder.value().getType() == RecipeTypeRegistry.COMPOSITE_SMELTING)
+            .filter(holder -> holder.value() instanceof CompositeSmeltingRecipe)
             .anyMatch(holder -> ((CompositeSmeltingRecipe)holder.value()).partialMatch(CraftingInput.of(2, 1, java.util.List.of(item, ItemStack.EMPTY)), this.blockEntity.getLevel()))
          : false;
    }
