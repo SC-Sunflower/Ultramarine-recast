@@ -145,7 +145,7 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
       if (!pStack.isEmpty()) {
          SingleRecipeInput input = new SingleRecipeInput(pStack);
          this.recipes = RecipeManagerAccess.get(this.level).getRecipes().stream()
-               .filter(holder -> holder.value().getType() == RecipeTypeRegistry.WOODWORKING)
+               .filter(holder -> holder.value() instanceof WoodworkingRecipe)
                .map(holder -> (RecipeHolder<WoodworkingRecipe>)holder)
                .filter(holder -> ((WoodworkingRecipe)holder.value()).matches(input, this.level))
                .collect(java.util.stream.Collectors.toCollection(java.util.ArrayList::new));
@@ -197,7 +197,7 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
          } else if (RecipeManagerAccess.get(this.level)
             .getRecipes()
             .stream()
-            .filter(holder -> holder.value().getType() == RecipeTypeRegistry.WOODWORKING)
+            .filter(holder -> holder.value() instanceof WoodworkingRecipe)
             .anyMatch(holder -> ((WoodworkingRecipe)holder.value()).matches(new SingleRecipeInput(slotItem), this.level))) {
             if (!this.moveItemStackTo(slotItem, 0, 1, false)) {
                return ItemStack.EMPTY;
