@@ -1,0 +1,10 @@
+{
+  "type": "ultramarine:woodworking",
+  "ingredient": {
+    "item": "ultramarine:rosewood_planks"
+  },
+  "result": {
+    "id": "ultramarine:rosewood_fence",
+    "count": 1
+  }
+}

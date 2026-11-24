@@ -1,7 +1,0 @@
-{
-  "type": "ultramarine:woodworking",
-  "ingredient": {
-    "tag": "minecraft:warped_stems"
-  },
-  "result": { "id": "ultramarine:warped_rafter", "count": 1 }
-}

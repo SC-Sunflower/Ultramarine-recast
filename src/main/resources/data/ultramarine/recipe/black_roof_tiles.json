@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "T": {
+      "item": "ultramarine:black_roof_tile"
+    }
+  },
+  "pattern": [
+    "TTT"
+  ],
+  "result": {
+    "id": "ultramarine:black_roof_tiles"
+  },
+  "show_notification": true
+}

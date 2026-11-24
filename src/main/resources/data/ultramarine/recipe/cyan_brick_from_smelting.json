@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "ultramarine:unfired_cyan_brick"
+  },
+  "result": {
+    "id": "ultramarine:cyan_brick"
+  }
+}
