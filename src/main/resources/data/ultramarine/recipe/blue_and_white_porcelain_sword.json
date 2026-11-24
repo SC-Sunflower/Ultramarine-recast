@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "ultramarine:blue_and_white_porcelain_piece",
+  "base": "minecraft:golden_sword",
+  "result": {
+    "id": "ultramarine:blue_and_white_porcelain_sword",
+    "count": 1
+  },
+  "template": "ultramarine:blue_and_white_porcelain_upgrade_smithing_template"
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "#minecraft:candles",
+    "S": "minecraft:stone",
+    "T": "minecraft:stone_slab",
+    "W": "minecraft:cobblestone_wall"
+  },
+  "pattern": [
+    " T ",
+    "WCW",
+    " S "
+  ],
+  "result": {
+    "id": "ultramarine:stone_lamp"
+  },
+  "show_notification": true
+}

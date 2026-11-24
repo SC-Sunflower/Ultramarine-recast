@@ -28,6 +28,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -90,9 +91,18 @@ public class ChiselTableMenu extends AbstractContainerMenu {
 
    public void createResult() {
       Level level = this.player.level();
+      if (level.isClientSide) {
+         // 1.21.2: the client has no recipe manager; the server computes the result
+         // and the slot change is synced to the client automatically.
+         return;
+      }
+      RecipeManager recipeManager = RecipeManagerAccess.get(level);
+      if (recipeManager == null) {
+         return;
+      }
       Container ingredients = this.wrapIngredients();
       CraftingInput input = CraftingInput.of(2, 3, java.util.stream.IntStream.range(0, 6).mapToObj(ingredients::getItem).toList());
-      List<RecipeHolder<ChiselTableRecipe>> list = RecipeManagerAccess.get(level).getRecipes().stream()
+      List<RecipeHolder<ChiselTableRecipe>> list = recipeManager.getRecipes().stream()
             .filter(holder -> holder.value() instanceof ChiselTableRecipe)
             .map(holder -> (RecipeHolder<ChiselTableRecipe>)holder)
             .filter(holder -> ((ChiselTableRecipe)holder.value()).matches(input, level))
@@ -109,6 +119,8 @@ public class ChiselTableMenu extends AbstractContainerMenu {
          ItemStack resultItemStack = recipe.assemble(input, level.registryAccess());
          this.result.setStackInSlot(0, resultItemStack);
       }
+
+      this.broadcastChanges();
    }
 
    protected void onTake(Player player, ItemStack itemStack, SlotItemHandler slot) {

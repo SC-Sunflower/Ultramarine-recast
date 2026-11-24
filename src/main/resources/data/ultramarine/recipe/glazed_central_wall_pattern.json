@@ -1,0 +1,12 @@
+{
+  "type": "ultramarine:chisel_table",
+  "colors": [
+    "#c:dyes/green",
+    "#c:dyes/yellow",
+    "#c:dyes/blue",
+    "#c:dyes/white"
+  ],
+  "material": "#ultramarine:polished_planks",
+  "result": "ultramarine:glazed_central_wall_pattern",
+  "template": "ultramarine:caihua_template"
+}

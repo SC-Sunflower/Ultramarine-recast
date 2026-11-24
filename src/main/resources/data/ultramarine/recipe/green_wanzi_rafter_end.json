@@ -1,0 +1,11 @@
+{
+  "type": "ultramarine:chisel_table",
+  "colors": [
+    "#c:dyes/green",
+    "#c:dyes/green",
+    "ultramarine:gold_dye_powder"
+  ],
+  "material": "#minecraft:logs",
+  "result": "ultramarine:green_wanzi_rafter_end",
+  "template": "ultramarine:rafter_end_template"
+}
