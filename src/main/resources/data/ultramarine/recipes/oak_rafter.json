@@ -3,5 +3,5 @@
   "ingredient": {
     "tag": "minecraft:oak_logs"
   },
-  "result": { "item": "ultramarine:oak_rafter", "count": 1 }
+  "result": "ultramarine:oak_rafter"
 }
