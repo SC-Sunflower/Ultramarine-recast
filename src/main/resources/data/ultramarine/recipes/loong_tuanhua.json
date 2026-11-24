@@ -5,17 +5,17 @@
       "item": "ultramarine:gold_dye_powder"
     },
     {
-      "tag": "c:dyes/yellow"
+      "tag": "#c:dyes/yellow"
     },
     {
-      "tag": "c:dyes/yellow"
+      "tag": "#c:dyes/yellow"
     },
     {
       "item": "ultramarine:gold_dye_powder"
     }
   ],
   "material": {
-    "tag": "ultramarine:polished_planks"
+    "tag": "#ultramarine:polished_planks"
   },
   "result": { "id": "ultramarine:loong_tuanhua", "count": 1 },
   "template": {

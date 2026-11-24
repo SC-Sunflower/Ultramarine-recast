@@ -6,7 +6,7 @@
       "item": "minecraft:polished_blackstone"
     },
     "P": {
-      "tag": "ultramarine:polished_planks"
+      "tag": "#ultramarine:polished_planks"
     },
     "W": {
       "item": "minecraft:smooth_quartz"

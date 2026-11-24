@@ -5,14 +5,14 @@
       "item": "ultramarine:yellow_dye_powder"
     },
     {
-      "tag": "c:dyes/green"
+      "tag": "#c:dyes/green"
     },
     {
-      "tag": "c:dyes/blue"
+      "tag": "#c:dyes/blue"
     }
   ],
   "material": {
-    "tag": "minecraft:logs"
+    "tag": "#minecraft:logs"
   },
   "result": "ultramarine:yellow_green_blue_carved_wood",
   "template": {

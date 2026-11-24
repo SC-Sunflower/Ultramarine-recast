@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:dyes/white"
+      "tag": "#c:dyes/white"
     }
   ],
   "result": {

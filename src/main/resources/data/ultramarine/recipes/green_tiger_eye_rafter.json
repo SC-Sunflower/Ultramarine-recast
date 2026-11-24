@@ -2,10 +2,10 @@
   "type": "ultramarine:chisel_table",
   "colors": [
     {
-      "tag": "c:dyes/green"
+      "tag": "#c:dyes/green"
     },
     {
-      "tag": "c:dyes/green"
+      "tag": "#c:dyes/green"
     },
     {
       "item": "ultramarine:blue_dye_powder"
@@ -15,7 +15,7 @@
     }
   ],
   "material": {
-    "tag": "minecraft:logs"
+    "tag": "#minecraft:logs"
   },
   "result": "ultramarine:green_tiger_eye_rafter",
   "template": {

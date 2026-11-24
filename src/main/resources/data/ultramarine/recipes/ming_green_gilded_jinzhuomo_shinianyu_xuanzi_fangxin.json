@@ -2,10 +2,10 @@
   "type": "ultramarine:chisel_table",
   "colors": [
     {
-      "tag": "c:dyes/blue"
+      "tag": "#c:dyes/blue"
     },
     {
-      "tag": "c:dyes/green"
+      "tag": "#c:dyes/green"
     },
     {
       "item": "ultramarine:gold_dye_powder"
@@ -15,7 +15,7 @@
     }
   ],
   "material": {
-    "tag": "minecraft:logs"
+    "tag": "#minecraft:logs"
   },
   "result": "ultramarine:ming_green_gilded_jinzhuomo_shinianyu_xuanzi_fangxin",
   "template": {

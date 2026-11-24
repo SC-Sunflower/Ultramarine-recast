@@ -5,17 +5,17 @@
       "item": "ultramarine:green_dye_powder"
     },
     {
-      "tag": "c:dyes/blue"
+      "tag": "#c:dyes/blue"
     },
     {
-      "tag": "c:dyes/cyan"
+      "tag": "#c:dyes/cyan"
     },
     {
       "item": "ultramarine:orange_dye_powder"
     }
   ],
   "material": {
-    "tag": "minecraft:logs"
+    "tag": "#minecraft:logs"
   },
   "result": "ultramarine:yuan_patterned_wuchaizhuang_fangxin",
   "template": {

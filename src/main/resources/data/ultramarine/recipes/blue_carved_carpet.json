@@ -2,7 +2,7 @@
   "type": "ultramarine:chisel_table",
   "colors": [
     {
-      "tag": "c:dyes/white"
+      "tag": "#c:dyes/white"
     },
     {
       "item": "ultramarine:light_blue_dye_powder"
