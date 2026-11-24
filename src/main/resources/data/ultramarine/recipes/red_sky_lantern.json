@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "C": {
-      "tag": "minecraft:candles"
+      "tag": "#minecraft:candles"
     },
     "D": {
       "item": "minecraft:red_dye"

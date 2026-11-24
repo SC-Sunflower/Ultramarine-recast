@@ -6,7 +6,7 @@
       "item": "minecraft:crafting_table"
     },
     "P": {
-      "tag": "minecraft:planks"
+      "tag": "#minecraft:planks"
     }
   },
   "pattern": [

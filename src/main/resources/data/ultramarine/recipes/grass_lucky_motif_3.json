@@ -5,14 +5,14 @@
       "item": "ultramarine:cyan_dye_powder"
     },
     {
-      "tag": "c:dyes/cyan"
+      "tag": "#c:dyes/cyan"
     },
     {
       "item": "ultramarine:green_dye_powder"
     }
   ],
   "material": {
-    "tag": "ultramarine:polished_planks"
+    "tag": "#ultramarine:polished_planks"
   },
   "result": { "id": "ultramarine:grass_lucky_motif_3", "count": 1 },
   "template": {

@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "C": {
-      "tag": "minecraft:candles"
+      "tag": "#minecraft:candles"
     },
     "F": {
       "item": "ultramarine:wooden_frame"
@@ -12,7 +12,7 @@
       "item": "ultramarine:wooden_parts"
     },
     "W": {
-      "tag": "minecraft:planks"
+      "tag": "#minecraft:planks"
     },
     "X": {
       "item": "ultramarine:xuan_paper"

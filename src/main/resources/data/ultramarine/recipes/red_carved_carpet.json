@@ -2,7 +2,7 @@
   "type": "ultramarine:chisel_table",
   "colors": [
     {
-      "tag": "c:dyes/yellow"
+      "tag": "#c:dyes/yellow"
     },
     {
       "item": "ultramarine:gold_dye_powder"
