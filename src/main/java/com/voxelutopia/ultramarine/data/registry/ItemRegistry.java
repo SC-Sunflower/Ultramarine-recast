@@ -698,16 +698,16 @@ public class ItemRegistry {
    public static final Item COOKED_MEAT = foodItem("cooked_meat", ModFoods.COOKED_MEAT);
    public static final Item BAOZI = foodItem("baozi", ModFoods.BAOZI);
    public static final Item WOODEN_MALLET = toolItem("wooden_mallet", WoodenMallet::new);
-   public static final Item BLUE_AND_WHITE_PORCELAIN_SWORD = registerItem(
+   public static final Item BLUE_AND_WHITE_PORCELAIN_SWORD = toolItem(
       "blue_and_white_porcelain_sword", Item::new
    );
-   public static final Item BLUE_AND_WHITE_PORCELAIN_SHOVEL = registerItem(
+   public static final Item BLUE_AND_WHITE_PORCELAIN_SHOVEL = toolItem(
       "blue_and_white_porcelain_shovel", Item::new
    );
-   public static final Item BLUE_AND_WHITE_PORCELAIN_PICKAXE = registerItem(
+   public static final Item BLUE_AND_WHITE_PORCELAIN_PICKAXE = toolItem(
       "blue_and_white_porcelain_pickaxe", Item::new
    );
-   public static final Item BLUE_AND_WHITE_PORCELAIN_AXE = registerItem(
+   public static final Item BLUE_AND_WHITE_PORCELAIN_AXE = toolItem(
       "blue_and_white_porcelain_axe", Item::new
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_UPGRADE_SMITHING_TEMPLATE = toolItem(
