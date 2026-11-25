@@ -4,10 +4,11 @@
 - All branches: registerItem( -> toolItem( for the 4 tool fields.
 - Supplier-signature branches (1.20.1-1.21.1): wrap `new XxxItem(...)` in `() -> ...`.
 """
+import os
 import re
 from pathlib import Path
 
-BASE = Path(r"C:\Users\34324\Desktop\um-tabs")
+BASE = Path(os.environ.get("TEMP", "/tmp")) / "um-tabs"
 
 SUPPLIER_BRANCHES = ["um-1201", "um-1202", "um-1203", "um-1204", "um-1205", "um-1206", "um-1211"]
 FUNCTION_BRANCHES = ["um-1214", "um-1215", "um-1216", "um-1217", "um-1219", "um-12110", "um-12111"]

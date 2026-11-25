@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 """Sync 0.7 loot tables and advancements from fabric/1.21.2 to the 1.20.x worktrees."""
 import json
+import os
 import shutil
 import subprocess
 from pathlib import Path
 
-REPO = Path(r"C:\Users\34324\Desktop\Ultramarine-recast-fabric")
-WT_BASE = Path(r"C:\Users\34324\Desktop\um-sync")
+REPO = Path(__file__).resolve().parents[1]
+WT_BASE = Path(os.environ.get("TEMP", "/tmp")) / "um-sync"
 
 LOOT = [
     "acacia_rafter.json", "acacia_rafter_end.json", "birch_rafter.json", "birch_rafter_end.json",

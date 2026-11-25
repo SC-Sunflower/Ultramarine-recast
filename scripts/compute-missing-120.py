@@ -3,7 +3,7 @@
 import subprocess
 import sys
 
-REPO = r"C:\Users\34324\Desktop\Ultramarine-recast-fabric"
+REPO = str(Path(__file__).resolve().parents[1])
 BRANCHES = ["main", "fabric/1.20.2", "fabric/1.20.3", "fabric/1.20.4", "fabric/1.20.5", "fabric/1.20.6"]
 
 PAIRS = [

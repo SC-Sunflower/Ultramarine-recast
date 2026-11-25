@@ -5,8 +5,8 @@ import re
 import zipfile
 from pathlib import Path
 
-UP_JAR = Path(r"C:\Users\34324\AppData\Local\Temp\ultramarine-0.7.jar")
-PORT = Path(r"C:\Users\34324\Desktop\Ultramarine-recast-fabric")
+UP_JAR = Path(__file__).resolve().parents[1].parent / "Ultramarine-upstream-build" / "ultramarine-0.7.jar"
+PORT = Path(__file__).resolve().parents[1]
 REGISTRY = "src/main/java/com/voxelutopia/ultramarine/data/registry"
 
 
@@ -72,7 +72,7 @@ def upstream_registry_strings(base):
     return out
 
 
-UP_SRC = Path(r"C:\Users\34324\Desktop\Ultramarine-upstream")
+UP_SRC = Path(__file__).resolve().parents[1].parent / "Ultramarine-upstream"
 up_items = upstream_registry_strings(UP_SRC)
 port_items = registry_strings(PORT / REGISTRY / "ItemRegistry.java") | registry_strings(PORT / REGISTRY / "BlockRegistry.java")
 report("注册名字符串(正版 BLOCKS/ITEMS.register vs 移植 registerBlock/registerItem)", up_items, port_items)

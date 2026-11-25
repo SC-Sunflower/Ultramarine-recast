@@ -46,3 +46,4 @@ libs/porting-lib-1202/
 
 ### Build/run logs ###
 *.log
+release/*.jar

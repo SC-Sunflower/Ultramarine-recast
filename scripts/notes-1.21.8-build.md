@@ -3,7 +3,7 @@
 1.21.8 没有独立 git 分支；由 `fabric/1.21.9` 分支临时降级构建。1.21.9 分支代码使用了一些
 1.21.9 才有的 API，构建 1.21.8 前需要做以下临时改动（构建完全部还原）：
 
-1. `git worktree add C:\Users\34324\Desktop\um-1218 fabric/1.21.9`
+1. `git worktree add %TEMP%\um-1218 fabric/1.21.9`（PowerShell：`git worktree add $env:TEMP\um-1218 fabric/1.21.9`）
 2. 改 `gradle.properties`：
    - `minecraft_version=1.21.8`
    - `fabric_api_version=0.134.0+1.21.8`

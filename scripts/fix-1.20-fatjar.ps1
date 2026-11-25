@@ -12,7 +12,7 @@
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 
-$Repo = "C:\Users\34324\Desktop\Ultramarine-recast-fabric"
+$Repo = Split-Path $PSScriptRoot -Parent
 $FatJar = Join-Path $Repo "build\libs\ultramarine-recast-fabric-1.20.1-0.7.0.jar"
 $LibDir = Join-Path $Repo "libs\porting-lib"
 

@@ -18,7 +18,7 @@ $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
 $release = Join-Path $root 'release'
 $buildsRoot = Join-Path $root '.release-builds'
-$gradle = 'C:\Users\34324\.gradle\wrapper\dists\gradle-9.4.1-bin\45w7kj7s8jzqenl33wrwa0aoj\gradle-9.4.1\bin\gradle.bat'
+$gradle = Join-Path $env:USERPROFILE '.gradle\wrapper\dists\gradle-9.4.1-bin\45w7kj7s8jzqenl33wrwa0aoj\gradle-9.4.1\bin\gradle.bat'
 if (-not (Test-Path $gradle)) {
     throw "Cached Gradle 9.4.1 not found at $gradle"
 }

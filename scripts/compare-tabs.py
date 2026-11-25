@@ -4,8 +4,8 @@ creative tab upstream but missing from the port's tabs."""
 import re
 from pathlib import Path
 
-UP = Path(r"C:\Users\34324\Desktop\Ultramarine-upstream\src\main\java\com\voxelutopia\ultramarine\data\registry\ItemRegistry.java")
-PORT = Path(r"C:\Users\34324\Desktop\Ultramarine-recast-fabric\src\main\java\com\voxelutopia\ultramarine\data\registry\ItemRegistry.java")
+UP = Path(__file__).resolve().parents[1].parent / "Ultramarine-upstream/src/main/java/com/voxelutopia/ultramarine/data/registry/ItemRegistry.java"
+PORT = Path(__file__).resolve().parents[1] / "src/main/java/com/voxelutopia/ultramarine/data/registry/ItemRegistry.java"
 
 TABS = {"MATERIALS", "TOOLS", "BUILDING_BLOCKS", "DECORATIVE_BLOCKS", "DECORATIONS",
         "FURNITURE", "WINDOWS_AND_DOORS", "PLANTS", "LAMPS"}

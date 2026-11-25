@@ -2,8 +2,8 @@
 
 ## Ultramarine: Recast (this port)
 
-A port of Ultramarine 0.7 to Minecraft 1.20.1 / Fabric, with the express permission
-of the original authors.
+A port of Ultramarine 0.7 to Minecraft 1.20.1 – 1.21.11 / Fabric, with the express
+permission of the original authors.
 
 ## Original Ultramarine authors
 
@@ -19,7 +19,7 @@ of the original authors.
 
 ## GitHub contributors (original project)
 
-- Zoshsgahdnkc (海参)
+- Zoshsgahdnkc（海参）
 - 秋雨落
 
 ## Community edition maintainers
@@ -33,6 +33,6 @@ The complete credits list including supporters is preserved in
 ## Licenses
 
 - Source code and binaries: BSD 3-Clause License
-- Assets: CC BY-NC 4.0
+- Assets (textures, models, sounds, texts): CC BY-NC 4.0
 
 See [LICENSE](LICENSE).

@@ -6,8 +6,8 @@ param(
     [Parameter(Mandatory = $true)][string]$Msg
 )
 $ErrorActionPreference = 'Stop'
-$gradle = 'C:\Users\34324\.gradle\wrapper\dists\gradle-9.4.1-bin\45w7kj7s8jzqenl33wrwa0aoj\gradle-9.4.1\bin\gradle.bat'
-$release = 'C:\Users\34324\Desktop\Ultramarine-recast-fabric\release'
+$gradle = Join-Path $env:USERPROFILE '.gradle\wrapper\dists\gradle-9.4.1-bin\45w7kj7s8jzqenl33wrwa0aoj\gradle-9.4.1\bin\gradle.bat'
+$release = Join-Path (Split-Path $PSScriptRoot -Parent) 'release'
 
 Write-Host "=== [$Mc] build ==="
 Push-Location $Wt

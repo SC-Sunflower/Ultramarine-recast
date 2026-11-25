@@ -5,8 +5,8 @@ import json
 import zipfile
 from pathlib import Path
 
-UP_JAR = Path(r"C:\Users\34324\AppData\Local\Temp\ultramarine-0.7.jar")
-PORT = Path(r"C:\Users\34324\Desktop\Ultramarine-recast-fabric")
+UP_JAR = Path(__file__).resolve().parents[1].parent / "Ultramarine-upstream-build" / "ultramarine-0.7.jar"
+PORT = Path(__file__).resolve().parents[1]
 
 LOOT_PREFIX = "data/ultramarine/loot_table/"
 ADV_PREFIX = "data/ultramarine/advancement/"

@@ -2,8 +2,9 @@
 """Inspect the 53 missing advancement files for #tag usages and format quirks."""
 import json
 import subprocess
+from pathlib import Path
 
-REPO = r"C:\Users\34324\Desktop\Ultramarine-recast-fabric"
+REPO = str(Path(__file__).resolve().parents[1])
 MISSING = [
     "blue_carved_carpet.json",
     "building_blocks/red_floor_tile_from_crafting.json",
