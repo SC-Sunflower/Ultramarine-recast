@@ -1,0 +1,12 @@
+{
+  "wants": {
+    "id": "minecraft:sugar",
+    "count": 40.0
+  },
+  "gives": {
+    "id": "minecraft:emerald"
+  },
+  "max_uses": 20.0,
+  "reputation_discount": 0.05,
+  "xp": 10.0
+}

@@ -1,0 +1,11 @@
+{
+  "wants": {
+    "id": "ultramarine:empty_bamboo_tea_basket"
+  },
+  "gives": {
+    "id": "ultramarine:bamboo_tea_basket"
+  },
+  "max_uses": 4.0,
+  "reputation_discount": 0.05,
+  "xp": 10.0
+}
