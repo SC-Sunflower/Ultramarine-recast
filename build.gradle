@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.15.5'
+    id 'dev.architectury.loom-no-remap' version '1.17.493'
     id 'maven-publish'
 }
 
@@ -32,10 +32,11 @@ loom {
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.officialMojangMappings()
+    // Minecraft 26.1+ is not obfuscated: no mappings needed, and the no-remap Loom
+    // track has no modImplementation configuration (mod jars are used as-is).
 
-    modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    implementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
     // 1.20.2 分支不依赖 Porting Lib：原作者代码里使用的 Porting Lib 存储/配方包装 API
     // 已由本仓库自带的 com.voxelutopia.ultramarine.data.storage 包提供等价实现。
 

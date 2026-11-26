@@ -1,7 +1,7 @@
 package com.voxelutopia.ultramarine.data.registry;
 
 import com.voxelutopia.ultramarine.data.ModCreativeTab;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -24,7 +24,7 @@ public class CreativeTabRegistry {
    public static void registerModGroups() {
       MATERIALS = register(
          "materials_tab",
-         FabricItemGroup.builder()
+         FabricCreativeModeTab.builder()
             .title(Component.translatable("item_group.ultramarine.materials"))
             .icon(() -> new ItemStack(ItemRegistry.CYAN_BRICK))
             .displayItems((itemDisplayParameters, output) -> {
@@ -36,7 +36,7 @@ public class CreativeTabRegistry {
       );
       TOOLS = register(
          "tools_tab",
-         FabricItemGroup.builder()
+         FabricCreativeModeTab.builder()
             .title(Component.translatable("item_group.ultramarine.tools"))
             .icon(() -> new ItemStack(ItemRegistry.WOODEN_MALLET))
             .displayItems((itemDisplayParameters, output) -> {
@@ -48,7 +48,7 @@ public class CreativeTabRegistry {
       );
       BUILDING_BLOCKS = register(
          "building_blocks_tab",
-         FabricItemGroup.builder()
+         FabricCreativeModeTab.builder()
             .title(Component.translatable("item_group.ultramarine.building_blocks"))
             .icon(() -> new ItemStack(ItemRegistry.CYAN_BRICKS))
             .displayItems((itemDisplayParameters, output) -> {
@@ -60,7 +60,7 @@ public class CreativeTabRegistry {
       );
       DECORATIVE_BLOCKS = register(
          "decorative_blocks_tab",
-         FabricItemGroup.builder()
+         FabricCreativeModeTab.builder()
             .title(Component.translatable("item_group.ultramarine.decorative_blocks"))
             .icon(() -> new ItemStack(ItemRegistry.CARVED_RED_PILLAR_BASE))
             .displayItems((itemDisplayParameters, output) -> {
@@ -72,7 +72,7 @@ public class CreativeTabRegistry {
       );
       DECORATIONS = register(
          "decorations_tab",
-         FabricItemGroup.builder()
+         FabricCreativeModeTab.builder()
             .title(Component.translatable("item_group.ultramarine.decorations"))
             .icon(() -> new ItemStack(ItemRegistry.LARGE_BLUE_AND_WHITE_PORCELAIN_VASE))
             .displayItems((itemDisplayParameters, output) -> {
@@ -84,7 +84,7 @@ public class CreativeTabRegistry {
       );
       FURNITURE = register(
          "furniture_tab",
-         FabricItemGroup.builder()
+         FabricCreativeModeTab.builder()
             .title(Component.translatable("item_group.ultramarine.furniture"))
             .icon(() -> new ItemStack(ItemRegistry.OAK_CABINET))
             .displayItems((itemDisplayParameters, output) -> {
@@ -96,7 +96,7 @@ public class CreativeTabRegistry {
       );
       WINDOWS_AND_DOORS = register(
          "windows_and_doors_tab",
-         FabricItemGroup.builder()
+         FabricCreativeModeTab.builder()
             .title(Component.translatable("item_group.ultramarine.windows_and_doors"))
             .icon(() -> new ItemStack(ItemRegistry.CARVED_WOODEN_DOOR))
             .displayItems((itemDisplayParameters, output) -> {
@@ -108,7 +108,7 @@ public class CreativeTabRegistry {
       );
       PLANTS = register(
          "plants_tab",
-         FabricItemGroup.builder()
+         FabricCreativeModeTab.builder()
             .title(Component.translatable("item_group.ultramarine.plants"))
             .icon(() -> new ItemStack(ItemRegistry.MEDIUM_LOTUS))
             .displayItems((itemDisplayParameters, output) -> {
@@ -120,7 +120,7 @@ public class CreativeTabRegistry {
       );
       LAMPS = register(
          "lamps_tab",
-         FabricItemGroup.builder()
+         FabricCreativeModeTab.builder()
             .title(Component.translatable("item_group.ultramarine.lamps"))
             .icon(() -> new ItemStack(ItemRegistry.OCTAGONAL_PALACE_LANTERN))
             .displayItems((itemDisplayParameters, output) -> {

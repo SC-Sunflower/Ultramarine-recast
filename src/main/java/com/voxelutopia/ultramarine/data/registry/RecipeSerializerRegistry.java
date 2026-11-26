@@ -14,14 +14,17 @@ public class RecipeSerializerRegistry {
    public static RecipeSerializer<ChiselTableRecipe> CHISEL_TABLE_SERIALIZER;
 
    public static void registerModRecipeSerializers() {
-      WOODWORKING_SERIALIZER = (RecipeSerializer<WoodworkingRecipe>)Registry.register(
-         BuiltInRegistries.RECIPE_SERIALIZER, Identifier.fromNamespaceAndPath("ultramarine", "woodworking"), WoodworkingRecipe.Serializer.INSTANCE
+      WOODWORKING_SERIALIZER = Registry.register(
+         BuiltInRegistries.RECIPE_SERIALIZER, Identifier.fromNamespaceAndPath("ultramarine", "woodworking"),
+         new RecipeSerializer<>(WoodworkingRecipe.CODEC, WoodworkingRecipe.STREAM_CODEC)
       );
-      COMPOSITE_SMELTING_SERIALIZER = (RecipeSerializer<CompositeSmeltingRecipe>)Registry.register(
-         BuiltInRegistries.RECIPE_SERIALIZER, Identifier.fromNamespaceAndPath("ultramarine", "composite_smelting"), CompositeSmeltingRecipe.Serializer.INSTANCE
+      COMPOSITE_SMELTING_SERIALIZER = Registry.register(
+         BuiltInRegistries.RECIPE_SERIALIZER, Identifier.fromNamespaceAndPath("ultramarine", "composite_smelting"),
+         new RecipeSerializer<>(CompositeSmeltingRecipe.CODEC, CompositeSmeltingRecipe.STREAM_CODEC)
       );
-      CHISEL_TABLE_SERIALIZER = (RecipeSerializer<ChiselTableRecipe>)Registry.register(
-         BuiltInRegistries.RECIPE_SERIALIZER, Identifier.fromNamespaceAndPath("ultramarine", "chisel_table"), ChiselTableRecipe.Serializer.INSTANCE
+      CHISEL_TABLE_SERIALIZER = Registry.register(
+         BuiltInRegistries.RECIPE_SERIALIZER, Identifier.fromNamespaceAndPath("ultramarine", "chisel_table"),
+         new RecipeSerializer<>(ChiselTableRecipe.CODEC, ChiselTableRecipe.STREAM_CODEC)
       );
    }
 }

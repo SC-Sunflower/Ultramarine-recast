@@ -33,7 +33,7 @@ public class Icicle extends WallSideBlock {
    }
 
    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
-      int variant = pLevel.random.nextInt(3);
+      int variant = pLevel.getRandom().nextInt(3);
       BlockState newState = (BlockState)pState.setValue(VARIANT, variant);
       pLevel.setBlockAndUpdate(pPos, newState);
    }

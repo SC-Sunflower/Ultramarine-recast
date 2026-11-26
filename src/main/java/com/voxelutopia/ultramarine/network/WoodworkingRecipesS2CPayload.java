@@ -21,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 public record WoodworkingRecipesS2CPayload(List<ItemStack> results, List<Identifier> recipeIds)
       implements CustomPacketPayload {
    public static final Type<WoodworkingRecipesS2CPayload> TYPE =
-         new Type<>(Identifier.fromNamespaceAndPath(Ultramarine.MOD_ID, "woodworking_recipes"));
+         CustomPacketPayload.createType("ultramarine:woodworking_recipes");
 
    public static final StreamCodec<RegistryFriendlyByteBuf, WoodworkingRecipesS2CPayload> STREAM_CODEC = StreamCodec.composite(
          ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()), WoodworkingRecipesS2CPayload::results,

@@ -1,10 +1,10 @@
 package com.voxelutopia.ultramarine.client.screen;
 
 import com.voxelutopia.ultramarine.world.block.menu.ChiselTableMenu;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.network.chat.Component;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
@@ -15,12 +15,9 @@ public class ChiselTableScreen extends AbstractContainerScreen<ChiselTableMenu> 
       super(pMenu, pPlayerInventory, pTitle);
    }
 
-   public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-      super.render(guiGraphics, mouseX, mouseY, partialTicks);
-      this.renderTooltip(guiGraphics, mouseX, mouseY);
-   }
-
-   protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-                        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
+   @Override
+   public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+      super.extractBackground(graphics, mouseX, mouseY, partialTick);
+      graphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
    }
 }

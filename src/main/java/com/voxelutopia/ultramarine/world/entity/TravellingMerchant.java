@@ -22,11 +22,13 @@ import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
 
 public class TravellingMerchant extends WanderingTrader {
-   private static final List<MerchantOffer> TRADE_OPTIONS = new ArrayList<>();
+   // Minecraft 26.1 forbids creating ItemStacks during static initialization, so the
+   // trade list is built lazily on first use (i.e. when a level/registry exists).
+   private static List<MerchantOffer> TRADE_OPTIONS;
 
    public TravellingMerchant(EntityType<? extends TravellingMerchant> entityType, Level level) {
       super(entityType, level);
-      ArrayList<MerchantOffer> trades = new ArrayList<>(TRADE_OPTIONS);
+      ArrayList<MerchantOffer> trades = new ArrayList<>(getTradeOptions());
       Collections.shuffle(trades);
       MerchantOffers offers = new MerchantOffers();
       offers.addAll(trades.subList(0, 6));
@@ -45,6 +47,9 @@ public class TravellingMerchant extends WanderingTrader {
    }
 
    public static List<MerchantOffer> getTradeOptions() {
+      if (TRADE_OPTIONS == null) {
+         TRADE_OPTIONS = createTradeOptions();
+      }
       return ImmutableList.copyOf(TRADE_OPTIONS);
    }
 
@@ -52,8 +57,9 @@ public class TravellingMerchant extends WanderingTrader {
       return new ClientboundAddEntityPacket(this, entity);
    }
 
-   static {
-      TRADE_OPTIONS.addAll(
+   private static List<MerchantOffer> createTradeOptions() {
+      List<MerchantOffer> options = new ArrayList<>();
+      options.addAll(
          List.of(
             new MerchantOffer(new ItemCost((ItemRegistry.COPPER_CASH_COIN), 10), new ItemStack(ItemRegistry.INCENSE), 8, 5, 0.05F),
             new MerchantOffer(new ItemCost((ItemRegistry.COPPER_CASH_COIN), 4), new ItemStack(ItemRegistry.XUAN_PAPER), 20, 5, 0.05F),
@@ -77,5 +83,6 @@ public class TravellingMerchant extends WanderingTrader {
             new MerchantOffer(new ItemCost((ItemRegistry.JADE), 1), new ItemStack(ItemRegistry.COPPER_CASH_COIN, 15), 2, 5, 0.05F)
          )
       );
+      return options;
    }
 }

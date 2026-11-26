@@ -11,7 +11,7 @@ public class UltramarineClient implements ClientModInitializer {
    public void onInitializeClient() {
       ModClientRenderEventHandler.onClientSetup();
 
-      PayloadTypeRegistry.playS2C().register(WoodworkingRecipesS2CPayload.TYPE, WoodworkingRecipesS2CPayload.STREAM_CODEC);
+      PayloadTypeRegistry.clientboundPlay().register(WoodworkingRecipesS2CPayload.TYPE, WoodworkingRecipesS2CPayload.STREAM_CODEC);
       ClientPlayNetworking.registerGlobalReceiver(WoodworkingRecipesS2CPayload.TYPE, (payload, context) -> {
          context.client().execute(() -> {
             if (context.client().player != null

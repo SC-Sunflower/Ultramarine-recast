@@ -23,9 +23,6 @@
     ],
     "main": [
       "com.voxelutopia.ultramarine.Ultramarine"
-    ],
-    "fabric-datagen": [
-      "com.voxelutopia.ultramarine.data.ModDataGenerator"
     ]
   },
   "mixins": [
@@ -33,9 +30,9 @@
   ],
   "accessWidener": "ultramarine.accesswidener",
   "depends": {
-    "fabricloader": ">=0.15.7",
+    "fabricloader": ">=0.18.4",
     "fabric-api": "*",
-    "minecraft": ">=1.21.11 <1.21.12",
-    "java": ">=21"
+    "minecraft": ">=26.1 <26.2",
+    "java": ">=25"
   }
 }

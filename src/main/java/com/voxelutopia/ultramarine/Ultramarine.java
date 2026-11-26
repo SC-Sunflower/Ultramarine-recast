@@ -14,7 +14,6 @@ import com.voxelutopia.ultramarine.data.registry.RecipeSerializerRegistry;
 import com.voxelutopia.ultramarine.data.registry.RecipeTypeRegistry;
 import com.voxelutopia.ultramarine.data.registry.SoundRegistry;
 import com.voxelutopia.ultramarine.data.registry.VillagerProfessionRegistry;
-import com.voxelutopia.ultramarine.data.registry.VillagerTradingsRegister;
 import com.voxelutopia.ultramarine.event.CommonEventHandler;
 import com.voxelutopia.ultramarine.world.worldgen.ModBiomeModifiers;
 import net.fabricmc.api.ModInitializer;
@@ -39,8 +38,6 @@ public class Ultramarine implements ModInitializer {
       RecipeTypeRegistry.registerModRecipeTypes();
       RecipeSerializerRegistry.registerModRecipeSerializers();
       CreativeTabRegistry.registerModGroups();
-      VillagerTradingsRegister.loadTrades();
-      VillagerTradingsRegister.registerWandererTrades();
       BlockApiLookupRegistry.init();
       CommonEventHandler.init();
       ReplaceToSingleItemLootModifier.register();

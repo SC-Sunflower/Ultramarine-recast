@@ -3,7 +3,7 @@ package com.voxelutopia.ultramarine.data.loot;
 import com.voxelutopia.ultramarine.data.registry.ItemRegistry;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -35,7 +35,7 @@ public class ReplaceToSingleItemLootModifier {
     }
 
     private static void appendEntityDrop(Identifier target, ItemLike item, float chance, NumberProvider count) {
-        LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {
+        LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
             if (key.identifier().equals(target)) {
                 tableBuilder.pool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
@@ -47,7 +47,7 @@ public class ReplaceToSingleItemLootModifier {
     }
 
     private static void appendArchaeology(Identifier target, float chance, Map<ItemLike, Integer> items) {
-        LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {
+        LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
             if (key.identifier().equals(target)) {
                 LootPool.Builder builder = LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))

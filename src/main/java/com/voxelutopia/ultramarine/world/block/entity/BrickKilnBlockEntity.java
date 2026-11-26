@@ -214,7 +214,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
 
    private boolean canBurn(@Nullable Recipe<CraftingInput> pRecipe, ItemStack fuel, ItemStack primary, ItemStack secondary, ItemStack resultPrev, int maxStackSize) {
       if (!primary.isEmpty() && !secondary.isEmpty() && pRecipe != null) {
-         ItemStack result = pRecipe.assemble(CraftingInput.of(2, 1, List.of(primary, secondary)), this.level.registryAccess());
+         ItemStack result = pRecipe.assemble(CraftingInput.of(2, 1, List.of(primary, secondary)));
          if (result.isEmpty()) {
             return false;
          } else if (resultPrev.isEmpty()) {
@@ -236,7 +236,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
       Recipe<CraftingInput> pRecipe, BrickKilnBlockEntity entity, ItemStack fuel, ItemStack primary, ItemStack secondary, ItemStack resultPrev, int maxStackSize
    ) {
       if (this.canBurn(pRecipe, fuel, primary, secondary, resultPrev, maxStackSize)) {
-         ItemStack newResult = pRecipe.assemble(CraftingInput.of(2, 1, List.of(primary, secondary)), this.level.registryAccess());
+         ItemStack newResult = pRecipe.assemble(CraftingInput.of(2, 1, List.of(primary, secondary)));
          if (resultPrev.isEmpty()) {
             entity.resultHandler.setStackInSlot(0, newResult.copy());
          } else if (resultPrev.is(newResult.getItem())) {

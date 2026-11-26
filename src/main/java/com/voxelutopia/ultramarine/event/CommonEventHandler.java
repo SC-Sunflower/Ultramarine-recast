@@ -19,8 +19,6 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.npc.villager.VillagerTrades.ItemListing;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.ItemCost;
@@ -50,7 +48,6 @@ public class CommonEventHandler {
       breakSpeed();
       travellingMerchantSpawnAttempt();
       registerEntityAttributes();
-      villagerTraders();
    }
 
    private static void breakSpeed() {
@@ -67,19 +64,20 @@ public class CommonEventHandler {
    // Ported from Ultramarine 0.5.1 (Forge TickEvent.LevelTickEvent): spawns the travelling
    // merchant near a trade POI with the vanilla wandering trader probability, every day at dawn.
    private static void travellingMerchantSpawnAttempt() {
-      ServerTickEvents.START_WORLD_TICK.register(world -> {
+      ServerTickEvents.START_LEVEL_TICK.register(world -> {
          if (world.isClientSide() || world.dimension() != Level.OVERWORLD) {
             return;
          }
          ServerLevel level = (ServerLevel) world;
-         ServerLevelData levelData = (ServerLevelData) level.getLevelData();
          if (!level.getGameRules().get(GameRules.SPAWN_WANDERING_TRADERS)
             || !level.getGameRules().get(GameRules.SPAWN_MOBS)
             || !level.getGameRules().get(GameRules.ADVANCE_TIME)) {
             return;
          }
-         int wanderingTraderSpawnChance = levelData.getWanderingTraderSpawnChance();
-         if (level.getDayTime() % 24000 == 0 && level.random.nextInt(100) < wanderingTraderSpawnChance) {
+         // 26.1 made the wandering trader schedule data-driven; the mod keeps the vanilla
+         // default chance (25) and rolls once per in-game day at dawn.
+         int wanderingTraderSpawnChance = 25;
+         if (level.getOverworldClockTime() % 24000 == 0 && level.getRandom().nextInt(100) < wanderingTraderSpawnChance) {
             spawnTrader(level);
          }
       });
@@ -102,8 +100,8 @@ public class CommonEventHandler {
          .ifPresent(pos -> {
             BlockPos potentialSpawn = null;
             for (int i = 0; i < 10; ++i) {
-               int x = pos.getX() + world.random.nextInt(8) - 4;
-               int z = pos.getZ() + world.random.nextInt(8) - 4;
+               int x = pos.getX() + world.getRandom().nextInt(8) - 4;
+               int z = pos.getZ() + world.getRandom().nextInt(8) - 4;
                int y = world.getHeight(Heightmap.Types.WORLD_SURFACE, x, z);
                BlockPos rolledPos = new BlockPos(x, y, z);
                if (SpawnPlacements.isSpawnPositionOk(EntityType.WANDERING_TRADER, world, rolledPos)) {
@@ -142,102 +140,4 @@ public class CommonEventHandler {
    // Ported from Ultramarine 0.5.1 (Forge VillagerTradesEvent / WandererTradesEvent): the full
    // trade sets for vanilla professions plus the cook profession. The community Fabric build
    // only shipped a reduced cook trade list, so the complete lists are restored here.
-   private static void villagerTraders() {
-      EntityEvents.VILLAGER_TRADE
-         .register(
-            (EntityEvents.VillagerTrade)(trades, profession) -> {
-               if (profession.equals(VillagerProfession.MASON)) {
-                  ((List<ItemListing>)trades.get(4))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 5), new ItemStack(ItemRegistry.RAW_HEMATITE, 2), 12, 10, 0.05F));
-                  ((List<ItemListing>)trades.get(4))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 5), new ItemStack(ItemRegistry.MAGNESITE, 2), 12, 10, 0.05F));
-                  ((List<ItemListing>)trades.get(5))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 10), new ItemStack(ItemRegistry.JADE, 1), 6, 20, 0.05F));
-               }
-
-               if (profession.equals(VillagerProfession.TOOLSMITH)) {
-                  ((List<ItemListing>)trades.get(4))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 6), new ItemStack(ItemRegistry.BRONZE_INGOT, 1), 12, 10, 0.05F));
-                  ((List<ItemListing>)trades.get(5))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 40), new ItemStack(ItemRegistry.CARRIAGE, 1), 1, 10, 0.05F));
-               }
-
-               if (profession.equals(VillagerProfession.FARMER)) {
-                  ((List<ItemListing>)trades.get(3))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 4), new ItemStack(ItemRegistry.POLISHED_ROSEWOOD_PLANK, 8), 12, 5, 0.05F));
-                  ((List<ItemListing>)trades.get(3))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 4), new ItemStack(ItemRegistry.POLISHED_EBONY_PLANK, 8), 12, 5, 0.05F));
-                  ((List<ItemListing>)trades.get(3))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 30), new ItemStack(ItemRegistry.SILK, 4), 4, 10, 0.05F));
-                  ((List<ItemListing>)trades.get(4))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((ItemRegistry.EMPTY_BAMBOO_TEA_BASKET), 1), Optional.of(new ItemCost((Items.EMERALD), 20)), new ItemStack(ItemRegistry.BAMBOO_TEA_BASKET, 1), 4, 10, 0.05F));
-               }
-
-               if (profession.equals(VillagerProfession.LIBRARIAN)) {
-                  ((List<ItemListing>)trades.get(4))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 20), new ItemStack(ItemRegistry.XUAN_PAPER, 4), 10, 20, 0.05F));
-                  ((List<ItemListing>)trades.get(5))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 30), new ItemStack(ItemRegistry.PORCELAIN_TEAPOT, 1), 2, 20, 0.05F));
-               }
-
-               if (profession.equals(VillagerProfession.CLERIC)) {
-                  ((List<ItemListing>)trades.get(5))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 40), new ItemStack(ItemRegistry.SUNDIAL, 1), 1, 20, 0.05F));
-               }
-
-               if (profession == VillagerProfessionRegistry.COOK) {
-                  ((List<ItemListing>)trades.get(1))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((ItemRegistry.RAW_MEAT), 10), new ItemStack(Items.EMERALD, 1), 12, 2, 0.05F));
-                  ((List<ItemListing>)trades.get(1))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.PORKCHOP), 15), new ItemStack(Items.EMERALD, 1), 12, 2, 0.05F));
-                  ((List<ItemListing>)trades.get(1))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.BEEF), 15), new ItemStack(Items.EMERALD, 1), 12, 2, 0.05F));
-                  ((List<ItemListing>)trades.get(1))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.CHICKEN), 20), new ItemStack(Items.EMERALD, 1), 12, 2, 0.05F));
-                  ((List<ItemListing>)trades.get(1))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 8), new ItemStack(ItemRegistry.COOKED_MEAT, 4), 12, 2, 0.05F));
-                  ((List<ItemListing>)trades.get(2))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.MUTTON), 15), new ItemStack(Items.EMERALD, 1), 12, 4, 0.05F));
-                  ((List<ItemListing>)trades.get(2))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.RABBIT), 15), new ItemStack(Items.EMERALD, 1), 12, 4, 0.05F));
-                  ((List<ItemListing>)trades.get(2))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 6), new ItemStack(ItemRegistry.GREASE, 2), 8, 5, 0.05F));
-                  ((List<ItemListing>)trades.get(2))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 6), new ItemStack(ItemRegistry.FUR, 2), 8, 5, 0.05F));
-                  ((List<ItemListing>)trades.get(3))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.DRIED_KELP), 40), new ItemStack(Items.EMERALD, 2), 15, 8, 0.05F));
-                  ((List<ItemListing>)trades.get(3))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.SUGAR), 40), new ItemStack(Items.EMERALD, 1), 20, 8, 0.05F));
-                  ((List<ItemListing>)trades.get(3))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EGG), 16), new ItemStack(Items.EMERALD, 1), 20, 8, 0.05F));
-                  ((List<ItemListing>)trades.get(3))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 12), new ItemStack(ItemRegistry.MUNG_BEAN_CAKE, 4), 12, 10, 0.05F));
-                  ((List<ItemListing>)trades.get(3))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 12), new ItemStack(ItemRegistry.MOONCAKE, 4), 12, 10, 0.05F));
-                  ((List<ItemListing>)trades.get(4))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 12), new ItemStack(ItemRegistry.CABBAGE_BASKET, 1), 3, 20, 0.05F));
-                  ((List<ItemListing>)trades.get(4))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 12), new ItemStack(ItemRegistry.CELERY_BASKET, 1), 3, 20, 0.05F));
-                  ((List<ItemListing>)trades.get(4))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 12), new ItemStack(ItemRegistry.ORANGE_BASKET, 1), 3, 20, 0.05F));
-                  ((List<ItemListing>)trades.get(4))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 12), new ItemStack(ItemRegistry.APPLE_BASKET, 1), 3, 20, 0.05F));
-                  ((List<ItemListing>)trades.get(4))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 12), new ItemStack(ItemRegistry.EGGPLANT_BASKET, 1), 3, 20, 0.05F));
-                  ((List<ItemListing>)trades.get(4))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 12), new ItemStack(ItemRegistry.PEAR_BASKET, 1), 3, 20, 0.05F));
-                  ((List<ItemListing>)trades.get(4))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 5), new ItemStack(ItemRegistry.BAOZI, 2), 6, 20, 0.05F));
-                  ((List<ItemListing>)trades.get(5))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 25), new ItemStack(ItemRegistry.XIAOLONGBAO, 1), 2, 30, 0.05F));
-                  ((List<ItemListing>)trades.get(5))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 30), new ItemStack(ItemRegistry.WINE_POT, 1), 2, 20, 0.05F));
-                  ((List<ItemListing>)trades.get(5))
-                     .add((serverLevel, trader, random) -> new MerchantOffer(new ItemCost((Items.EMERALD), 40), new ItemStack(ItemRegistry.BOTTLE_GOURD, 1), 1, 30, 0.05F));
-               }
-
-               return trades;
-            }
-         );
-   }
 }

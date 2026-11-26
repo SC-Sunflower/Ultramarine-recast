@@ -210,7 +210,7 @@ public class WoodworkingWorkbenchMenu extends AbstractContainerMenu {
          } else {
             RecipeHolder<WoodworkingRecipe> holder = this.recipes.get(this.selectedRecipeIndex.get());
             this.resultContainer.setRecipeUsed(holder);
-            this.resultSlot.set(holder.value().assemble(new SingleRecipeInput(this.container.getItem(0)), this.level.registryAccess()));
+            this.resultSlot.set(holder.value().assemble(new SingleRecipeInput(this.container.getItem(0))));
          }
       } else {
          this.resultSlot.set(ItemStack.EMPTY);
