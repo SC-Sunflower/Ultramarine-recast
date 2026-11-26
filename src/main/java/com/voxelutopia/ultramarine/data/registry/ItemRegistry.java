@@ -699,16 +699,20 @@ public class ItemRegistry {
    public static final Item BAOZI = foodItem("baozi", ModFoods.BAOZI);
    public static final Item WOODEN_MALLET = toolItem("wooden_mallet", WoodenMallet::new);
    public static final Item BLUE_AND_WHITE_PORCELAIN_SWORD = toolItem(
-      "blue_and_white_porcelain_sword", Item::new
+      "blue_and_white_porcelain_sword",
+      p -> new Item(p.sword(ModTiers.BLUE_AND_WHITE_PORCELAIN, 3.0F, -2.4F))
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_SHOVEL = toolItem(
-      "blue_and_white_porcelain_shovel", Item::new
+      "blue_and_white_porcelain_shovel",
+      p -> new Item(p.shovel(ModTiers.BLUE_AND_WHITE_PORCELAIN, 1.5F, -3.0F))
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_PICKAXE = toolItem(
-      "blue_and_white_porcelain_pickaxe", Item::new
+      "blue_and_white_porcelain_pickaxe",
+      p -> new Item(p.pickaxe(ModTiers.BLUE_AND_WHITE_PORCELAIN, 1.0F, -2.8F))
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_AXE = toolItem(
-      "blue_and_white_porcelain_axe", Item::new
+      "blue_and_white_porcelain_axe",
+      p -> new Item(p.axe(ModTiers.BLUE_AND_WHITE_PORCELAIN, 6.0F, -3.2F))
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_UPGRADE_SMITHING_TEMPLATE = toolItem(
       "blue_and_white_porcelain_upgrade_smithing_template", BlueAndWhitePorcelainUpgradeSmithingTemplate::new
