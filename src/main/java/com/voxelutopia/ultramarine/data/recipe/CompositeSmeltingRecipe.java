@@ -89,7 +89,11 @@ public class CompositeSmeltingRecipe implements Recipe<CraftingInput> {
         return this.result.copy();
     }
 
-    public RecipeSerializer<CompositeSmeltingRecipe> getSerializer() {
+    public ItemStack getResultStack() {
+      return this.result.copy();
+   }
+
+   public RecipeSerializer<CompositeSmeltingRecipe> getSerializer() {
         return RecipeSerializerRegistry.COMPOSITE_SMELTING_SERIALIZER;
     }
 

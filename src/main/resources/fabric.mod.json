@@ -26,6 +26,12 @@
     ],
     "fabric-datagen": [
       "com.voxelutopia.ultramarine.data.ModDataGenerator"
+    ],
+    "rei_client": [
+      "com.voxelutopia.ultramarine.compat.rei.UltramarineReiPlugin"
+    ],
+    "rei_common": [
+      "com.voxelutopia.ultramarine.compat.rei.UltramarineReiCommonPlugin"
     ]
   },
   "mixins": [

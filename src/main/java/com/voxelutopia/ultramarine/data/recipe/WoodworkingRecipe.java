@@ -49,7 +49,11 @@ public class WoodworkingRecipe extends SingleItemRecipe {
         return this.result.copy();
     }
 
-    public ItemStack getResultStack() {
+    public Ingredient getIngredient() {
+      return this.ingredient;
+   }
+
+   public ItemStack getResultStack() {
         return this.result.copy();
     }
 

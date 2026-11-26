@@ -99,7 +99,11 @@ public class ChiselTableRecipe implements Recipe<CraftingInput> {
         return this.colors;
     }
 
-    public RecipeSerializer<ChiselTableRecipe> getSerializer() {
+    public ItemStack getResultStack() {
+      return this.result.copy();
+   }
+
+   public RecipeSerializer<ChiselTableRecipe> getSerializer() {
         return RecipeSerializerRegistry.CHISEL_TABLE_SERIALIZER;
     }
 
