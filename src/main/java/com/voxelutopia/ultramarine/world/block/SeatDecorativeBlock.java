@@ -27,14 +27,15 @@ public class SeatDecorativeBlock extends DecorativeBlock {
 
    public InteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
       if (pState.is(this) && pLevel.getEntitiesOfClass(SeatEntity.class, new AABB(pPos)).isEmpty()) {
-         boolean ridingSuccess = false;
-         if (!pLevel.isClientSide()) {
-            SeatEntity seat = new SeatEntity(pLevel, Vec3.atCenterOf(pPos).add(this.seatOffset));
-            pLevel.addFreshEntity(seat);
-            ridingSuccess = pPlayer.startRiding(seat);
+         if (pLevel.isClientSide()) {
+            // Succeed on the client so the interaction does not fall through to the
+            // item-use/place chain (26.1's use packet handler shows a build-limit
+            // message for follow-up placement attempts near the interaction).
+            return InteractionResult.SUCCESS;
          }
-
-         return ridingSuccess ? InteractionResult.SUCCESS : InteractionResult.PASS;
+         SeatEntity seat = new SeatEntity(pLevel, Vec3.atCenterOf(pPos).add(this.seatOffset));
+         pLevel.addFreshEntity(seat);
+         return pPlayer.startRiding(seat) ? InteractionResult.SUCCESS : InteractionResult.PASS;
       } else {
          return super.useItemOn(stack, pState, pLevel, pPos, pPlayer, pHand, pHit);
       }
