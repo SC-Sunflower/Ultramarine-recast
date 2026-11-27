@@ -71,6 +71,10 @@ public class ChiselTableRecipe implements Recipe<Container> {
       return true;
    }
 
+   public ItemStack getResultStack() {
+      return this.result.copy();
+   }
+
    public ItemStack getResultItem(RegistryAccess registryAccess) {
       return this.result.copy();
    }
