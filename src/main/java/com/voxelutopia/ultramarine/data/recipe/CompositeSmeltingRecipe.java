@@ -62,7 +62,11 @@ public class CompositeSmeltingRecipe implements Recipe<CraftingInput> {
         return true;
     }
 
-    public Ingredient getPrimaryIngredient() {
+    public ItemStack getResultStack() {
+        return this.result.copy();
+    }
+
+public Ingredient getPrimaryIngredient() {
         return this.primaryIngredient;
     }
 
