@@ -1,10 +1,12 @@
 # release 目录说明
 
 本目录按 **Minecraft 版本号** 严格区分：每个正式版本一个独立 jar 文件
-（1.21 与 1.21.1 内容相同也各有一个文件）。**已放弃 Minecraft 1.20 支持**（1.20.1 起）。
+（1.20 与 1.20.1、1.21 与 1.21.1、1.21.2 与 1.21.3、26.1 与 26.1.1/26.1.2 内容相同也各有一个文件）。
+Minecraft 1.20 由 1.20.1 jar 变体提供支持。
 
 | jar 文件 | 来源分支 | 说明 |
 |---|---|---|
+| ultramarine-recast-fabric-1.20-0.7.0.jar | main（1.20.1 构建产物复制） | 需先 fetch-porting-lib.ps1，构建后跑 fix-1.20-fatjar.ps1 |
 | ultramarine-recast-fabric-1.20.1-0.7.0.jar | main | 需先 fetch-porting-lib.ps1，构建后跑 fix-1.20-fatjar.ps1 |
 | ultramarine-recast-fabric-1.20.2 … 1.20.6 | fabric/1.20.2 … fabric/1.20.6 | |
 | ultramarine-recast-fabric-1.21-0.7.0.jar | fabric/1.21.1 构建产物复制 | fabric.mod.json 范围 >=1.21 <1.21.2 |
@@ -14,15 +16,23 @@
 | ultramarine-recast-fabric-1.21.4 … 1.21.7 | fabric/1.21.4 … fabric/1.21.7 | |
 | ultramarine-recast-fabric-1.21.8-0.7.0.jar | fabric/1.21.9 降级构建 | 见 scripts/notes-1.21.8-build.md |
 | ultramarine-recast-fabric-1.21.9 … 1.21.11 | fabric/1.21.9 … fabric/1.21.11 | |
+| ultramarine-recast-fabric-26.1-0.7.0.jar | fabric/26.1 | 本地分支（尚未 push） |
+| ultramarine-recast-fabric-26.1.1-0.7.0.jar | fabric/26.1 构建产物复制 | |
+| ultramarine-recast-fabric-26.1.2-0.7.0.jar | fabric/26.1 构建产物复制 | |
+| ultramarine-recast-fabric-26.2-0.7.0.jar | fabric/26.2 | 已完成（Jade 26.2 + REI 26.2；数据包格式 107.1） |
+| ultramarine-recast-fabric-26.3-0.7.0.jar | fabric/26.3 | 已完成（Jade 26.3 + REI 26.3；数据包格式 121.0） |
+
+可选的配方查看器为 **REI**，方块提示为 **Jade**；JEI 集成已放弃。
 
 ## 以后代码更新后如何同步
 
-在主仓库跑一键脚本（会构建全部 15 个分支、生成变体并更新本目录）：
+在主仓库跑一键脚本（会构建全部已列入 matrix 的分支、生成变体并更新本目录）：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/sync-release.ps1
 ```
 
-- 全量构建约 20-40 分钟（依赖首次下载较慢，之后走缓存）。
+- 全量构建约 20–40 分钟（依赖首次下载较慢，之后走缓存）。
 - 仅同步已构建产物（跳过构建）：加 `-OnlySync` 参数。
 - 1.21.8 不自动构建：更新它时按 scripts/notes-1.21.8-build.md 手动构建后放回本目录。
+- 1.19.2 尚未移植；26.3 已完成。

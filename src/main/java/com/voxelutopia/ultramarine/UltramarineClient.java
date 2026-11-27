@@ -5,13 +5,13 @@ import com.voxelutopia.ultramarine.network.WoodworkingRecipesS2CPayload;
 import com.voxelutopia.ultramarine.world.block.menu.WoodworkingWorkbenchMenu;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 
 public class UltramarineClient implements ClientModInitializer {
    public void onInitializeClient() {
       ModClientRenderEventHandler.onClientSetup();
 
-      PayloadTypeRegistry.playS2C().register(WoodworkingRecipesS2CPayload.TYPE, WoodworkingRecipesS2CPayload.STREAM_CODEC);
+      // The payload type itself is registered in the common initializer so dedicated
+      // servers can encode it as well; only the receiver is client-specific.
       ClientPlayNetworking.registerGlobalReceiver(WoodworkingRecipesS2CPayload.TYPE, (payload, context) -> {
          context.client().execute(() -> {
             if (context.client().player != null

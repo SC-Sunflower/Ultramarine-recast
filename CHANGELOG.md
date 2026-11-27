@@ -3,15 +3,22 @@
 ## 0.7.0 (unreleased)
 
 First public release of **Ultramarine: Recast** — Ultramarine 0.7 content ported to
-Minecraft 1.20.1 / Fabric.
+Minecraft **1.20.1 – 26.2 / Fabric**.
 
-### Minecraft 1.20 support
+### Supported versions
 
-- The same jar now also runs on Minecraft 1.20: 1.20 and 1.20.1 share identical Fabric
-  intermediary mappings, so the build is binary-compatible.
-- `scripts/patch-mc-version.ps1` rewrites the bundled Porting Lib version declarations
-  from `= 1.20.1` to `>=1.20 <1.20.2` so Fabric Loader accepts the jar on 1.20.
-- 1.20 requires Fabric API 0.83.0+1.20; 1.20.1 uses the regular 1.20.1 Fabric API.
+- 26.1 / 26.1.1 / 26.1.2 (fabric/26.1 and jar variants), 26.2 (fabric/26.2)
+- 26.3 (fabric/26.3; pack format 121.0, Jade 26.3, REI 26.3).
+- One jar per Minecraft version; 1.20/1.20.1, 1.21/1.21.1, 1.21.2/1.21.3 and
+  26.1/26.1.1/26.1.2 share jars where the data formats are identical.
+
+### Integrations
+
+- **REI**: woodworking, chisel table and composite smelting categories.
+- **Jade**: brick kiln progress, censer burn time, bottle gourd potion charges,
+  mallet-toggleable blocks.
+- **Patchouli**: "Tiangong Kaiwu" guide book resources (requires Patchouli).
+- **JEI integration was dropped**; REI is the supported recipe viewer.
 
 ### Added
 
@@ -33,15 +40,30 @@ Minecraft 1.20.1 / Fabric.
 - Updated guide book ("Tiangong Kaiwu") pages for the new content
 - Updated zh_cn / en_us localizations
 
+### Fixed
+
+- Woodworking workbench recipe sync payload is now registered on both sides, so it
+  works on dedicated servers (previously client-only registration).
+- Travelling merchant offers are copied per entity, so stock/price no longer leak
+  between merchants; trade selection is bounded and uses the entity's random source.
+- Removed the `minecraft:brick` and `minecraft:white_candle` recipe overrides that
+  replaced vanilla recipes.
+- Recipe-unlock advancements now use the 1.21.2 `items` predicate field instead of the
+  removed `tag` field; dye-powder advancements use `#c:dyes/*` tags.
+- Removed the dangling `c:ingots/cobalt` advancement (the tag is not shipped).
+- Jade integration reworked for every supported branch: Jade 12 (1.20.2), 13 (1.20.4),
+  14 (1.20.5/1.20.6), 15 (1.21.1), 16 (1.21.2), 17 (1.21.4), 18 (1.21.5), 19 (1.21.6/1.21.7),
+  20 (1.21.9/1.21.10), 21 (1.21.11), 26.x (26.1/26.2).
+- REI integration restored for 26.2 (REI 26.2.820).
+- Recipe book categories for custom recipes use registered categories.
+
 ### Technical
 
-- Built on the original authors' Fabric codebase, targeting Minecraft 1.20.1 with
-  Fabric Loader, Fabric API and Porting Lib
-- NeoForge biome modifiers replaced with `fabric-biome-api-v1` (ore generation was
-  already present in the Fabric codebase)
+- Built on the original authors' Fabric codebase; content baseline is Ultramarine 0.7.
+- NeoForge biome modifiers replaced with `fabric-biome-api-v1`.
 - NeoForge global loot modifiers replaced with Fabric `LootTableEvents.MODIFY`
-  injections
-- Compile-only optional integrations for JEI (15.x) and Jade (11.x)
+  injections.
+- Jade is a compile-only optional dependency; REI is compile-only.
 
 ### Restored from the official 0.5.1 sources
 
@@ -54,7 +76,8 @@ restored by translating the official Forge 0.5.1 source code:
   assembles a chisel table; breaking the table reverts it (Forge `BlockEvent` → block
   subclasses)
 - Snow falling on snow roof ridges is absorbed as an extra snow layer (Forge
-  `NeighborNotifyEvent` → Porting Lib `BlockEvents.NEIGHBORS_NOTIFY`)
+  `NeighborNotifyEvent` → `Porting Lib BlockEvents.NEIGHBORS_NOTIFY` on 1.20.1,
+  `SnowLayerBlock` random-tick mixin on newer versions)
 - Travelling merchant natural spawning near trade POIs with vanilla wandering trader
   probability (Forge `LevelTickEvent` → `ServerTickEvents.START_WORLD_TICK`)
 - Full villager trade sets: mason, toolsmith, farmer, librarian, cleric and the

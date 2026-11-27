@@ -2,7 +2,7 @@
 
 ## Ultramarine: Recast (this port)
 
-A port of Ultramarine 0.7 to Minecraft 1.20.1 – 1.21.11 / Fabric, with the express
+A port of Ultramarine 0.7 to Minecraft 1.20.1 – 26.2 / Fabric, with the express
 permission of the original authors.
 
 ## Original Ultramarine authors

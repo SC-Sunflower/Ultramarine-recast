@@ -1208,6 +1208,7 @@
     "config.jade.plugin_ultramarine.brick_kiln":  "Brick Kiln",
     "config.jade.plugin_ultramarine.bottle_gourd":  "Bottle Gourd",
     "gui.jade.plugin_ultramarine.mallet_toggleable":  "Toggleable",
+"gui.jade.plugin_ultramarine.bottle_gourd":  "Potion Charges: %d",
     "gui.jade.plugin_ultramarine.censer_burn_time":  "Incense: %d s",
     "__EOF__":  "",
     "block.ultramarine.red_floor_tile":  "Red Floor Tile",

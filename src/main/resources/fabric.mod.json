@@ -18,17 +18,20 @@
   "icon": "ultramarine_logo.png",
   "environment": "*",
   "entrypoints": {
+    "main": [
+      "com.voxelutopia.ultramarine.Ultramarine"
+    ],
     "client": [
       "com.voxelutopia.ultramarine.UltramarineClient"
     ],
-  "rei_client": [
-    "com.voxelutopia.ultramarine.compat.rei.UltramarineReiPlugin"
-  ],
-  "rei_common": [
-    "com.voxelutopia.ultramarine.compat.rei.UltramarineReiCommonPlugin"
-  ],
-    "main": [
-      "com.voxelutopia.ultramarine.Ultramarine"
+    "jade": [
+      "com.voxelutopia.ultramarine.client.integration.jade.UltramarineJadePlugin"
+    ],
+    "rei_client": [
+      "com.voxelutopia.ultramarine.compat.rei.UltramarineReiPlugin"
+    ],
+    "rei_common": [
+      "com.voxelutopia.ultramarine.compat.rei.UltramarineReiCommonPlugin"
     ],
     "fabric-datagen": [
       "com.voxelutopia.ultramarine.data.ModDataGenerator"
@@ -43,5 +46,9 @@
     "fabric-api": "*",
     "minecraft": ">=1.21.2 <1.21.4",
     "java": ">=21"
+  },
+  "suggests": {
+    "roughlyenoughitems": "*",
+    "jade": "*"
   }
 }

@@ -7,12 +7,17 @@
 #   powershell -ExecutionPolicy Bypass -File scripts/sync-release.ps1 -OnlySync  # sync existing build/libs jars only
 #
 # Variant jars:
+#   1.20   <- copy of the flattened 1.20.1 jar (same intermediary mappings)
 #   1.20.1 <- main branch jar + fix-1.20-fatjar.ps1 (flat 39 modules)
 #   1.21   <- copy of the 1.21.1 jar (fabric.mod.json range already covers 1.21.0)
 #   1.21.3 <- copy of the 1.21.2 jar (same datapack formats, range covers 1.21.3)
 #   1.21.8 <- NOT automated: fabric/1.21.9 code uses 1.21.9-only APIs. See
 #             scripts/notes-1.21.8-build.md for the manual steps.
-# (Minecraft 1.20 support was dropped; only 1.20.1 and newer are shipped.)
+#   26.1.1 / 26.1.2 <- copies of the 26.1 jar.
+# (Minecraft 1.20 is supported through the 1.20.1 jar variant.)
+param(
+    [switch]$OnlySync
+)
 $ErrorActionPreference = 'Stop'
 
 $root = Split-Path -Parent $PSScriptRoot
@@ -38,7 +43,10 @@ $matrix = @(
     @{ Branch = 'fabric/1.21.7'; MC = '1.21.7' },
     @{ Branch = 'fabric/1.21.9'; MC = '1.21.9' },
     @{ Branch = 'fabric/1.21.10'; MC = '1.21.10' },
-    @{ Branch = 'fabric/1.21.11'; MC = '1.21.11' }
+    @{ Branch = 'fabric/1.21.11'; MC = '1.21.11' },
+    @{ Branch = 'fabric/26.1'; MC = '26.1' },
+    @{ Branch = 'fabric/26.2'; MC = '26.2' },
+    @{ Branch = 'fabric/26.3'; MC = '26.3' }
 )
 
 New-Item -ItemType Directory -Force -Path $buildsRoot, $release | Out-Null
@@ -97,7 +105,7 @@ foreach ($entry in $matrix) {
 # --- variants ---
 # 1.20.1: the main-branch jar must be flattened by fix-1.20-fatjar.ps1 (Loader
 # cannot see classes two nesting levels deep). The script rewrites the 39 bundled
-# module jars flat into META-INF/jars. (1.20 support was dropped.)
+# module jars flat into META-INF/jars. The flattened jar also serves 1.20.
 $r1201 = Join-Path $release 'ultramarine-recast-fabric-1.20.1-0.7.0.jar'
 if (Test-Path $r1201) {
     $libDir = Join-Path $root 'libs/porting-lib'
@@ -109,7 +117,8 @@ if (Test-Path $r1201) {
     Copy-Item $r1201 (Join-Path $buildLibs 'ultramarine-recast-fabric-1.20.1-0.7.0.jar') -Force
     & powershell -ExecutionPolicy Bypass -File (Join-Path $root 'scripts/fix-1.20-fatjar.ps1')
     Copy-Item (Join-Path $buildLibs 'ultramarine-recast-fabric-1.20.1-0.7.0.jar') $r1201 -Force
-    Write-Host '[1.20.1] fatjar flattened (39 modules)'
+    Copy-Item $r1201 (Join-Path $release 'ultramarine-recast-fabric-1.20-0.7.0.jar') -Force
+    Write-Host '[1.20.1] fatjar flattened (39 modules); [1.20] copied from 1.20.1 jar'
 }
 
 $r1211 = Join-Path $release 'ultramarine-recast-fabric-1.21.1-0.7.0.jar'
@@ -127,6 +136,18 @@ if (Test-Path $r1212) {
 $r1218 = Join-Path $release 'ultramarine-recast-fabric-1.21.8-0.7.0.jar'
 if (-not (Test-Path $r1218)) {
     Write-Warning '[1.21.8] jar missing: build it manually per scripts/notes-1.21.8-build.md'
+}
+
+$r261 = Join-Path $release 'ultramarine-recast-fabric-26.1-0.7.0.jar'
+if (Test-Path $r261) {
+    Copy-Item $r261 (Join-Path $release 'ultramarine-recast-fabric-26.1.1-0.7.0.jar') -Force
+    Copy-Item $r261 (Join-Path $release 'ultramarine-recast-fabric-26.1.2-0.7.0.jar') -Force
+    Write-Host '[26.1.1/26.1.2] copied from 26.1 jar'
+}
+
+$r262 = Join-Path $release 'ultramarine-recast-fabric-26.2-0.7.0.jar'
+if (-not (Test-Path $r262)) {
+    Write-Warning '[26.2] jar missing: the 26.2 port is still work in progress'
 }
 
 Pop-Location
