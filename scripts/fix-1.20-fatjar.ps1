@@ -70,7 +70,7 @@ try {
     # 4. rewrite the top-level fabric.mod.json "jars" array
     $topFmj = Join-Path $fatDir 'fabric.mod.json'
     $json = [System.IO.File]::ReadAllText($topFmj)
-    $jarEntries = ($moduleJars | ForEach-Object { '      {"file": "META-INF/jars/' + $_.Name + '"}' }) -join ",`r`n"
+    $jarEntries = ($moduleJars | ForEach-Object { '      "META-INF/jars/' + $_.Name + '"' }) -join ",`r`n"
     $jarsBlock = "  `"jars`": [`r`n" + $jarEntries + "`r`n  ],"
     if ($json -match '"jars"\s*:\s*\[') {
         $json = [regex]::Replace($json, '"jars"\s*:\s*\[[\s\S]*?\]', $jarsBlock.TrimEnd(','), 1)
@@ -78,7 +78,7 @@ try {
         $json = $json -replace '(\s*)(\}\s*$)', ("`r`n" + $jarsBlock + "`r`n" + '$2')
     }
     [System.IO.File]::WriteAllText($topFmj, $json, (New-Object System.Text.UTF8Encoding($false)))
-    $declared = ([regex]::Matches($json, '"file": "META-INF/jars/')).Count
+    $declared = ([regex]::Matches($json, '"META-INF/jars/')).Count
     Write-Output ("fabric.mod.json jars entries: {0}" -f $declared)
 
     # 5. re-zip the fat jar
