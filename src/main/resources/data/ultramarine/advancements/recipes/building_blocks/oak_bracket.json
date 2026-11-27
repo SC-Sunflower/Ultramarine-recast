@@ -11,8 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "minecraft:oak_logs"
+            "items": "#minecraft:oak_logs"
           }
         ]
       },

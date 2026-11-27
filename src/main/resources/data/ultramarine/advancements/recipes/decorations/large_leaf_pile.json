@@ -5,8 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "minecraft:leaves"
+            "items": "#minecraft:leaves"
           }
         ]
       },

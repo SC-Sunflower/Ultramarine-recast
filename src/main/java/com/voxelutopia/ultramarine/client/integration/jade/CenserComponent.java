@@ -15,21 +15,22 @@ public enum CenserComponent implements IBlockComponentProvider, IServerDataProvi
 
    public static final ResourceLocation CENSER_BURN_TIME = new ResourceLocation("ultramarine", "censer_burn_time");
 
+   @Override
    public void appendTooltip(ITooltip tooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
-      if (blockAccessor.getServerData().contains("BurnTime")) {
-         int burnTime = blockAccessor.getServerData().getInt("BurnTime");
-         if (burnTime > 0) {
-            tooltip.add(Component.translatable("gui.jade.plugin_ultramarine.censer_burn_time", new Object[]{burnTime / 20}));
-         }
+      int burnTime = blockAccessor.getServerData().getInt("BurnTime");
+      if (burnTime > 0) {
+         tooltip.add(Component.translatable("gui.jade.plugin_ultramarine.censer_burn_time", burnTime / 20));
       }
    }
 
-   public ResourceLocation getUid() {
-      return CENSER_BURN_TIME;
+   @Override
+   public void appendServerData(CompoundTag compoundTag, BlockAccessor blockAccessor) {
+      CenserBlockEntity censer = (CenserBlockEntity) blockAccessor.getBlockEntity();
+      compoundTag.putInt("BurnTime", censer.getRemainingTime());
    }
 
-   public void appendServerData(CompoundTag compoundTag, BlockAccessor blockAccessor) {
-      CenserBlockEntity censer = (CenserBlockEntity)blockAccessor.getBlockEntity();
-      compoundTag.putInt("BurnTime", censer.getRemainingTime());
+   @Override
+   public ResourceLocation getUid() {
+      return CENSER_BURN_TIME;
    }
 }

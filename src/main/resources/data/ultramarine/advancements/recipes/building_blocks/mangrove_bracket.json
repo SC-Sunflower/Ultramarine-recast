@@ -11,8 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "minecraft:mangrove_logs"
+            "items": "#minecraft:mangrove_logs"
           }
         ]
       },
