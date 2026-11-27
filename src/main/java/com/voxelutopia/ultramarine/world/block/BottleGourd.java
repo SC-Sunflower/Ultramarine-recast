@@ -64,8 +64,8 @@ public class BottleGourd extends DecorativeBlock implements EntityBlock {
 
          if (!pLevel.isClientSide()) {
             for (MobEffectInstance effectInstance : potion1.get().getEffects()) {
-               if (effectInstance.getEffect().value().isInstantenous()) {
-                  effectInstance.getEffect().value().applyInstantenousEffect((ServerLevel)pLevel, pPlayer, pPlayer, (LivingEntity)pPlayer, effectInstance.getAmplifier(), 1.0);
+               if (effectInstance.getEffect().value().isInstantaneous()) {
+                  effectInstance.getEffect().value().applyInstantaneousEffect((ServerLevel)pLevel, pPlayer, pPlayer, (LivingEntity)pPlayer, effectInstance.getAmplifier(), 1.0);
                } else {
                   pPlayer.addEffect(new MobEffectInstance(effectInstance));
                }

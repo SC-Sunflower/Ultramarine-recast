@@ -68,6 +68,10 @@ public class WoodworkingRecipe extends SingleItemRecipe {
       return this.result.create();
    }
 
+   public Ingredient getIngredient() {
+      return this.ingredient;
+   }
+
    public ItemStack getResultStack() {
       return this.result.create();
    }

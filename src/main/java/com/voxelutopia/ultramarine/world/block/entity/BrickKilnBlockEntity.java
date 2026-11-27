@@ -367,7 +367,11 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
       ItemStackHandler items = this.wrapHandlers();
 
       for (int i = 0; i < items.getSlots().size(); i++) {
-         itemList.add(items.getStackInSlot(i));
+         ItemStack stack = items.getStackInSlot(i);
+         // 26.x ItemStack.CODEC rejects empty stacks (count 0 / minecraft:air).
+         if (!stack.isEmpty()) {
+            itemList.add(stack);
+         }
       }
 
       Map<String, Integer> recipesMap = new HashMap<>();

@@ -14,7 +14,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -104,7 +104,7 @@ public class CommonEventHandler {
                int z = pos.getZ() + world.getRandom().nextInt(8) - 4;
                int y = world.getHeight(Heightmap.Types.WORLD_SURFACE, x, z);
                BlockPos rolledPos = new BlockPos(x, y, z);
-               if (SpawnPlacements.isSpawnPositionOk(EntityType.WANDERING_TRADER, world, rolledPos)) {
+               if (SpawnPlacements.isSpawnPositionOk(EntityTypes.WANDERING_TRADER, world, rolledPos)) {
                   potentialSpawn = rolledPos;
                   break;
                }

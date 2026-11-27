@@ -1,13 +1,12 @@
 {
   "required": true,
   "package": "com.voxelutopia.ultramarine.mixin",
-  "compatibilityLevel": "JAVA_17",
-  "refmap": "ultramarine.refmap.json",
+  "compatibilityLevel": "JAVA_25",
   "mixins": [
     "ItemEntityMixin",
     "SnowLayerBlockMixin",
     "BlockBehaviourMixin",
-    "ItemMixin",
+    "ItemMixin"
   ],
   "client": [],
   "minVersion": "0.8.5"
