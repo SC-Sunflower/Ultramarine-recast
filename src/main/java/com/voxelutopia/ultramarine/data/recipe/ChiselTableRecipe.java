@@ -78,7 +78,11 @@ public class ChiselTableRecipe implements Recipe<Container> {
         return this.result.copy();
     }
 
-    public Ingredient getMaterial() {
+    public ItemStack getResultStack() {
+        return this.result.copy();
+    }
+
+public Ingredient getMaterial() {
         return this.material;
     }
 
