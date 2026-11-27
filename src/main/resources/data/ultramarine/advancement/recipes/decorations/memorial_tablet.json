@@ -5,8 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#ultramarine:polished_planks"
+            "items": "#ultramarine:polished_planks"
           }
         ]
       },
@@ -14,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:memorial_tablet"
+        "recipes": "ultramarine:memorial_tablet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

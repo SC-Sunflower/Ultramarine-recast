@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:rafter_end_template"
-            ]
+            "items": "ultramarine:rafter_end_template"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:green_wanzi_rafter_end"
+        "recipes": "ultramarine:green_wanzi_rafter_end"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:small_yellow_ivy"
-            ]
+            "items": "ultramarine:small_yellow_ivy"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:large_yellow_ivy"
+        "recipes": "ultramarine:large_yellow_ivy"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

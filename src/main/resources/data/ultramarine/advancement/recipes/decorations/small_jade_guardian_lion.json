@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:small_stone_guardian_lion"
-            ]
+            "items": "ultramarine:small_stone_guardian_lion"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:small_jade_guardian_lion"
+        "recipes": "ultramarine:small_jade_guardian_lion"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

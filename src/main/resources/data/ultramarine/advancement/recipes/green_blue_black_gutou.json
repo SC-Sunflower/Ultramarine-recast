@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:gutou_template"
-            ]
+            "items": "ultramarine:gutou_template"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:green_blue_black_gutou"
+        "recipes": "ultramarine:green_blue_black_gutou"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

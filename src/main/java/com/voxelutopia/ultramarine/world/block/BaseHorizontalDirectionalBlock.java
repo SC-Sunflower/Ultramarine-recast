@@ -18,10 +18,6 @@ public class BaseHorizontalDirectionalBlock extends HorizontalDirectionalBlock i
     * 1.20.6 起 BlockBehaviour 要求实现 codec()。DecorativeBlock 的构造参数（形状/朝向等）
     * 无法从 Properties 还原，本模组方块也不参与结构方块序列化，故返回当前实例。
     */
-   @Override
-   protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-      return BlockBehaviour.simpleCodec(props -> this);
-   }
    protected final BaseBlockProperty property;
    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 

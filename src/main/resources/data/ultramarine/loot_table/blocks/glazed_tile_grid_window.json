@@ -2,15 +2,15 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:glazed_tile_grid_window"
         }
       ],
+      "bonus_rolls": 0,
       "name": "glazed_tile_grid_window",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/glazed_tile_grid_window"

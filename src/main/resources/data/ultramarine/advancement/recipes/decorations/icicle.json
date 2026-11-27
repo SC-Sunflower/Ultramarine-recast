@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:ice"
-            ]
+            "items": "minecraft:ice"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:icicle"
+        "recipes": "ultramarine:icicle"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

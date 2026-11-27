@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:flower_pot"
-            ]
+            "items": "minecraft:flower_pot"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:red_coral_bonsai"
+        "recipes": "ultramarine:red_coral_bonsai"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

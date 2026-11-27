@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:raw_cobalt"
-            ]
+            "items": "ultramarine:raw_cobalt"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:cobalt_dust"
+        "recipes": "ultramarine:cobalt_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

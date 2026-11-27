@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:brush_tools"
+        "recipes": "ultramarine:brush_tools"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:wooden_parts"
-            ]
+            "items": "ultramarine:wooden_parts"
           }
         ]
       },

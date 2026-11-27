@@ -16,7 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ShovelItem;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -138,7 +138,7 @@ public class RoofTiles extends ShiftableBlock {
          }
 
          return InteractionResult.SUCCESS;
-      } else if (item.getItem() instanceof ShovelItem) {
+      } else if (item.is(ItemTags.SHOVELS)) {
          this.removeSnow(pState, pLevel, pPos);
          if (!pPlayer.isCreative()) {
             item.hurtAndBreak(1, pPlayer, EquipmentSlot.MAINHAND);

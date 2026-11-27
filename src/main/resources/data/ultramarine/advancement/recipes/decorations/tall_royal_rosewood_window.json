@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:royal_rosewood_window"
-            ]
+            "items": "ultramarine:royal_rosewood_window"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:tall_royal_rosewood_window"
+        "recipes": "ultramarine:tall_royal_rosewood_window"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

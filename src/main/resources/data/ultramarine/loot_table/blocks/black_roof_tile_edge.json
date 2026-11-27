@@ -2,15 +2,15 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:black_roof_tile_edge"
         }
       ],
+      "bonus_rolls": 0,
       "name": "black_roof_tile_edge",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/black_roof_tile_edge"

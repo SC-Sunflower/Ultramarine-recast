@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:mung_bean_cake"
-            ]
+            "items": "ultramarine:mung_bean_cake"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:plated_mung_bean_cakes"
+        "recipes": "ultramarine:plated_mung_bean_cakes"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

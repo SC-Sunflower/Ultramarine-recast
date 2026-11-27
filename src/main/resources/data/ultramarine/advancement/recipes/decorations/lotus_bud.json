@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:spore_blossom"
-            ]
+            "items": "minecraft:spore_blossom"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:lotus_bud"
+        "recipes": "ultramarine:lotus_bud"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

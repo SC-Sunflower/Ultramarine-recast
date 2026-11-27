@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:cherry_bracket"
+        "recipes": "ultramarine:cherry_bracket"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -11,8 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#minecraft:cherry_logs"
+            "items": "#minecraft:cherry_logs"
           }
         ]
       },

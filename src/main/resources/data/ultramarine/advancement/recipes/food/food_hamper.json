@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:chest"
-            ]
+            "items": "minecraft:chest"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:food_hamper"
+        "recipes": "ultramarine:food_hamper"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

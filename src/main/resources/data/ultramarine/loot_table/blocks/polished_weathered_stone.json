@@ -2,15 +2,15 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:polished_weathered_stone"
         }
       ],
+      "bonus_rolls": 0,
       "name": "polished_weathered_stone",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/polished_weathered_stone"

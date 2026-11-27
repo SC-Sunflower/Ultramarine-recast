@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:bookshelf"
-            ]
+            "items": "minecraft:bookshelf"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:bookshelf_variant"
+        "recipes": "ultramarine:bookshelf_variant"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

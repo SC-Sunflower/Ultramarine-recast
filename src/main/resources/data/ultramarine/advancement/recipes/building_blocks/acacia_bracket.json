@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:acacia_bracket"
+        "recipes": "ultramarine:acacia_bracket"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -11,8 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#minecraft:acacia_logs"
+            "items": "#minecraft:acacia_logs"
           }
         ]
       },

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:polished_weathered_stone"
-            ]
+            "items": "ultramarine:polished_weathered_stone"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:polished_weathered_stone_stairs_from_crafting"
+        "recipes": "ultramarine:polished_weathered_stone_stairs_from_crafting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

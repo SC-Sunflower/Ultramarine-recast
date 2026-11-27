@@ -2,15 +2,15 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:empty_bamboo_tea_basket"
         }
       ],
+      "bonus_rolls": 0,
       "name": "empty_bamboo_tea_basket",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/empty_bamboo_tea_basket"

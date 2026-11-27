@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:candle"
-            ]
+            "items": "minecraft:candle"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:small_red_lantern"
+        "recipes": "ultramarine:small_red_lantern"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

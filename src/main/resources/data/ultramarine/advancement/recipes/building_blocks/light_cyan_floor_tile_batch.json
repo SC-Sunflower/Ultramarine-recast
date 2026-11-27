@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:cyan_floor_tile"
-            ]
+            "items": "ultramarine:cyan_floor_tile"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:light_cyan_floor_tile_batch"
+        "recipes": "ultramarine:light_cyan_floor_tile_batch"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

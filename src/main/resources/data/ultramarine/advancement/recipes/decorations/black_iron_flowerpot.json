@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:flower_pot"
-            ]
+            "items": "minecraft:flower_pot"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:black_iron_flowerpot"
+        "recipes": "ultramarine:black_iron_flowerpot"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

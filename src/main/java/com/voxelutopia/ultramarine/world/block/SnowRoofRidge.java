@@ -13,7 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ShovelItem;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -77,7 +77,7 @@ public interface SnowRoofRidge {
          }
 
          return InteractionResult.SUCCESS;
-      } else if (item.getItem() instanceof ShovelItem) {
+      } else if (item.is(ItemTags.SHOVELS)) {
          this.removeSnow(pState, pLevel, pPos);
          if (!pPlayer.isCreative()) {
             item.hurtAndBreak(1, pPlayer, EquipmentSlot.MAINHAND);

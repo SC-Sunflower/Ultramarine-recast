@@ -5,14 +5,10 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:lily_pad"
-            ]
+            "items": "minecraft:lily_pad"
           },
           {
-            "items": [
-              "minecraft:big_dripleaf"
-            ]
+            "items": "minecraft:big_dripleaf"
           }
         ]
       },
@@ -20,7 +16,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:small_lotus_leaf"
+        "recipes": "ultramarine:small_lotus_leaf"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

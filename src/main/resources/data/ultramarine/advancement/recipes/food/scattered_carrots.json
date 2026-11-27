@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:carrot"
-            ]
+            "items": "minecraft:carrot"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:scattered_carrots"
+        "recipes": "ultramarine:scattered_carrots"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

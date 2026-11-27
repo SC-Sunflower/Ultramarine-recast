@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:cooked_meat"
-            ]
+            "items": "ultramarine:cooked_meat"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:plated_ham"
+        "recipes": "ultramarine:plated_ham"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

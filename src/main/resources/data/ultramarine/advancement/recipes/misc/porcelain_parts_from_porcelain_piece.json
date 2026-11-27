@@ -1,4 +1,4 @@
-﻿{
+{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_porcelain_piece": {
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:porcelain_parts_from_porcelain_piece"
+        "recipes": "ultramarine:porcelain_parts_from_porcelain_piece"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

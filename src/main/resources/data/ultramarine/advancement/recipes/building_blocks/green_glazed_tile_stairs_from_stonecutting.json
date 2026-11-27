@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:green_glazed_tiles"
-            ]
+            "items": "ultramarine:green_glazed_tiles"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:green_glazed_tile_stairs_from_stonecutting"
+        "recipes": "ultramarine:green_glazed_tile_stairs_from_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -2,15 +2,15 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:dark_cyan_floor_tile_stairs"
         }
       ],
+      "bonus_rolls": 0,
       "name": "dark_cyan_floor_tile_stairs",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/dark_cyan_floor_tile_stairs"

@@ -1,9 +1,11 @@
-﻿{
+{
   "fabric:load_conditions": [
     {
       "condition": "fabric:tags_populated",
       "registry": "minecraft:item",
-      "values": ["c:ingots/cobalt"]
+      "values": [
+        "c:ingots/cobalt"
+      ]
     }
   ],
   "parent": "minecraft:recipes/root",
@@ -20,7 +22,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:cobalt_dust_compat"
+        "recipes": "ultramarine:cobalt_dust_compat"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

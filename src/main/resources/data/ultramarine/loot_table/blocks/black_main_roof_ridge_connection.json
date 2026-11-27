@@ -2,15 +2,15 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:black_main_roof_ridge_connection"
         }
       ],
+      "bonus_rolls": 0,
       "name": "black_main_roof_ridge_connection",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/black_main_roof_ridge_connection"

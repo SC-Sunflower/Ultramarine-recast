@@ -1,9 +1,9 @@
-﻿{
+{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:red_floor_tile_from_stonecutting"
+        "recipes": "ultramarine:red_floor_tile_from_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

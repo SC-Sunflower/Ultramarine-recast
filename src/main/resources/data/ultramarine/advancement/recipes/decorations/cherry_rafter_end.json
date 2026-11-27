@@ -1,9 +1,9 @@
-﻿{
+{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:cherry_rafter_end"
+        "recipes": "ultramarine:cherry_rafter_end"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

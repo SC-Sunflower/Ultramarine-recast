@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:weathered_stone_slab_from_stonecutting"
+        "recipes": "ultramarine:weathered_stone_slab_from_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:weathered_stone"
-            ]
+            "items": "ultramarine:weathered_stone"
           }
         ]
       },

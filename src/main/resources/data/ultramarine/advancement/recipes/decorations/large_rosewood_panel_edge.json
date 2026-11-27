@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:large_rosewood_panel_edge"
+        "recipes": "ultramarine:large_rosewood_panel_edge"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:varnished_rosewood"
-            ]
+            "items": "ultramarine:varnished_rosewood"
           }
         ]
       },

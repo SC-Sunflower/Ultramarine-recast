@@ -2,15 +2,15 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:white_and_cyan_fangxin"
         }
       ],
+      "bonus_rolls": 0,
       "name": "white_and_cyan_fangxin",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/white_and_cyan_fangxin"

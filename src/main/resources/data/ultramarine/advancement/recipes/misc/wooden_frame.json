@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:oak_planks"
-            ]
+            "items": "minecraft:oak_planks"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:wooden_frame"
+        "recipes": "ultramarine:wooden_frame"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:magnesite"
-            ]
+            "items": "ultramarine:magnesite"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:magnesite_dust"
+        "recipes": "ultramarine:magnesite_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

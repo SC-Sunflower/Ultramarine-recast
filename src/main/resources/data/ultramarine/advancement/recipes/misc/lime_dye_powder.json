@@ -1,12 +1,11 @@
-{
+﻿{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_dye": {
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#forge:dyes/lime"
+            "items": "#c:dyes/lime"
           }
         ]
       },
@@ -14,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:lime_dye_powder"
+        "recipes": "ultramarine:lime_dye_powder"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

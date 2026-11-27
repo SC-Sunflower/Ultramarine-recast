@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:jungle_bracket"
+        "recipes": "ultramarine:jungle_bracket"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -11,8 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#minecraft:jungle_logs"
+            "items": "#minecraft:jungle_logs"
           }
         ]
       },

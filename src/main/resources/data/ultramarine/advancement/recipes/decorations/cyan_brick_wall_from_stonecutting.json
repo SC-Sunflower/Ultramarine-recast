@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:cyan_bricks"
-            ]
+            "items": "ultramarine:cyan_bricks"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:cyan_brick_wall_from_stonecutting"
+        "recipes": "ultramarine:cyan_brick_wall_from_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

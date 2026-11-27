@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:black_floor_tiles_little_mossy"
-            ]
+            "items": "ultramarine:black_floor_tiles_little_mossy"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:black_floor_tiles_moderate_mossy"
+        "recipes": "ultramarine:black_floor_tiles_moderate_mossy"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

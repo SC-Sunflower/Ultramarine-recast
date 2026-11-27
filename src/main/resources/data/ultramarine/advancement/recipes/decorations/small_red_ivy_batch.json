@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:small_red_ivy_batch"
+        "recipes": "ultramarine:small_red_ivy_batch"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:vine"
-            ]
+            "items": "minecraft:vine"
           }
         ]
       },

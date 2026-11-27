@@ -1,9 +1,9 @@
-﻿{
+{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:acacia_rafter"
+        "recipes": "ultramarine:acacia_rafter"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

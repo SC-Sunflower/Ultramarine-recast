@@ -2,15 +2,15 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:green_silk_fabric_roll"
         }
       ],
+      "bonus_rolls": 0,
       "name": "green_silk_fabric_roll",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/green_silk_fabric_roll"

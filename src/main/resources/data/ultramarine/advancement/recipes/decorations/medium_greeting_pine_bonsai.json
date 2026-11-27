@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:flower_pot"
-            ]
+            "items": "minecraft:flower_pot"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:medium_greeting_pine_bonsai"
+        "recipes": "ultramarine:medium_greeting_pine_bonsai"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

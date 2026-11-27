@@ -2,15 +2,15 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:flame_arch_wall_pattern"
         }
       ],
+      "bonus_rolls": 0,
       "name": "flame_arch_wall_pattern",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/flame_arch_wall_pattern"

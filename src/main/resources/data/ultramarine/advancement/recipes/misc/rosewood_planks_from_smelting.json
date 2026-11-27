@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:mangrove_planks"
-            ]
+            "items": "minecraft:mangrove_planks"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:rosewood_planks_from_smelting"
+        "recipes": "ultramarine:rosewood_planks_from_smelting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

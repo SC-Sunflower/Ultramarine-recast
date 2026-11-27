@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:jade"
-            ]
+            "items": "ultramarine:jade"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:imperial_jade_seal"
+        "recipes": "ultramarine:imperial_jade_seal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

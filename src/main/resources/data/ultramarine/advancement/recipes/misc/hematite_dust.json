@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:raw_hematite"
-            ]
+            "items": "ultramarine:raw_hematite"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:hematite_dust"
+        "recipes": "ultramarine:hematite_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

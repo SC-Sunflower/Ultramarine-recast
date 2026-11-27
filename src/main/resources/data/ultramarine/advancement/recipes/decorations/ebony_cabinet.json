@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:polished_warped_plank"
-            ]
+            "items": "ultramarine:polished_warped_plank"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:ebony_cabinet"
+        "recipes": "ultramarine:ebony_cabinet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

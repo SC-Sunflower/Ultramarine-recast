@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:red_and_blue_carved_architrave"
-            ]
+            "items": "ultramarine:red_and_blue_carved_architrave"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:red_and_blue_carved_architrave_slab"
+        "recipes": "ultramarine:red_and_blue_carved_architrave_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -1,12 +1,11 @@
-{
+﻿{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_dye": {
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#forge:dyes/light_gray"
+            "items": "#c:dyes/light_gray"
           }
         ]
       },
@@ -14,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:light_gray_dye_powder"
+        "recipes": "ultramarine:light_gray_dye_powder"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

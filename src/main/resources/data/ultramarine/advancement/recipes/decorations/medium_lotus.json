@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:lotus_bud"
-            ]
+            "items": "ultramarine:lotus_bud"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:medium_lotus"
+        "recipes": "ultramarine:medium_lotus"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

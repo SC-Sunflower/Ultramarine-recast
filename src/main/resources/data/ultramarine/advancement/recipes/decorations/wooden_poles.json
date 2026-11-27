@@ -5,8 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#minecraft:wooden_fences"
+            "items": "#minecraft:wooden_fences"
           }
         ]
       },
@@ -14,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:wooden_poles"
+        "recipes": "ultramarine:wooden_poles"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

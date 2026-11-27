@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:polished_birch_plank"
-            ]
+            "items": "ultramarine:polished_birch_plank"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:high_table_with_white_top"
+        "recipes": "ultramarine:high_table_with_white_top"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

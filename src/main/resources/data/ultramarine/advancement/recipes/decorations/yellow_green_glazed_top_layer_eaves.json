@@ -1,4 +1,4 @@
-﻿{
+{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_green_glazed_tiles": {
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:yellow_green_glazed_top_layer_eaves"
+        "recipes": "ultramarine:yellow_green_glazed_top_layer_eaves"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

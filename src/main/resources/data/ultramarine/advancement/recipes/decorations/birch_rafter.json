@@ -1,9 +1,9 @@
-﻿{
+{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:birch_rafter"
+        "recipes": "ultramarine:birch_rafter"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

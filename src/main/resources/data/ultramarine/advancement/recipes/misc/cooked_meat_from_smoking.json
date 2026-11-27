@@ -1,4 +1,4 @@
-﻿{
+{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_raw_meat": {
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:cooked_meat_from_smoking"
+        "recipes": "ultramarine:cooked_meat_from_smoking"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

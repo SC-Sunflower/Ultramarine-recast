@@ -5,8 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#minecraft:leaves"
+            "items": "#minecraft:leaves"
           }
         ]
       },
@@ -14,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:small_leaf_pile"
+        "recipes": "ultramarine:small_leaf_pile"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

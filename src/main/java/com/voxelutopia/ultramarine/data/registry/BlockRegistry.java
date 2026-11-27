@@ -938,7 +938,7 @@ public class BlockRegistry {
          .shaped(ShapeFunction.centeredSquare(6, 6))
          .directional()
          .noCollision()
-         .pushReaction(PushReaction.BLOCK)
+         .pushReaction(PushReaction.IMMOVEABLE)
          .build()
    );
    public static final Block BAMBOO_TEA_BASKET = registerBlock(
@@ -949,7 +949,7 @@ public class BlockRegistry {
          .directional()
          .diagonallyPlaceable()
          .noOcclusion()
-         .pushReaction(PushReaction.BLOCK)
+         .pushReaction(PushReaction.IMMOVEABLE)
          .build()
    );
    public static final Block EMPTY_BAMBOO_TEA_BASKET = registerBlock(
@@ -960,7 +960,7 @@ public class BlockRegistry {
          .directional()
          .diagonallyPlaceable()
          .noOcclusion()
-         .pushReaction(PushReaction.BLOCK)
+         .pushReaction(PushReaction.IMMOVEABLE)
          .build()
    );
    public static final Block STRAW_HAT = registerBlock(
@@ -1015,7 +1015,7 @@ public class BlockRegistry {
       ContainerDecorativeBlock.with(BaseBlockProperty.WOOD)
          .content(ContainerType.COMMON_REGULAR)
          .shaped(BlockShapes.S16_H16)
-         .pushReaction(PushReaction.BLOCK)
+         .pushReaction(PushReaction.IMMOVEABLE)
          .build()
    );
    public static final Block GUNNY_SACK = registerBlock(
@@ -1024,7 +1024,7 @@ public class BlockRegistry {
          .content(ContainerType.COMMON_REGULAR)
          .shaped(ShapeFunction.cardinalRotations(new RawVoxelShape(3.0, 0.0, 2.0, 15.0, 13.0, 14.0)))
          .directional()
-         .pushReaction(PushReaction.BLOCK)
+         .pushReaction(PushReaction.IMMOVEABLE)
          .build()
    );
    public static final Block BRONZE_DING = registerBlock(
@@ -1166,7 +1166,7 @@ public class BlockRegistry {
          .shaped(ShapeFunction.diagonalSquare(7, 15))
          .directional()
          .diagonallyPlaceable()
-         .pushReaction(PushReaction.BLOCK)
+         .pushReaction(PushReaction.IMMOVEABLE)
          .build()
    );
    public static final Block PLATED_MOONCAKES = registerBlock(
@@ -1272,7 +1272,7 @@ public class BlockRegistry {
          )
          .directional()
          .noFenceConnect()
-         .pushReaction(PushReaction.BLOCK)
+         .pushReaction(PushReaction.IMMOVEABLE)
          .build()
    );
    public static final Block WARPED_CABINET = registerBlock(
@@ -1287,7 +1287,7 @@ public class BlockRegistry {
          )
          .directional()
          .noFenceConnect()
-         .pushReaction(PushReaction.BLOCK)
+         .pushReaction(PushReaction.IMMOVEABLE)
          .build()
    );
    public static final Block EBONY_CABINET = registerBlock(
@@ -1302,7 +1302,7 @@ public class BlockRegistry {
          )
          .directional()
          .noFenceConnect()
-         .pushReaction(PushReaction.BLOCK)
+         .pushReaction(PushReaction.IMMOVEABLE)
          .build()
    );
    public static final Block LARGE_TEA_TABLE = registerBlock(

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:green_glazed_tiles"
-            ]
+            "items": "ultramarine:green_glazed_tiles"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:short_glazed_queti"
+        "recipes": "ultramarine:short_glazed_queti"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

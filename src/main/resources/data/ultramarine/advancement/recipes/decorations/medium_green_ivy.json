@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:small_green_ivy"
-            ]
+            "items": "ultramarine:small_green_ivy"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:medium_green_ivy"
+        "recipes": "ultramarine:medium_green_ivy"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

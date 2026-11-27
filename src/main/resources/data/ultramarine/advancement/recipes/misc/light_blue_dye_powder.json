@@ -1,12 +1,11 @@
-{
+﻿{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_dye": {
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#forge:dyes/light_blue"
+            "items": "#c:dyes/light_blue"
           }
         ]
       },
@@ -14,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:light_blue_dye_powder"
+        "recipes": "ultramarine:light_blue_dye_powder"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

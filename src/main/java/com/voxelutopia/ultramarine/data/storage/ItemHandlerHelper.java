@@ -16,7 +16,7 @@ public final class ItemHandlerHelper {
         }
         ItemStack remainder = stack.copy();
         if (!player.getInventory().add(remainder) && !remainder.isEmpty()) {
-            player.drop(remainder, false);
+            player.getInventory().placeItemBackInInventory(remainder, net.minecraft.util.Prediction.SERVER_ONLY);
         }
     }
 }

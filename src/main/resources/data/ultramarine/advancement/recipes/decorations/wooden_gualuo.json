@@ -5,8 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#minecraft:planks"
+            "items": "#minecraft:planks"
           }
         ]
       },
@@ -14,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:wooden_gualuo"
+        "recipes": "ultramarine:wooden_gualuo"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

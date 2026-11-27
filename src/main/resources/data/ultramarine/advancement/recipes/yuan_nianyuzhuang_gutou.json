@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:gutou_template"
-            ]
+            "items": "ultramarine:gutou_template"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:yuan_nianyuzhuang_gutou"
+        "recipes": "ultramarine:yuan_nianyuzhuang_gutou"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

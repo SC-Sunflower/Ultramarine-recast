@@ -5,8 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#minecraft:fences"
+            "items": "#minecraft:fences"
           }
         ]
       },
@@ -14,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:wooden_mallet"
+        "recipes": "ultramarine:wooden_mallet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -5,8 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#ultramarine:painting_scroll_items"
+            "items": "#ultramarine:painting_scroll_items"
           }
         ]
       },
@@ -14,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:painted_screen"
+        "recipes": "ultramarine:painted_screen"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

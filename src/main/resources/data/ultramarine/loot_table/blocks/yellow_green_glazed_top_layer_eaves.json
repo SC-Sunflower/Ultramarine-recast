@@ -1,16 +1,16 @@
-﻿{
+{
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:yellow_green_glazed_top_layer_eaves"
         }
       ],
+      "bonus_rolls": 0,
       "name": "yellow_green_glazed_top_layer_eaves",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/yellow_green_glazed_top_layer_eaves"

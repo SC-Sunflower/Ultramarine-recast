@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:cyan_and_white_pillar_head"
+        "recipes": "ultramarine:cyan_and_white_pillar_head"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:zhaotou_template"
-            ]
+            "items": "ultramarine:zhaotou_template"
           }
         ]
       },

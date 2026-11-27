@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:small_lotus_leaf"
-            ]
+            "items": "ultramarine:small_lotus_leaf"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:medium_lotus_leaf"
+        "recipes": "ultramarine:medium_lotus_leaf"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -2,15 +2,15 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:red_and_cyan_carved_architrave"
         }
       ],
+      "bonus_rolls": 0,
       "name": "red_and_cyan_carved_architrave",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/red_and_cyan_carved_architrave"

@@ -2,15 +2,15 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:carved_wooden_door_panel"
         }
       ],
+      "bonus_rolls": 0,
       "name": "carved_wooden_door_panel",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/carved_wooden_door_panel"

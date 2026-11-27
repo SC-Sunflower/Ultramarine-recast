@@ -1,9 +1,9 @@
-﻿{
+{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:loong_tuanhua"
+        "recipes": "ultramarine:loong_tuanhua"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

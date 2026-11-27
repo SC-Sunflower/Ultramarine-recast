@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:blue_carved_wooden_slab"
-            ]
+            "items": "ultramarine:blue_carved_wooden_slab"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:blue_and_green_chuihua"
+        "recipes": "ultramarine:blue_and_green_chuihua"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

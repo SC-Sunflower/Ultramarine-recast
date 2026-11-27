@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:silk"
-            ]
+            "items": "ultramarine:silk"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:gunny_sack"
+        "recipes": "ultramarine:gunny_sack"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

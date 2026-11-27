@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:caihua_template"
-            ]
+            "items": "ultramarine:caihua_template"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:circular_yellow_carved_pattern"
+        "recipes": "ultramarine:circular_yellow_carved_pattern"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

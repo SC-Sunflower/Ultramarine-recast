@@ -1,4 +1,4 @@
-﻿{
+{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_blue_and_white_porcelain_piece": {
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:blue_and_white_porcelain_pickaxe"
+        "recipes": "ultramarine:blue_and_white_porcelain_pickaxe"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

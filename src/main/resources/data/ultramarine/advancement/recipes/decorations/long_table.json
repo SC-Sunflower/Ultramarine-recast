@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:polished_rosewood_plank"
-            ]
+            "items": "ultramarine:polished_rosewood_plank"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:long_table"
+        "recipes": "ultramarine:long_table"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

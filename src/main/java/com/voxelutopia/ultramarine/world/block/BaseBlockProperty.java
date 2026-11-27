@@ -74,11 +74,11 @@ public final class BaseBlockProperty {
       BaseBlockProperty.BlockMaterial.FLAX
    );
    public static BaseBlockProperty CROP = new BaseBlockProperty(
-      Properties.of().sound(SoundType.CROP).strength(1.0F, 1.5F).ignitedByLava().pushReaction(PushReaction.DESTROY),
+      Properties.of().sound(SoundType.CROP).strength(1.0F, 1.5F).ignitedByLava().pushReaction(PushReaction.POPPED),
       BaseBlockProperty.BlockMaterial.PLANT
    );
    public static BaseBlockProperty PLANT = new BaseBlockProperty(
-      Properties.of().sound(SoundType.CROP).strength(1.0F, 1.5F).ignitedByLava().pushReaction(PushReaction.DESTROY),
+      Properties.of().sound(SoundType.CROP).strength(1.0F, 1.5F).ignitedByLava().pushReaction(PushReaction.POPPED),
       BaseBlockProperty.BlockMaterial.PLANT
    );
    public static BaseBlockProperty LILY = new BaseBlockProperty(
@@ -112,10 +112,6 @@ public final class BaseBlockProperty {
    public BaseBlockProperty copy() {
       // 1.20.6 起 Properties.copy 接受 Block（不再接受 BlockBehaviour），且匿名方块需实现 codec()。
       BlockBehaviour dummy = new BlockBehaviour(this.properties.setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("ultramarine", "dummy")))) {
-         @Override
-         protected MapCodec<? extends Block> codec() {
-            return BlockBehaviour.simpleCodec(props -> new Block(props));
-         }
 
          @Override
          public Item asItem() {

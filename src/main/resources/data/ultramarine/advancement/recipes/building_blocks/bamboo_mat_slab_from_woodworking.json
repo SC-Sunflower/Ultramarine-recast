@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:bamboo_mat"
-            ]
+            "items": "ultramarine:bamboo_mat"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:bamboo_mat_slab_from_woodworking"
+        "recipes": "ultramarine:bamboo_mat_slab_from_woodworking"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

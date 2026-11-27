@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:clay"
-            ]
+            "items": "minecraft:clay"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:clay_plate"
+        "recipes": "ultramarine:clay_plate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

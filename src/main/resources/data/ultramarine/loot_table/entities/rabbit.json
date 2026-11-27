@@ -2,27 +2,24 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "chance": 0.8,
-          "condition": "minecraft:random_chance"
-        }
-      ],
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:fur"
         }
       ],
-      "functions": [
+      "condition": {
+        "type": "minecraft:random_chance",
+        "chance": 0.8
+      },
+      "modifier": [
         {
-          "add": false,
-          "count": 1.0,
-          "function": "minecraft:set_count"
+          "type": "minecraft:set_count",
+          "count": 1
         }
       ],
-      "rolls": 1.0
+      "bonus_rolls": 0,
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:entities/rabbit"

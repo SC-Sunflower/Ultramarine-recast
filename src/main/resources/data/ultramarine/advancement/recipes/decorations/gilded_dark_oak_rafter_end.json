@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:dark_oak_rafter_end"
-            ]
+            "items": "ultramarine:dark_oak_rafter_end"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:gilded_dark_oak_rafter_end"
+        "recipes": "ultramarine:gilded_dark_oak_rafter_end"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

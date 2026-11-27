@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:red_curtain"
-            ]
+            "items": "ultramarine:red_curtain"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:red_curtain_corner"
+        "recipes": "ultramarine:red_curtain_corner"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

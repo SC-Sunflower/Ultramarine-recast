@@ -1,12 +1,11 @@
-{
+﻿{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_dye": {
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#forge:dyes/green"
+            "items": "#c:dyes/green"
           }
         ]
       },
@@ -14,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:green_dye_powder"
+        "recipes": "ultramarine:green_dye_powder"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

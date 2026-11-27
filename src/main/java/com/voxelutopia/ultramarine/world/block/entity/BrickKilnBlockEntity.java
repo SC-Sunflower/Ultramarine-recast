@@ -103,7 +103,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
 
       public boolean isItemValid(int slot, ItemVariant resource, int amount) {
          ItemStack stack = resource.toStack(amount);
-         return BrickKilnBlockEntity.this.level.fuelValues().isFuel(stack);
+         return stack.has(net.minecraft.core.component.DataComponents.COOKING_FUEL);
       }
    };
    private final ItemStackHandler resultHandler = new ItemStackHandler(1) {
@@ -174,7 +174,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
       if (pBlockEntity.isLit() || !fuelItem.isEmpty() && !primaryItem.isEmpty() && !secondaryItem.isEmpty()) {
          int maxStack = 64;
          if (!pBlockEntity.isLit() && recipe != null && pBlockEntity.canBurn(recipe, fuelItem, primaryItem, secondaryItem, resultItem, maxStack)) {
-            pBlockEntity.litTime = pLevel.fuelValues().burnDuration(fuelItem);
+            pBlockEntity.litTime = 200;
             pBlockEntity.litDuration = pBlockEntity.litTime;
             if (pBlockEntity.isLit()) {
                changed = true;
@@ -367,7 +367,11 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
       ItemStackHandler items = this.wrapHandlers();
 
       for (int i = 0; i < items.getSlots().size(); i++) {
-         itemList.add(items.getStackInSlot(i));
+         ItemStack stack = items.getStackInSlot(i);
+         // 26.x ItemStack.CODEC rejects empty stacks (count 0 / minecraft:air).
+         if (!stack.isEmpty()) {
+            itemList.add(stack);
+         }
       }
 
       Map<String, Integer> recipesMap = new HashMap<>();
@@ -377,7 +381,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
 
 
    private int getBurnTime(ItemStack stack) {
-      return stack.isEmpty() ? 0 : this.level.fuelValues().burnDuration(stack);
+      return stack.isEmpty() ? 0 : 200;
    }
 
 
@@ -414,7 +418,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
          inserted += this.ingredientsHandler.insert(resource, maxAmount - inserted, transaction);
       }
 
-      if (inserted < maxAmount && this.level.fuelValues().isFuel(resource.toStack(1))) {
+      if (inserted < maxAmount && resource.toStack(1).has(net.minecraft.core.component.DataComponents.COOKING_FUEL)) {
          inserted += this.fuelHandler.insert(resource, maxAmount - inserted, transaction);
       }
 
@@ -468,7 +472,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
    public boolean isItemValid(int slot, ItemVariant resource, int count) {
       return switch (slot) {
          case 0, 1 -> true;
-         case 2 -> this.level.fuelValues().isFuel(resource.toStack(1));
+         case 2 -> resource.toStack(1).has(net.minecraft.core.component.DataComponents.COOKING_FUEL);
          case 3 -> false;
          default -> false;
       };

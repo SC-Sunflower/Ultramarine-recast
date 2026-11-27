@@ -2,15 +2,15 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:qing_blue_plain_jinzhuomo_shinianyu_fangxin"
         }
       ],
+      "bonus_rolls": 0,
       "name": "qing_blue_plain_jinzhuomo_shinianyu_fangxin",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/qing_blue_plain_jinzhuomo_shinianyu_fangxin"

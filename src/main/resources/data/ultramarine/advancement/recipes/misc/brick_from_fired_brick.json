@@ -1,9 +1,9 @@
-﻿{
+{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:brick_from_fired_brick"
+        "recipes": "ultramarine:brick_from_fired_brick"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

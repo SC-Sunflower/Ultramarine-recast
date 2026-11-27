@@ -5,10 +5,10 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
@@ -24,31 +24,15 @@ public class ModPlacedFeatures {
    public static final ResourceKey<PlacedFeature> NETHER_COBALT_ORE_PLACED_KEY = key("nether_cobalt_ore_placed");
 
    public static void bootstrap(BootstrapContext<PlacedFeature> context) {
-      HolderGetter<ConfiguredFeature<?, ?>> lookup = context.lookup(Registries.CONFIGURED_FEATURE);
-      register(
-         context,
-         OVERWORLD_JADE_ORE_PLACED_KEY,
-         lookup.getOrThrow(ModConfiguredFeatures.OVERWORLD_JADE_ORE_KEY),
-         commonOrePlacement(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(80)))
-      );
-      register(
-         context,
-         OVERWORLD_MAGNESITE_ORE_PLACED_KEY,
-         lookup.getOrThrow(ModConfiguredFeatures.OVERWORLD_MAGNESITE_ORE_KEY),
-         commonOrePlacement(4, HeightRangePlacement.triangle(VerticalAnchor.absolute(-40), VerticalAnchor.absolute(60)))
-      );
-      register(
-         context,
-         OVERWORLD_HEMATITE_ORE_PLACED_KEY,
-         lookup.getOrThrow(ModConfiguredFeatures.OVERWORLD_HEMATITE_ORE_KEY),
-         commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56)))
-      );
-      register(
-         context,
-         NETHER_COBALT_ORE_PLACED_KEY,
-         lookup.getOrThrow(ModConfiguredFeatures.NETHER_COBALT_ORE_KEY),
-         commonOrePlacement(8, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(32)))
-      );
+      HolderGetter<Feature> lookup = context.lookup(Registries.FEATURE);
+      register(context, OVERWORLD_JADE_ORE_PLACED_KEY, lookup.getOrThrow(ModConfiguredFeatures.OVERWORLD_JADE_ORE_KEY),
+         commonOrePlacement(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(80))));
+      register(context, OVERWORLD_MAGNESITE_ORE_PLACED_KEY, lookup.getOrThrow(ModConfiguredFeatures.OVERWORLD_MAGNESITE_ORE_KEY),
+         commonOrePlacement(4, HeightRangePlacement.triangle(VerticalAnchor.absolute(-40), VerticalAnchor.absolute(60))));
+      register(context, OVERWORLD_HEMATITE_ORE_PLACED_KEY, lookup.getOrThrow(ModConfiguredFeatures.OVERWORLD_HEMATITE_ORE_KEY),
+         commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56))));
+      register(context, NETHER_COBALT_ORE_PLACED_KEY, lookup.getOrThrow(ModConfiguredFeatures.NETHER_COBALT_ORE_KEY),
+         commonOrePlacement(8, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(32))));
    }
 
    public static List<PlacementModifier> orePlacement(PlacementModifier countPlacementModifier, PlacementModifier heightPlacementModifier) {
@@ -67,12 +51,7 @@ public class ModPlacedFeatures {
       return ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath("ultramarine", name));
    }
 
-   private static void register(
-      BootstrapContext<PlacedFeature> context,
-      ResourceKey<PlacedFeature> key,
-      Holder<ConfiguredFeature<?, ?>> configuredFeature,
-      List<PlacementModifier> modifiers
-   ) {
-      context.register(key, new PlacedFeature(configuredFeature, List.copyOf(modifiers)));
+   private static void register(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<Feature> feature, List<PlacementModifier> modifiers) {
+      context.register(key, new PlacedFeature(feature, List.copyOf(modifiers)));
    }
 }

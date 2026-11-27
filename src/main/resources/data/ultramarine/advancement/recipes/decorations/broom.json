@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:hay_block"
-            ]
+            "items": "minecraft:hay_block"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:broom"
+        "recipes": "ultramarine:broom"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

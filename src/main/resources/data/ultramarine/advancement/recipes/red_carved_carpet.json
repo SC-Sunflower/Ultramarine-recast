@@ -1,9 +1,9 @@
-﻿{
+{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:red_carved_carpet"
+        "recipes": "ultramarine:red_carved_carpet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

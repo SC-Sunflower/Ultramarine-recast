@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:cyan_carved_wood"
-            ]
+            "items": "ultramarine:cyan_carved_wood"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:cyan_carved_wooden_stairs_from_woodworking"
+        "recipes": "ultramarine:cyan_carved_wooden_stairs_from_woodworking"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

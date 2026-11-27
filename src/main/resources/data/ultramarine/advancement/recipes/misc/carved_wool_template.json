@@ -1,4 +1,4 @@
-﻿{
+{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_polished_blackstone": {
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:carved_wool_template"
+        "recipes": "ultramarine:carved_wool_template"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

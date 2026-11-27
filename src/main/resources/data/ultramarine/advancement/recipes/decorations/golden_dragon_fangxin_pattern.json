@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:blue_fangxin_pattern"
-            ]
+            "items": "ultramarine:blue_fangxin_pattern"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:golden_dragon_fangxin_pattern"
+        "recipes": "ultramarine:golden_dragon_fangxin_pattern"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

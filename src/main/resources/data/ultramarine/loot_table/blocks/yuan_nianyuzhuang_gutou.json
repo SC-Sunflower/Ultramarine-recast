@@ -2,15 +2,15 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:yuan_nianyuzhuang_gutou"
         }
       ],
+      "bonus_rolls": 0,
       "name": "yuan_nianyuzhuang_gutou",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/yuan_nianyuzhuang_gutou"

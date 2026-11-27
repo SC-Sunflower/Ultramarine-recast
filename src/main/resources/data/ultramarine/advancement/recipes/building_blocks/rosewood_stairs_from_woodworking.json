@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:rosewood_planks"
-            ]
+            "items": "ultramarine:rosewood_planks"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:rosewood_stairs_from_woodworking"
+        "recipes": "ultramarine:rosewood_stairs_from_woodworking"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

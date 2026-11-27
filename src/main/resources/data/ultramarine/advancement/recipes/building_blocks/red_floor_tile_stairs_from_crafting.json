@@ -1,4 +1,4 @@
-﻿{
+{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_red_floor_tile": {
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:red_floor_tile_stairs_from_crafting"
+        "recipes": "ultramarine:red_floor_tile_stairs_from_crafting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

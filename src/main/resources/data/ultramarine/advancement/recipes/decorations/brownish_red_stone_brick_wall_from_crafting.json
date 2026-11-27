@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:brownish_red_stone_bricks"
-            ]
+            "items": "ultramarine:brownish_red_stone_bricks"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:brownish_red_stone_brick_wall_from_crafting"
+        "recipes": "ultramarine:brownish_red_stone_brick_wall_from_crafting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

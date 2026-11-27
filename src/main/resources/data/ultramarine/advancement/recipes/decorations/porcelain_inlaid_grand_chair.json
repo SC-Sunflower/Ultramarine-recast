@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:polished_rosewood_plank"
-            ]
+            "items": "ultramarine:polished_rosewood_plank"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:porcelain_inlaid_grand_chair"
+        "recipes": "ultramarine:porcelain_inlaid_grand_chair"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

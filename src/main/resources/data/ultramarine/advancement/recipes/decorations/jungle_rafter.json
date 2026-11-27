@@ -1,9 +1,9 @@
-﻿{
+{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:jungle_rafter"
+        "recipes": "ultramarine:jungle_rafter"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

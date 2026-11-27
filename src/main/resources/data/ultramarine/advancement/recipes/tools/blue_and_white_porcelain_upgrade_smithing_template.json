@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:blue_and_white_porcelain_shards"
-            ]
+            "items": "ultramarine:blue_and_white_porcelain_shards"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:blue_and_white_porcelain_upgrade_smithing_template"
+        "recipes": "ultramarine:blue_and_white_porcelain_upgrade_smithing_template"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

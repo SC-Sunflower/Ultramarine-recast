@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:book"
-            ]
+            "items": "minecraft:book"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:blue_book"
+        "recipes": "ultramarine:blue_book"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

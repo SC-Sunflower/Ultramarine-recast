@@ -1,4 +1,4 @@
-﻿{
+{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_grease": {
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:candle_from_grease"
+        "recipes": "ultramarine:candle_from_grease"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

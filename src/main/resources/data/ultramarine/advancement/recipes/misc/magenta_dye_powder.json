@@ -1,12 +1,11 @@
-{
+﻿{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_dye": {
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#forge:dyes/magenta"
+            "items": "#c:dyes/magenta"
           }
         ]
       },
@@ -14,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:magenta_dye_powder"
+        "recipes": "ultramarine:magenta_dye_powder"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

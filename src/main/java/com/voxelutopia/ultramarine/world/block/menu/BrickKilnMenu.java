@@ -90,7 +90,7 @@ public class BrickKilnMenu extends AbstractContainerMenu {
                if (!this.moveItemStackTo(slotItem, 0, 2, false)) {
                   return ItemStack.EMPTY;
                }
-            } else if (this.blockEntity.getLevel().fuelValues().isFuel(slotItem)) {
+            } else if (slotItem.has(net.minecraft.core.component.DataComponents.COOKING_FUEL)) {
                if (!this.moveItemStackTo(slotItem, 2, 3, false)) {
                   return ItemStack.EMPTY;
                }
@@ -167,7 +167,7 @@ public class BrickKilnMenu extends AbstractContainerMenu {
       }
 
       public boolean mayPlace(@Nonnull ItemStack stack) {
-         return this.level != null && this.level.fuelValues().isFuel(stack);
+         return this.level != null && stack.has(net.minecraft.core.component.DataComponents.COOKING_FUEL);
       }
    }
 

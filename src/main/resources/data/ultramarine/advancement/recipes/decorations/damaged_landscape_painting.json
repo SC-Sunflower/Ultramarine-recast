@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:horizontal_landscape_painting"
-            ]
+            "items": "ultramarine:horizontal_landscape_painting"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:damaged_landscape_painting"
+        "recipes": "ultramarine:damaged_landscape_painting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

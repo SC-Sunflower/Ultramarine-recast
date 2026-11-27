@@ -2,15 +2,15 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:cyan_floor_tile_wall"
         }
       ],
+      "bonus_rolls": 0,
       "name": "cyan_floor_tile_wall",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/cyan_floor_tile_wall"

@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:blue_zhaotou_edge"
+        "recipes": "ultramarine:blue_zhaotou_edge"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:zhaotou_template"
-            ]
+            "items": "ultramarine:zhaotou_template"
           }
         ]
       },

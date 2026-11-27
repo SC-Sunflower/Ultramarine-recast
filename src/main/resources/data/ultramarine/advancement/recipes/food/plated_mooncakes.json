@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:mooncake"
-            ]
+            "items": "ultramarine:mooncake"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:plated_mooncakes"
+        "recipes": "ultramarine:plated_mooncakes"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:brush_and_inkstone"
+        "recipes": "ultramarine:brush_and_inkstone"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:xuan_paper"
-            ]
+            "items": "ultramarine:xuan_paper"
           }
         ]
       },

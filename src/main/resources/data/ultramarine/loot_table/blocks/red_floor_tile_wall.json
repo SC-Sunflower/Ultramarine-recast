@@ -1,16 +1,16 @@
-﻿{
+{
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:red_floor_tile_wall"
         }
       ],
+      "bonus_rolls": 0,
       "name": "red_floor_tile_wall",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/red_floor_tile_wall"

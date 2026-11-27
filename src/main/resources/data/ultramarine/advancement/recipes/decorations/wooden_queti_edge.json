@@ -5,8 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#minecraft:planks"
+            "items": "#minecraft:planks"
           }
         ]
       },
@@ -14,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:wooden_queti_edge"
+        "recipes": "ultramarine:wooden_queti_edge"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

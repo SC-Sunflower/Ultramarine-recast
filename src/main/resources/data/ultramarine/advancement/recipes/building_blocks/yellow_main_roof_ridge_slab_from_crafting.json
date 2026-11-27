@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:yellow_main_roof_ridge_slab_from_crafting"
+        "recipes": "ultramarine:yellow_main_roof_ridge_slab_from_crafting"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:yellow_main_roof_ridge_connection"
-            ]
+            "items": "ultramarine:yellow_main_roof_ridge_connection"
           }
         ]
       },

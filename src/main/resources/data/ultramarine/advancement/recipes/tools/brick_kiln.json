@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:cyan_brick"
-            ]
+            "items": "ultramarine:cyan_brick"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:brick_kiln"
+        "recipes": "ultramarine:brick_kiln"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

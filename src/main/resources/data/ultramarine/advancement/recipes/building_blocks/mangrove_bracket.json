@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:mangrove_bracket"
+        "recipes": "ultramarine:mangrove_bracket"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -11,8 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#minecraft:mangrove_logs"
+            "items": "#minecraft:mangrove_logs"
           }
         ]
       },

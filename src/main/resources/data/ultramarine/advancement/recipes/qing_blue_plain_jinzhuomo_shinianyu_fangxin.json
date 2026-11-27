@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:fangxin_template"
-            ]
+            "items": "ultramarine:fangxin_template"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:qing_blue_plain_jinzhuomo_shinianyu_fangxin"
+        "recipes": "ultramarine:qing_blue_plain_jinzhuomo_shinianyu_fangxin"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

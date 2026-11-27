@@ -2,15 +2,15 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:yuan_patterned_nianyuzhuang_fangxin_edge"
         }
       ],
+      "bonus_rolls": 0,
       "name": "yuan_patterned_nianyuzhuang_fangxin_edge",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/yuan_patterned_nianyuzhuang_fangxin_edge"

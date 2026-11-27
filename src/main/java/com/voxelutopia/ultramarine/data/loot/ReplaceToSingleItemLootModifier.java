@@ -4,22 +4,20 @@ import com.voxelutopia.ultramarine.data.registry.ItemRegistry;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider;
+import net.minecraft.world.level.storage.loot.providers.number.ints.UniformGenerator;
 
 /**
  * Loot table injections ported from Ultramarine 0.7 global loot modifiers (NeoForge 1.21.1).
- * NeoForge uses {@code neoforge:add_table} GLMs. Minecraft 1.20.6 removed the
- * {@code LootTableReference} entry class and Fabric API 0.100 changed
- * {@link LootTableEvents.Modify} to a three-argument callback, so the referenced sub-tables
- * are inlined here instead (same items, weights, chances and counts).
+ * Minecraft 26.3 changed loot number providers to Holder-based ContextIntProvider values.
  */
 public class ReplaceToSingleItemLootModifier {
     public static void register() {
@@ -27,18 +25,26 @@ public class ReplaceToSingleItemLootModifier {
         appendArchaeology(Identifier.tryBuild("minecraft", "archaeology/trail_ruins_rare"), 0.1F, trailRuinsRare());
         appendArchaeology(Identifier.tryBuild("minecraft", "archaeology/trail_ruins_common"), 0.2F, trailRuinsCommon());
         // Animal fur and raw meat drops (0.7)
-        appendEntityDrop(Identifier.tryBuild("minecraft", "entities/fox"), ItemRegistry.FUR, 0.6F, UniformGenerator.between(1.0F, 2.0F));
-        appendEntityDrop(Identifier.tryBuild("minecraft", "entities/goat"), ItemRegistry.FUR, 0.8F, UniformGenerator.between(1.0F, 2.0F));
-        appendEntityDrop(Identifier.tryBuild("minecraft", "entities/rabbit"), ItemRegistry.FUR, 0.8F, ConstantValue.exactly(1.0F));
-        appendEntityDrop(Identifier.tryBuild("minecraft", "entities/hoglin"), ItemRegistry.RAW_MEAT, 0.8F, UniformGenerator.between(1.0F, 3.0F));
-        appendEntityDrop(Identifier.tryBuild("minecraft", "entities/ravager"), ItemRegistry.RAW_MEAT, 0.8F, UniformGenerator.between(1.0F, 2.0F));
+        appendEntityDrop(Identifier.tryBuild("minecraft", "entities/fox"), ItemRegistry.FUR, 0.6F, between(1, 2));
+        appendEntityDrop(Identifier.tryBuild("minecraft", "entities/goat"), ItemRegistry.FUR, 0.8F, between(1, 2));
+        appendEntityDrop(Identifier.tryBuild("minecraft", "entities/rabbit"), ItemRegistry.FUR, 0.8F, exactly(1));
+        appendEntityDrop(Identifier.tryBuild("minecraft", "entities/hoglin"), ItemRegistry.RAW_MEAT, 0.8F, between(1, 3));
+        appendEntityDrop(Identifier.tryBuild("minecraft", "entities/ravager"), ItemRegistry.RAW_MEAT, 0.8F, between(1, 2));
     }
 
-    private static void appendEntityDrop(Identifier target, ItemLike item, float chance, NumberProvider count) {
+    private static Holder<ContextIntProvider> exactly(int value) {
+        return Holder.direct(new ConstantValue(value));
+    }
+
+    private static Holder<ContextIntProvider> between(int min, int max) {
+        return Holder.direct(new UniformGenerator(exactly(min), exactly(max)));
+    }
+
+    private static void appendEntityDrop(Identifier target, ItemLike item, float chance, Holder<ContextIntProvider> count) {
         LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
             if (key.identifier().equals(target)) {
                 tableBuilder.pool(LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1.0F))
+                        .setRolls(exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(chance))
                         .add(LootItem.lootTableItem(item).apply(SetItemCountFunction.setCount(count)))
                         .build());
@@ -50,7 +56,7 @@ public class ReplaceToSingleItemLootModifier {
         LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
             if (key.identifier().equals(target)) {
                 LootPool.Builder builder = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1.0F))
+                        .setRolls(exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(chance));
                 items.forEach((item, weight) -> builder.add(LootItem.lootTableItem(item).setWeight(weight)));
                 tableBuilder.pool(builder.build());

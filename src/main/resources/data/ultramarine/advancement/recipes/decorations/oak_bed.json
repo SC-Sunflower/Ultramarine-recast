@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:polished_oak_plank"
-            ]
+            "items": "ultramarine:polished_oak_plank"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:oak_bed"
+        "recipes": "ultramarine:oak_bed"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

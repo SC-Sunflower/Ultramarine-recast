@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:small_blue_curtain"
-            ]
+            "items": "ultramarine:small_blue_curtain"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:large_blue_curtain"
+        "recipes": "ultramarine:large_blue_curtain"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

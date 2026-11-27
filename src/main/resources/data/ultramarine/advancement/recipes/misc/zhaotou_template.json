@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:polished_blackstone"
-            ]
+            "items": "minecraft:polished_blackstone"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:zhaotou_template"
+        "recipes": "ultramarine:zhaotou_template"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

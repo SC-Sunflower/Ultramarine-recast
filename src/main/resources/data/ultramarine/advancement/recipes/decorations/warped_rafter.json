@@ -1,9 +1,9 @@
-﻿{
+{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:warped_rafter"
+        "recipes": "ultramarine:warped_rafter"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

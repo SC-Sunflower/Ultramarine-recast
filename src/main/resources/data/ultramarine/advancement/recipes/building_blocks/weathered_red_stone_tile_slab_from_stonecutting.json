@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:weathered_red_stone_tile_slab_from_stonecutting"
+        "recipes": "ultramarine:weathered_red_stone_tile_slab_from_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:weathered_red_stone_tile"
-            ]
+            "items": "ultramarine:weathered_red_stone_tile"
           }
         ]
       },

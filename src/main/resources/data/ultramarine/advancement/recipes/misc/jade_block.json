@@ -1,4 +1,4 @@
-﻿{
+{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_jade": {
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:jade_block"
+        "recipes": "ultramarine:jade_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

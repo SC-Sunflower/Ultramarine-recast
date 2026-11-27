@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:chair_with_yellow_cushion"
+        "recipes": "ultramarine:chair_with_yellow_cushion"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:yellow_cushion"
-            ]
+            "items": "ultramarine:yellow_cushion"
           }
         ]
       },

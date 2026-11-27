@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ultramarine:carved_wood_template"
-            ]
+            "items": "ultramarine:carved_wood_template"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:black_white_green_carved_wood"
+        "recipes": "ultramarine:black_white_green_carved_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

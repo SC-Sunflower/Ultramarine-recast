@@ -2,15 +2,15 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:cyan_and_blue_zhaotou"
         }
       ],
+      "bonus_rolls": 0,
       "name": "cyan_and_blue_zhaotou",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/cyan_and_blue_zhaotou"

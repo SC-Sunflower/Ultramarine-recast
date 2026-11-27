@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:crimson_planks"
-            ]
+            "items": "minecraft:crimson_planks"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ultramarine:polished_crimson_plank"
+        "recipes": "ultramarine:polished_crimson_plank"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

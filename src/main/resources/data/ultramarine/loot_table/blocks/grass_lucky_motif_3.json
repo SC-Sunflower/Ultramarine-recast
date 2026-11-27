@@ -1,16 +1,16 @@
-﻿{
+{
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "ultramarine:grass_lucky_motif_3"
         }
       ],
+      "bonus_rolls": 0,
       "name": "grass_lucky_motif_3",
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "ultramarine:blocks/grass_lucky_motif_3"
