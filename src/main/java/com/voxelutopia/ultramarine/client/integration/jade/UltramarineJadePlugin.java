@@ -14,14 +14,16 @@ import snownee.jade.api.IWailaCommonRegistration;
 import snownee.jade.api.IWailaPlugin;
 import snownee.jade.api.WailaPlugin;
 
-@WailaPlugin
+@WailaPlugin("ultramarine")
 public class UltramarineJadePlugin implements IWailaPlugin {
+   @Override
    public void register(IWailaCommonRegistration registration) {
       registration.registerBlockDataProvider(CenserComponent.INSTANCE, CenserBlockEntity.class);
       registration.registerBlockDataProvider(BrickKilnComponent.INSTANCE, BrickKilnBlockEntity.class);
       registration.registerBlockDataProvider(BottleGourdComponent.INSTANCE, BottleGourdBlockEntity.class);
    }
 
+   @Override
    public void registerClient(IWailaClientRegistration registration) {
       registration.registerBlockComponent(MalletToggleableComponentProvider.INSTANCE, ShiftableBlock.class);
       registration.registerBlockComponent(MalletToggleableComponentProvider.INSTANCE, ChiralDirectionalBlock.class);

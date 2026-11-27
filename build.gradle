@@ -53,12 +53,9 @@ dependencies {
 
     // 可选集成（1.20.2 的 JEI 16 / Jade 12 尚无 Modrinth Maven 坐标，且 API 与 1.20.1 的
     // 15.x / 11.x 不兼容——此分支暂不编译集成类，代码保留待后续适配）
-    sourceSets.main.java.exclude(
-        'com/voxelutopia/ultramarine/client/integration/jei/**',
-        'com/voxelutopia/ultramarine/client/integration/jade/**'
-    )
 
     // 反编译产物引用 javax.annotation 注解（Java 11+ 已移除该包）
+    modCompileOnly "maven.modrinth:jade:${project.jade_version}"
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
 }
 
