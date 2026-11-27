@@ -44,15 +44,12 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:19.0.809"
+    modCompileOnly "maven.modrinth:jade:${project.jade_version}"
     // 1.20.2 分支不依赖 Porting Lib：原作者代码里使用的 Porting Lib 存储/配方包装 API
     // 已由本仓库自带的 com.voxelutopia.ultramarine.data.storage 包提供等价实现。
 
     // 可选集成（1.20.2 的 JEI 16 / Jade 12 尚无 Modrinth Maven 坐标，且 API 与 1.20.1 的
     // 15.x / 11.x 不兼容——此分支暂不编译集成类，代码保留待后续适配）
-    sourceSets.main.java.exclude(
-        'com/voxelutopia/ultramarine/client/integration/jei/**',
-        'com/voxelutopia/ultramarine/client/integration/jade/**'
-    )
 
     // 反编译产物引用 javax.annotation 注解（Java 11+ 已移除该包）
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'

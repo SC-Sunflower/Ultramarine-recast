@@ -16,13 +16,17 @@ public enum MalletToggleableComponentProvider implements IBlockComponentProvider
 
    public static final ResourceLocation MALLET_TOGGLEABLE = ResourceLocation.fromNamespaceAndPath("ultramarine", "mallet_toggleable");
 
+   @Override
    public void appendTooltip(ITooltip tooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
-      IElementHelper elements = tooltip.getElementHelper();
-      IElement icon = elements.item(ItemRegistry.WOODEN_MALLET.getDefaultInstance(), 0.5F).size(new Vec2(10.0F, 10.0F)).translate(new Vec2(0.0F, -1.0F));
+      IElementHelper elements = IElementHelper.get();
+      IElement icon = elements.item(ItemRegistry.WOODEN_MALLET.getDefaultInstance(), 0.5F)
+            .size(new Vec2(10.0F, 10.0F))
+            .translate(new Vec2(0.0F, -1.0F));
       tooltip.add(icon);
       tooltip.append(Component.translatable("gui.jade.plugin_ultramarine.mallet_toggleable"));
    }
 
+   @Override
    public ResourceLocation getUid() {
       return MALLET_TOGGLEABLE;
    }
