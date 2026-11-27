@@ -25,14 +25,25 @@ public class TravellingMerchant extends WanderingTrader {
 
    public TravellingMerchant(EntityType<? extends TravellingMerchant> entityType, Level level) {
       super(entityType, level);
+      this.offers = createOffers();
+   }
+
+   private MerchantOffers createOffers() {
       ArrayList<MerchantOffer> trades = new ArrayList<>(TRADE_OPTIONS);
-      Collections.shuffle(trades);
+      Collections.shuffle(trades, new java.util.Random(this.random.nextLong()));
       MerchantOffers offers = new MerchantOffers();
-      offers.addAll(trades.subList(0, 6));
-      this.offers = offers;
+      int offerCount = Math.min(6, trades.size());
+      for (int i = 0; i < offerCount; i++) {
+         // MerchantOffer is mutable (uses / demand / price); each trader must own its offers.
+         offers.add(trades.get(i).copy());
+      }
+      return offers;
    }
 
    public MerchantOffers getOffers() {
+      if (this.offers == null) {
+         this.offers = createOffers();
+      }
       return this.offers;
    }
 

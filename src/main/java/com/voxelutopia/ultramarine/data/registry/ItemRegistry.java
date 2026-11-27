@@ -19,6 +19,11 @@ import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.SwordItem;
@@ -695,16 +700,25 @@ public class ItemRegistry {
    public static final Item BAOZI = foodItem("baozi", ModFoods.BAOZI);
    public static final Item WOODEN_MALLET = toolItem("wooden_mallet", WoodenMallet::new);
    public static final Item BLUE_AND_WHITE_PORCELAIN_SWORD = toolItem(
-      "blue_and_white_porcelain_sword", () -> new SwordItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, new Properties())
+      "blue_and_white_porcelain_sword",
+      () -> new SwordItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, new Properties().component(
+         DataComponents.ATTRIBUTE_MODIFIERS,
+         SwordItem.createAttributes(ModTiers.BLUE_AND_WHITE_PORCELAIN, 3, -2.4F)))
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_SHOVEL = toolItem(
-      "blue_and_white_porcelain_shovel", () -> new ShovelItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, new Properties())
+      "blue_and_white_porcelain_shovel",
+      () -> new ShovelItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, new Properties().component(
+         DataComponents.ATTRIBUTE_MODIFIERS, toolAttributes(1.5F, -3.0F)))
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_PICKAXE = toolItem(
-      "blue_and_white_porcelain_pickaxe", () -> new PickaxeItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, new Properties())
+      "blue_and_white_porcelain_pickaxe",
+      () -> new PickaxeItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, new Properties().component(
+         DataComponents.ATTRIBUTE_MODIFIERS, toolAttributes(1.0F, -2.8F)))
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_AXE = toolItem(
-      "blue_and_white_porcelain_axe", () -> new AxeItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, new Properties())
+      "blue_and_white_porcelain_axe",
+      () -> new AxeItem(ModTiers.BLUE_AND_WHITE_PORCELAIN, new Properties().component(
+         DataComponents.ATTRIBUTE_MODIFIERS, toolAttributes(6.0F, -3.2F)))
    );
    public static final Item BLUE_AND_WHITE_PORCELAIN_UPGRADE_SMITHING_TEMPLATE = toolItem(
       "blue_and_white_porcelain_upgrade_smithing_template", BlueAndWhitePorcelainUpgradeSmithingTemplate::new
@@ -779,6 +793,17 @@ public class ItemRegistry {
       Item registryObject = registerItem(name, new DyePowder(color));
       ModCreativeTab.putItemInSet(registryObject, ModCreativeTab.MATERIALS);
       return registryObject;
+   }
+
+
+   private static ItemAttributeModifiers toolAttributes(float extraDamage, float attackSpeed) {
+      return ItemAttributeModifiers.builder()
+         .add(Attributes.ATTACK_DAMAGE, new AttributeModifier("ultramarine:base_attack_damage",
+            extraDamage + ModTiers.BLUE_AND_WHITE_PORCELAIN.getAttackDamageBonus(),
+            AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+         .add(Attributes.ATTACK_SPEED, new AttributeModifier("ultramarine:base_attack_speed",
+            attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+         .build();
    }
 
    private static Item toolItem(String name, Supplier<Item> toolItemSupplier) {

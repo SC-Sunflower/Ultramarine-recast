@@ -5,8 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "c:dyes/black"
+            "items": "#c:dyes/black"
           }
         ]
       },
