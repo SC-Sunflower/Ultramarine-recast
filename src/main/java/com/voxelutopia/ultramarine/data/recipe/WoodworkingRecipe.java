@@ -48,7 +48,15 @@ public class WoodworkingRecipe extends SingleItemRecipe {
         return true;
     }
 
-    public ItemStack getResultItem(HolderLookup.Provider provider) {
+    public Ingredient getIngredient() {
+        return this.ingredient;
+    }
+
+public ItemStack getResultStack() {
+        return this.result.copy();
+    }
+
+public ItemStack getResultItem(HolderLookup.Provider provider) {
         return this.result.copy();
     }
 
