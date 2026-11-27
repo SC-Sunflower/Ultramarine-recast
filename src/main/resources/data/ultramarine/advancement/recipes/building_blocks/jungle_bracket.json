@@ -11,8 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#minecraft:jungle_logs"
+            "items": "#minecraft:jungle_logs"
           }
         ]
       },

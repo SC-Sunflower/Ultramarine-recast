@@ -24,6 +24,9 @@
     "main": [
       "com.voxelutopia.ultramarine.Ultramarine"
     ],
+    "jade": [
+      "com.voxelutopia.ultramarine.client.integration.jade.UltramarineJadePlugin"
+    ],
     "fabric-datagen": [
       "com.voxelutopia.ultramarine.data.ModDataGenerator"
     ],
@@ -43,5 +46,9 @@
     "fabric-api": "*",
     "minecraft": ">=1.21.11 <1.21.12",
     "java": ">=21"
+  },
+  "suggests": {
+    "roughlyenoughitems": "*",
+    "jade": "*"
   }
 }
