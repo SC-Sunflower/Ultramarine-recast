@@ -1,4 +1,4 @@
-{
+﻿{
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_dye": {
@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [],
-            "tag": "forge:dyes/purple"
+            "tag": "c:dyes/purple"
           }
         ]
       },
