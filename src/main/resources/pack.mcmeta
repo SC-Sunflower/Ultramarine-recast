@@ -1,9 +1,12 @@
 {
   "pack": {
     "description": "Ultramarine: Recast",
-    "max_format": 94,
     "min_format": [
-      94,
+      101,
+      1
+    ],
+    "max_format": [
+      101,
       1
     ]
   }

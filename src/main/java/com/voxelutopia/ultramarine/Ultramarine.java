@@ -15,8 +15,10 @@ import com.voxelutopia.ultramarine.data.registry.RecipeTypeRegistry;
 import com.voxelutopia.ultramarine.data.registry.SoundRegistry;
 import com.voxelutopia.ultramarine.data.registry.VillagerProfessionRegistry;
 import com.voxelutopia.ultramarine.event.CommonEventHandler;
+import com.voxelutopia.ultramarine.network.WoodworkingRecipesS2CPayload;
 import com.voxelutopia.ultramarine.world.worldgen.ModBiomeModifiers;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +27,8 @@ public class Ultramarine implements ModInitializer {
    public static final Logger LOGGER = LoggerFactory.getLogger("ultramarine");
 
    public void onInitialize() {
+      // Payload types must be registered on both sides before any packet is sent or handled.
+      PayloadTypeRegistry.clientboundPlay().register(WoodworkingRecipesS2CPayload.TYPE, WoodworkingRecipesS2CPayload.STREAM_CODEC);
       ModBiomeModifiers.register();
       SoundRegistry.registerModSounds();
       ModFoods.registerModFoods();

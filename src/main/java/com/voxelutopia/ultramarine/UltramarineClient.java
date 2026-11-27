@@ -5,13 +5,10 @@ import com.voxelutopia.ultramarine.network.WoodworkingRecipesS2CPayload;
 import com.voxelutopia.ultramarine.world.block.menu.WoodworkingWorkbenchMenu;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 
 public class UltramarineClient implements ClientModInitializer {
    public void onInitializeClient() {
       ModClientRenderEventHandler.onClientSetup();
-
-      PayloadTypeRegistry.clientboundPlay().register(WoodworkingRecipesS2CPayload.TYPE, WoodworkingRecipesS2CPayload.STREAM_CODEC);
       ClientPlayNetworking.registerGlobalReceiver(WoodworkingRecipesS2CPayload.TYPE, (payload, context) -> {
          context.client().execute(() -> {
             if (context.client().player != null
