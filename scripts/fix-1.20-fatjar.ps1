@@ -50,6 +50,7 @@ try {
 
     # 3. for each module: extract, patch fabric.mod.json, re-zip into META-INF/jars
     $patchPattern = '"minecraft"\s*:\s*"(?:\\u003d|=|>=|>)[^"]*"'
+    $fabricApiPattern = '"fabric-api"\s*:\s*"[^"]*"'
     $moduleJars = Get-ChildItem $LibDir -Filter *.jar | Sort-Object Name
     foreach ($m in $moduleJars) {
         $mdir = Join-Path $work ("m-" + [guid]::NewGuid().ToString('N'))
@@ -58,6 +59,7 @@ try {
         if (Test-Path $fmj) {
             $t = [System.IO.File]::ReadAllText($fmj)
             $n = [regex]::Replace($t, $patchPattern, '"minecraft": "*"')
+            $n = [regex]::Replace($n, $fabricApiPattern, '"fabric-api": ">=0.83.0+1.20"')
             if ($n -ne $t) {
                 [System.IO.File]::WriteAllText($fmj, $n, (New-Object System.Text.UTF8Encoding($false)))
             }
