@@ -45,7 +45,15 @@ public class WoodworkingRecipe extends SingleItemRecipe {
         return true;
     }
 
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public Ingredient getIngredient() {
+        return this.ingredient;
+    }
+
+public ItemStack getResultStack() {
+        return this.result.copy();
+    }
+
+public ItemStack getResultItem(RegistryAccess registryAccess) {
         return this.result.copy();
     }
 
