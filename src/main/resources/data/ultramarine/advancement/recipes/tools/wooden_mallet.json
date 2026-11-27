@@ -5,8 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#minecraft:fences"
+            "items": "#minecraft:fences"
           }
         ]
       },

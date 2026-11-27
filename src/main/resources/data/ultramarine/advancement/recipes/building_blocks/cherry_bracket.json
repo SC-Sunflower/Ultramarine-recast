@@ -11,8 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#minecraft:cherry_logs"
+            "items": "#minecraft:cherry_logs"
           }
         ]
       },

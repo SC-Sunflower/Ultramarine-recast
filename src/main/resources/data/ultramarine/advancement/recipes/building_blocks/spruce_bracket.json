@@ -11,8 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [],
-            "tag": "#minecraft:spruce_logs"
+            "items": "#minecraft:spruce_logs"
           }
         ]
       },
