@@ -7,7 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.phys.Vec2;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
@@ -21,27 +21,31 @@ public enum BottleGourdComponent implements IBlockComponentProvider, IServerData
 
    public static final ResourceLocation BOTTLE_GOURD = ResourceLocation.fromNamespaceAndPath("ultramarine", "bottle_gourd");
 
+   @Override
    public void appendTooltip(ITooltip tooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
       CompoundTag data = blockAccessor.getServerData();
       if (data.contains("Potion")) {
          int charges = data.getInt("Charges");
-         Potion potion = Potion.byName(data.getString("Potion"));
-         IElementHelper helper = IElementHelper.get();
-         tooltip.add(helper.item(PotionUtils.setPotion(Items.POTION.getDefaultInstance(), potion), 0.6F).translate(new Vec2(-2.0F, -2.5F)));
-         tooltip.append(Component.literal("脳 " + charges));
+         Potion potion = BuiltInRegistries.POTION.getValue(ResourceLocation.tryParse(data.getString("Potion")));
+         if (potion != null) {
+            IElementHelper helper = IElementHelper.get();
+            tooltip.add(helper.item(PotionContents.createItemStack(Items.POTION, BuiltInRegistries.POTION.wrapAsHolder(potion)), 0.6F)
+                  .translate(new Vec2(-2.0F, -2.5F)));
+         }
+         tooltip.append(Component.translatable("gui.jade.plugin_ultramarine.bottle_gourd", charges));
       }
    }
 
+   @Override
    public void appendServerData(CompoundTag compoundTag, BlockAccessor blockAccessor) {
-      BottleGourdBlockEntity gourd = (BottleGourdBlockEntity)blockAccessor.getBlockEntity();
+      BottleGourdBlockEntity gourd = (BottleGourdBlockEntity) blockAccessor.getBlockEntity();
       if (gourd.hasCharges()) {
-         int charges = gourd.getCharges();
-         Potion potion = gourd.getPotion();
-         compoundTag.putInt("Charges", charges);
-         compoundTag.putString("Potion", BuiltInRegistries.POTION.getKey(potion).toString());
+         compoundTag.putInt("Charges", gourd.getCharges());
+         compoundTag.putString("Potion", BuiltInRegistries.POTION.getKey(gourd.getPotion()).toString());
       }
    }
 
+   @Override
    public ResourceLocation getUid() {
       return BOTTLE_GOURD;
    }
