@@ -28,7 +28,7 @@ foreach ($entry in $map.GetEnumerator() | Sort-Object Value) {
         Where-Object { $_.Name -notmatch 'sources' } |
         Sort-Object LastWriteTime -Descending | Select-Object -First 1
     if (-not $jar) { Write-Warning "no jar for $($entry.Key)"; continue }
-    $dest = Join-Path $release ("ultramarine-recast-fabric-{0}-0.7.0.jar" -f $entry.Value)
+    $dest = Join-Path $release ("ultramarine-recast-fabric-{0}-0.7.0.1.jar" -f $entry.Value)
     Copy-Item $jar.FullName $dest -Force
     Write-Host ("{0} -> {1}" -f $entry.Value, $jar.Name)
 }

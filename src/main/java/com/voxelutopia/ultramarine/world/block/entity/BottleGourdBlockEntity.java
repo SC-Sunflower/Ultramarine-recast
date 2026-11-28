@@ -45,9 +45,11 @@ public class BottleGourdBlockEntity extends BlockEntity {
          this.potion = potion;
          this.charges = 1;
          this.filled = true;
+         this.setChanged();
          return true;
-      } else if (potion.equals(this.potion) && this.charges < 6) {
+      } else if (potion.equals(this.potion) && this.charges < MAX_CHARGE) {
          this.charges++;
+         this.setChanged();
          return true;
       } else {
          return false;
@@ -63,6 +65,7 @@ public class BottleGourdBlockEntity extends BlockEntity {
             this.potion = null;
          }
 
+         this.setChanged();
          return Optional.of(charge);
       } else {
          return Optional.empty();
@@ -90,7 +93,11 @@ public class BottleGourdBlockEntity extends BlockEntity {
 
    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
       super.saveAdditional(pTag, provider);
-      pTag.putString("Potion", BuiltInRegistries.POTION.getKey(this.potion).toString());
+      // A freshly placed gourd has no potion yet; skipping the key write keeps the
+      // default empty tag and avoids an NPE on BuiltInRegistries.getKey(null).
+      if (this.potion != null) {
+         pTag.putString("Potion", BuiltInRegistries.POTION.getKey(this.potion).toString());
+      }
       pTag.putInt("Charges", this.charges);
       pTag.putBoolean("Filled", this.filled);
    }

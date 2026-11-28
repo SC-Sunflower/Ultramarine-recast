@@ -6,8 +6,6 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerEntity;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.damagesource.DamageSource;
@@ -17,9 +15,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class SeatEntity extends Entity {
-   private final int MAX_LIFE = 20;
+   private static final int MAX_LIFE = 20;
    private int life = 0;
-   private static final EntityDataAccessor<Integer> LIFE = SynchedEntityData.defineId(SeatEntity.class, EntityDataSerializers.INT);
 
    public SeatEntity(EntityType<? extends SeatEntity> pEntityType, Level pLevel) {
       super(pEntityType, pLevel);
@@ -37,7 +34,7 @@ public class SeatEntity extends Entity {
             this.life++;
          }
 
-         if (this.life > 20) {
+         if (this.life > MAX_LIFE) {
             this.discard();
          }
       }
@@ -56,11 +53,11 @@ public class SeatEntity extends Entity {
    }
 
    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-      builder.define(LIFE, 0);
+      // No synched data needed: the life timer is server-side only.
    }
 
    protected void readAdditionalSaveData(CompoundTag pCompound) {
-      pCompound.getInt("Life");
+      this.life = pCompound.getInt("Life");
    }
 
    protected void addAdditionalSaveData(CompoundTag pCompound) {

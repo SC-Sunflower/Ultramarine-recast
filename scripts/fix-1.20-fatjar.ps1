@@ -18,7 +18,9 @@ $LibDir = Join-Path $Repo "libs\porting-lib"
 
 if (-not (Test-Path $FatJar)) { throw "fat jar not found: $FatJar" }
 
-$tempRoot = 'C:\umtmp'
+# Use the system temp directory instead of a hardcoded drive path so the
+# script works on any machine / checkout location.
+$tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) 'umtmp'
 New-Item -ItemType Directory -Force -Path $tempRoot | Out-Null
 $work = Join-Path $tempRoot ("umfat-" + [guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force -Path $work | Out-Null
