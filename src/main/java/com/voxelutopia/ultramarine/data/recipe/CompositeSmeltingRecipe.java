@@ -76,7 +76,10 @@ public class CompositeSmeltingRecipe implements Recipe<CraftingInput> {
 
    @Override
    public boolean matches(CraftingInput input, Level level) {
-      return this.primaryIngredient.test(input.getItem(0)) && this.secondaryIngredient.test(input.getItem(1));
+      // Order-insensitive: players may drop materials into either ingredient
+      // slot (e.g. via shift-click), so accept both arrangements.
+      return (this.primaryIngredient.test(input.getItem(0)) && this.secondaryIngredient.test(input.getItem(1)))
+      || (this.primaryIngredient.test(input.getItem(1)) && this.secondaryIngredient.test(input.getItem(0)));
    }
 
    public boolean partialMatch(CraftingInput input, Level level) {
