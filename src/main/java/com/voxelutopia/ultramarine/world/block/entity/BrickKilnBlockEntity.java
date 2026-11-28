@@ -240,7 +240,10 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, S
          if (resultPrev.isEmpty()) {
             entity.resultHandler.setStackInSlot(0, newResult.copy());
          } else if (resultPrev.is(newResult.getItem())) {
-            resultPrev.grow(newResult.getCount());
+
+            // Write the merged stack back explicitly: handler getters may return a copy.
+
+            entity.resultHandler.setStackInSlot(0, resultPrev.copyWithCount(resultPrev.getCount() + newResult.getCount()));
          }
 
          primary.shrink(1);

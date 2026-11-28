@@ -49,7 +49,11 @@ public class CenserBlockEntity extends BlockEntity {
          pBlockEntity.finishIncense(pLevel, pPos, pState);
       } else {
          pBlockEntity.remainingTime--;
-         pBlockEntity.setChanged();
+         // Persist about once per second instead of every tick: 1200 ticks of
+         // burning would otherwise dirty the chunk 1200 times.
+         if (pBlockEntity.remainingTime % 20 == 0) {
+            pBlockEntity.setChanged();
+         }
          if (pLevel.getGameTime() % 80L == 0L) {
             pLevel.getEntitiesOfClass(LivingEntity.class, new AABB(pPos).inflate(10.0))
                .forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0)));
