@@ -39,10 +39,16 @@ public class CenserBlockEntity extends BlockEntity {
    }
 
    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, CenserBlockEntity pBlockEntity) {
+      // Only burn while lit; an unlit censer must not keep flipping state,
+      // calling setChanged() and dirtying chunks every tick.
+      if (!pBlockEntity.lit) {
+         return;
+      }
       if (pBlockEntity.remainingTime <= 0) {
          pBlockEntity.finishIncense(pLevel, pPos, pState);
       } else {
          pBlockEntity.remainingTime--;
+         pBlockEntity.setChanged();
          if (pLevel.getGameTime() % 80L == 0L) {
             pLevel.getEntitiesOfClass(LivingEntity.class, new AABB(pPos).inflate(10.0))
                .forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0)));
@@ -71,6 +77,8 @@ public class CenserBlockEntity extends BlockEntity {
    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
       super.loadAdditional(pTag, provider);
       this.remainingTime = pTag.getInt("BurnTime");
+      BlockState state = this.getBlockState();
+      this.lit = state.hasProperty(DecorativeBlock.LIT) && state.getValue(DecorativeBlock.LIT);
    }
 
    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
