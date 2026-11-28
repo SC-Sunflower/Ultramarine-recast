@@ -1274,6 +1274,7 @@
   "entity.ultramarine.travelling_merchant": "行商",
 
   "__comment23__": "Villager Professions",
+  "entity.ultramarine.villager.cook": "厨师",
   "entity.minecraft.villager.ultramarine.cook": "厨师",
   "entity.minecraft.villager.cook": "厨师",
 

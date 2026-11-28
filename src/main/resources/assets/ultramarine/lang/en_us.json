@@ -1191,6 +1191,7 @@
     "entity.ultramarine.seat":  "Seat",
     "entity.ultramarine.travelling_merchant":  "Travelling Merchant",
     "__comment23__":  "Villager Professions",
+    "entity.ultramarine.villager.cook":  "Cook",
     "entity.minecraft.villager.ultramarine.cook":  "Cook",
     "entity.minecraft.villager.cook":  "Cook",
     "__comment24__":  "JEI Categories",
