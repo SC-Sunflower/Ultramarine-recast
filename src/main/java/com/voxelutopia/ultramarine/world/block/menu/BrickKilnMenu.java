@@ -220,7 +220,7 @@ public class BrickKilnMenu extends AbstractContainerMenu {
             public long insert(ItemVariant resource, long maxAmount, TransactionContext transaction) {
                ItemStack stack = InventoryWrapper.this.inventory.getItem(slot);
                if (stack.isEmpty()) {
-                  int toInsert = (int)Math.min(maxAmount, InventoryWrapper.this.inventory.getMaxStackSize());
+                  int toInsert = (int)Math.min(maxAmount, Math.min(InventoryWrapper.this.inventory.getMaxStackSize(), resource.toStack(1).getMaxStackSize()));
                   ItemStack original = stack.copy();
                   InventoryWrapper.this.inventory.setItem(slot, resource.toStack(toInsert));
                   transaction.addCloseCallback((context, result) -> {
@@ -232,7 +232,7 @@ public class BrickKilnMenu extends AbstractContainerMenu {
                }
 
                if (ItemVariant.of(stack).equals(resource)) {
-                  int canInsert = Math.min((int)maxAmount, InventoryWrapper.this.inventory.getMaxStackSize() - stack.getCount());
+                  int canInsert = Math.min((int)maxAmount, Math.min(InventoryWrapper.this.inventory.getMaxStackSize(), stack.getMaxStackSize()) - stack.getCount());
                   if (canInsert > 0) {
                      ItemStack original = stack.copy();
                      stack.grow(canInsert);
