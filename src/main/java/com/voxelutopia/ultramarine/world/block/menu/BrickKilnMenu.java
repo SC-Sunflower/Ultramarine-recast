@@ -190,14 +190,26 @@ public class BrickKilnMenu extends AbstractContainerMenu {
                ItemStack stack = InventoryWrapper.this.inventory.getItem(slot);
                if (stack.isEmpty()) {
                   int toInsert = (int)Math.min(maxAmount, InventoryWrapper.this.inventory.getMaxStackSize());
+                  ItemStack original = stack.copy();
                   InventoryWrapper.this.inventory.setItem(slot, resource.toStack(toInsert));
+                  transaction.addCloseCallback((context, result) -> {
+                     if (result.wasAborted()) {
+                        InventoryWrapper.this.inventory.setItem(slot, original);
+                     }
+                  });
                   return toInsert;
                }
 
                if (ItemVariant.of(stack).equals(resource)) {
                   int canInsert = Math.min((int)maxAmount, InventoryWrapper.this.inventory.getMaxStackSize() - stack.getCount());
                   if (canInsert > 0) {
+                     ItemStack original = stack.copy();
                      stack.grow(canInsert);
+                     transaction.addCloseCallback((context, result) -> {
+                        if (result.wasAborted()) {
+                           InventoryWrapper.this.inventory.setItem(slot, original);
+                        }
+                     });
                      return canInsert;
                   }
                }
@@ -205,20 +217,28 @@ public class BrickKilnMenu extends AbstractContainerMenu {
                return 0L;
             }
 
+
             public long extract(ItemVariant resource, long maxAmount, TransactionContext transaction) {
                ItemStack stack = InventoryWrapper.this.inventory.getItem(slot);
                if (!stack.isEmpty() && ItemVariant.of(stack).equals(resource)) {
                   int toExtract = (int)Math.min(maxAmount, stack.getCount());
+                  ItemStack original = stack.copy();
                   stack.shrink(toExtract);
                   if (stack.isEmpty()) {
                      InventoryWrapper.this.inventory.setItem(slot, ItemStack.EMPTY);
                   }
 
+                  transaction.addCloseCallback((context, result) -> {
+                     if (result.wasAborted()) {
+                        InventoryWrapper.this.inventory.setItem(slot, original);
+                     }
+                  });
                   return toExtract;
                } else {
                   return 0L;
                }
             }
+
 
             public boolean isResourceBlank() {
                return InventoryWrapper.this.inventory.getItem(slot).isEmpty();
