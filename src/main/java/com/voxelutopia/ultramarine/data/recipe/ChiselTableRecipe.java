@@ -1,6 +1,7 @@
 package com.voxelutopia.ultramarine.data.recipe;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.voxelutopia.ultramarine.data.registry.RecipeSerializerRegistry;
@@ -36,7 +37,10 @@ public class ChiselTableRecipe implements Recipe<CraftingInput> {
          Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
          Ingredient.CODEC.fieldOf("material").forGetter(recipe -> recipe.material),
          Ingredient.CODEC.fieldOf("template").forGetter(recipe -> recipe.template),
-         Ingredient.CODEC.listOf().fieldOf("colors").forGetter(recipe -> recipe.colors),
+         Ingredient.CODEC.listOf().fieldOf("colors").validate(colors -> colors.size() <= 4
+      ? DataResult.success(colors)
+      : DataResult.error(() -> "Chisel table recipes support at most 4 colors, got " + colors.size()))
+      .forGetter(recipe -> recipe.colors),
          Codec.INT.optionalFieldOf("count", 1).forGetter(recipe -> recipe.result.count()),
          Codec.STRING.fieldOf("result").forGetter(recipe -> BuiltInRegistries.ITEM.getKey(recipe.result.item().value()).toString())
    ).apply(instance, (group, material, template, colors, count, result) ->
