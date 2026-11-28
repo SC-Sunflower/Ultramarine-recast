@@ -9,9 +9,9 @@
 
 $ErrorActionPreference = 'Stop'
 
-$version = '2.3.8+1.20.1'
-$url = 'https://cdn.modrinth.com/data/tEJPA4Ty/versions/c8mvvgoR/porting_lib-2.3.8%2B1.20.1.jar'
 $root = Split-Path -Parent $PSScriptRoot
+$version = (Select-String -Path (Join-Path $root 'gradle.properties') -Pattern '^porting_lib_version=(.+)$').Matches[0].Groups[1].Value.Trim()
+$url = 'https://cdn.modrinth.com/data/tEJPA4Ty/versions/c8mvvgoR/porting_lib-2.3.8%2B1.20.1.jar'
 $out = Join-Path $root 'libs/porting-lib'
 $tmp = Join-Path $env:TEMP "porting_lib-$version.jar"
 

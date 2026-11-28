@@ -44,13 +44,16 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:12.1.785"
-    // Porting Lib 2.3.8：
-    // - 编译期用本地提取的模块 jar（Modrinth 聚合 jar 的嵌套模块不在编译 classpath）
-    // - 打包期先 include 聚合 jar 占位（Loom 只接受 module component），随后由
-    //   scripts/fix-1.20-fatjar.ps1 把 libs/porting-lib 下的 39 个模块 jar 平铺注入
-    //   META-INF/jars 并重写 fabric.mod.json 的 jars 数组。
-    //   原因：两层嵌套（fat jar -> 聚合 jar -> 模块 jar）下 Fabric Loader 加载不到
-    //   porting_lib_common（IPlantable 等），一启动就 NoClassDefFoundError。
+    // Porting Lib 2.3.8 (see gradle.properties -> porting_lib_version).
+    // - Compile time: the module jars extracted by scripts/fetch-porting-lib.ps1 are
+    //   added from libs/porting-lib (the nested jars of the aggregate jar are not on
+    //   the compile classpath).
+    // - Packaging: the aggregate jar is included first (Loom only accepts a module
+    //   component), then scripts/fix-1.20-fatjar.ps1 flattens the 39 module jars into
+    //   META-INF/jars and rewrites the fabric.mod.json jars array.
+    //   Reason: with two-level nesting (fat jar -> aggregate jar -> module jar) Fabric
+    //   Loader cannot see porting_lib_common (IPlantable etc.) and crashes with
+    //   NoClassDefFoundError on startup.
     modImplementation fileTree(dir: 'libs/porting-lib', include: '*.jar')
     include "maven.modrinth:porting_lib:${project.porting_lib_version}"
 

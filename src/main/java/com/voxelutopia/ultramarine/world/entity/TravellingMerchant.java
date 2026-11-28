@@ -43,8 +43,8 @@ public class TravellingMerchant extends WanderingTrader {
       // 1.20.1 MerchantOffer has no copy(); rebuild with the full constructor.
       MerchantOffer copy = new MerchantOffer(
          offer.getBaseCostA().copy(),
-         offer.getCostB(),
-         offer.getResult(),
+         offer.getCostB().copy(),
+         offer.getResult().copy(),
          offer.getUses(),
          offer.getMaxUses(),
          offer.getXp(),

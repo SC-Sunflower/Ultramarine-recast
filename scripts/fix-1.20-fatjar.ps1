@@ -13,7 +13,9 @@ $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 
 $Repo = Split-Path $PSScriptRoot -Parent
-$FatJar = Join-Path $Repo "build\libs\ultramarine-recast-fabric-1.20.1-0.7.0.jar"
+$root = Split-Path -Parent $PSScriptRoot
+$version = (Select-String -Path (Join-Path $root 'gradle.properties') -Pattern '^mod_version=(.+)$').Matches[0].Groups[1].Value.Trim()
+$FatJar = Join-Path $Repo "build\libs\ultramarine-recast-fabric-1.20.1-$version.jar"
 $LibDir = Join-Path $Repo "libs\porting-lib"
 
 if (-not (Test-Path $FatJar)) { throw "fat jar not found: $FatJar" }

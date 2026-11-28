@@ -103,15 +103,54 @@ public class ChiselTableMenu extends AbstractContainerMenu {
    }
 
    protected void onTake(Player player, ItemStack itemStack, SlotItemHandler slot) {
+
+
       for (int i = 0; i < 6; i++) {
+
+
          ItemStack item = this.crafting.getStackInSlot(i);
-         this.crafting.setStackInSlot(i, item);
-         if (i != 1) {
-            item.shrink(1);
+
+
+         if (item.isEmpty()) {
+
+
+            continue;
+
+
          }
+
+
+         // Consume one from every ingredient except the template slot (1) and
+
+
+         // write the reduced stack back explicitly: never rely on the handler
+
+
+         // returning a live reference.
+
+
+         if (i != 1) {
+
+
+            this.crafting.setStackInSlot(i, item.copyWithCount(item.getCount() - 1));
+
+
+         } else {
+
+
+            this.crafting.setStackInSlot(i, item);
+
+
+         }
+
+
       }
 
+
+
       this.slotsChanged(slot);
+
+
    }
 
    public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
@@ -227,7 +266,7 @@ public class ChiselTableMenu extends AbstractContainerMenu {
             public long insert(ItemVariant resource, long maxAmount, TransactionContext transaction) {
                ItemStack stack = InventoryWrapper.this.inventory.getItem(slot);
                if (stack.isEmpty()) {
-                  int toInsert = (int)Math.min(maxAmount, InventoryWrapper.this.inventory.getMaxStackSize());
+                  int toInsert = (int)Math.min(maxAmount, Math.min(InventoryWrapper.this.inventory.getMaxStackSize(), resource.toStack(1).getMaxStackSize()));
                   ItemStack original = stack.copy();
                   InventoryWrapper.this.inventory.setItem(slot, resource.toStack(toInsert));
                   transaction.addCloseCallback((context, result) -> {
@@ -239,7 +278,7 @@ public class ChiselTableMenu extends AbstractContainerMenu {
                }
 
                if (ItemVariant.of(stack).equals(resource)) {
-                  int canInsert = Math.min((int)maxAmount, InventoryWrapper.this.inventory.getMaxStackSize() - stack.getCount());
+                  int canInsert = Math.min((int)maxAmount, Math.min(InventoryWrapper.this.inventory.getMaxStackSize(), stack.getMaxStackSize()) - stack.getCount());
                   if (canInsert > 0) {
                      ItemStack original = stack.copy();
                      stack.grow(canInsert);

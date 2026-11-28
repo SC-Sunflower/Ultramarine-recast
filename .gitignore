@@ -1,4 +1,4 @@
-### Gradle ###
+﻿### Gradle ###
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
@@ -42,10 +42,12 @@ repo/
 
 ### Porting Lib modules (fetched by scripts/fetch-porting-lib.ps1) ###
 libs/porting-lib/
+### Legacy Porting Lib module dump (removed, do not commit) ###
+libs/porting-lib-1202/
+libs/porting-lib-120/
 
 ### Build/run logs ###
 *.log
 
 ### versioned release jars ###
 release/
-libs/porting-lib-120/

@@ -171,7 +171,7 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, R
       if (pBlockEntity.isLit() || !fuelItem.isEmpty() && !primaryItem.isEmpty() && !secondaryItem.isEmpty()) {
          int maxStack = 64;
          if (!pBlockEntity.isLit() && recipe != null && pBlockEntity.canBurn(recipe, fuelItem, primaryItem, secondaryItem, resultItem, maxStack)) {
-            pBlockEntity.litTime = (Integer)FuelRegistry.INSTANCE.get(fuelItem.getItem());
+            pBlockEntity.litTime = pBlockEntity.getBurnTime(fuelItem);
             pBlockEntity.litDuration = pBlockEntity.litTime;
             if (pBlockEntity.isLit()) {
                changed = true;
@@ -237,7 +237,10 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, R
          if (resultPrev.isEmpty()) {
             entity.resultHandler.setStackInSlot(0, newResult.copy());
          } else if (resultPrev.is(newResult.getItem())) {
-            resultPrev.grow(newResult.getCount());
+
+            // Write the merged stack back explicitly: handler getters may return a copy.
+
+            entity.resultHandler.setStackInSlot(0, resultPrev.copyWithCount(resultPrev.getCount() + newResult.getCount()));
          }
 
          primary.shrink(1);
@@ -392,7 +395,13 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, R
    }
 
    private int getBurnTime(ItemStack stack) {
-      return stack.isEmpty() ? 0 : (Integer)FuelRegistry.INSTANCE.get(stack.getItem());
+      if (stack.isEmpty()) {
+         return 0;
+      }
+      Integer burnTime = FuelRegistry.INSTANCE.get(stack.getItem());
+      // A non-fuel item (e.g. inserted by a hopper or restored from an old save)
+      // must not crash the block entity; treat it as zero burn time.
+      return burnTime == null ? 0 : burnTime;
    }
 
    public void invalidateCaps() {
