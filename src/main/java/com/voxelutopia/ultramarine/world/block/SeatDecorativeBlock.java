@@ -35,7 +35,12 @@ public class SeatDecorativeBlock extends DecorativeBlock {
          }
          SeatEntity seat = new SeatEntity(pLevel, Vec3.atCenterOf(pPos).add(this.seatOffset));
          pLevel.addFreshEntity(seat);
-         return pPlayer.startRiding(seat) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+         if (!pPlayer.startRiding(seat)) {
+            // Mounting failed; remove the freshly created entity so it does not linger.
+            seat.discard();
+            return InteractionResult.PASS;
+         }
+         return InteractionResult.SUCCESS;
       } else {
          return super.useItemOn(stack, pState, pLevel, pPos, pPlayer, pHand, pHit);
       }
