@@ -2,6 +2,7 @@ package com.voxelutopia.ultramarine.world.block.menu;
 
 import com.voxelutopia.ultramarine.data.registry.BlockRegistry;
 import com.voxelutopia.ultramarine.data.registry.MenuTypeRegistry;
+import com.voxelutopia.ultramarine.data.recipe.CompositeSmeltingRecipe;
 import com.voxelutopia.ultramarine.data.registry.RecipeTypeRegistry;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
@@ -21,6 +22,7 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
@@ -79,7 +81,7 @@ public class BrickKilnMenu extends AbstractContainerMenu {
             slot.onQuickCraft(slotItem, itemstack);
          } else if (pIndex != 2 && pIndex != 0 && pIndex != 1) {
             if (this.canProcess(slotItem)) {
-               if (!this.moveItemStackTo(slotItem, 0, 2, false)) {
+               if (!this.tryInsertIngredient(slotItem)) {
                   return ItemStack.EMPTY;
                }
             } else if (isFuel(slotItem)) {
@@ -122,6 +124,31 @@ public class BrickKilnMenu extends AbstractContainerMenu {
             .stream()
             .anyMatch(recipe -> recipe.partialMatch(new SimpleContainer(new ItemStack[]{item}), this.blockEntity.getLevel()))
          : false;
+   }
+
+      private boolean tryInsertIngredient(ItemStack item) {
+      if (this.blockEntity != null && this.blockEntity.getLevel() != null && !this.blockEntity.getLevel().isClientSide) {
+         for (Recipe<?> raw : this.blockEntity.getLevel().getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.COMPOSITE_SMELTING)) {
+            if (!(raw instanceof CompositeSmeltingRecipe recipe)) {
+               continue;
+            }
+            boolean asPrimary = recipe.getPrimaryIngredient().test(item);
+            boolean asSecondary = recipe.getSecondaryIngredient().test(item);
+            if (asPrimary && !asSecondary) {
+               if (this.moveItemStackTo(item, 0, 1, false)) {
+                  return true;
+               }
+               return this.moveItemStackTo(item, 1, 2, false);
+            }
+            if (asSecondary && !asPrimary) {
+               if (this.moveItemStackTo(item, 1, 2, false)) {
+                  return true;
+               }
+               return this.moveItemStackTo(item, 0, 1, false);
+            }
+         }
+      }
+      return this.moveItemStackTo(item, 0, 2, false);
    }
 
    public boolean stillValid(Player pPlayer) {
