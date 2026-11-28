@@ -1,6 +1,7 @@
 package com.voxelutopia.ultramarine.world.block.menu;
 
 import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 
 import com.voxelutopia.ultramarine.data.RecipeManagerAccess;
@@ -85,7 +86,7 @@ public class BrickKilnMenu extends AbstractContainerMenu {
             slot.onQuickCraft(slotItem, itemstack);
          } else if (pIndex != 2 && pIndex != 0 && pIndex != 1) {
             if (this.canProcess(slotItem)) {
-               if (!this.moveItemStackTo(slotItem, 0, 2, false)) {
+               if (!this.tryInsertIngredient(slotItem)) {
                   return ItemStack.EMPTY;
                }
             } else if (isFuel(slotItem)) {
@@ -126,6 +127,34 @@ public class BrickKilnMenu extends AbstractContainerMenu {
       RecipeManager recipeManager = RecipeManagerAccess.get(this.blockEntity.getLevel());
       return recipeManager != null && recipeManager.getAllRecipesFor(RecipeTypeRegistry.COMPOSITE_SMELTING).stream()
             .anyMatch(holder -> ((CompositeSmeltingRecipe)holder.value()).partialMatch(CraftingInput.of(2, 1, java.util.List.of(item, ItemStack.EMPTY)), this.blockEntity.getLevel()));
+   }
+
+      private boolean tryInsertIngredient(ItemStack item) {
+      if (this.blockEntity != null && this.blockEntity.getLevel() != null && !this.blockEntity.getLevel().isClientSide) {
+         RecipeManager recipeManager = RecipeManagerAccess.get(this.blockEntity.getLevel());
+         if (recipeManager != null) {
+            for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
+               if (!(holder.value() instanceof CompositeSmeltingRecipe recipe)) {
+                  continue;
+               }
+               boolean asPrimary = recipe.getPrimaryIngredient().test(item);
+               boolean asSecondary = recipe.getSecondaryIngredient().test(item);
+               if (asPrimary && !asSecondary) {
+                  if (this.moveItemStackTo(item, 0, 1, false)) {
+                     return true;
+                  }
+                  return this.moveItemStackTo(item, 1, 2, false);
+               }
+               if (asSecondary && !asPrimary) {
+                  if (this.moveItemStackTo(item, 1, 2, false)) {
+                     return true;
+                  }
+                  return this.moveItemStackTo(item, 0, 1, false);
+               }
+            }
+         }
+      }
+      return this.moveItemStackTo(item, 0, 2, false);
    }
 
    public boolean stillValid(Player pPlayer) {
