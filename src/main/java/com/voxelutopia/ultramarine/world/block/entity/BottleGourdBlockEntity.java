@@ -63,6 +63,7 @@ public class BottleGourdBlockEntity extends BlockEntity {
             this.potion = Potions.EMPTY;
          }
 
+         this.setChanged();
          return Optional.of(charge);
       } else {
          return Optional.empty();
