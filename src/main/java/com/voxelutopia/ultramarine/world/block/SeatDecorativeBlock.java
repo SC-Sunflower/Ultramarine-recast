@@ -28,14 +28,19 @@ public class SeatDecorativeBlock extends DecorativeBlock {
 
    public ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
       if (pState.is(this) && pLevel.getEntitiesOfClass(SeatEntity.class, new AABB(pPos)).isEmpty()) {
-         boolean ridingSuccess = false;
-         if (!pLevel.isClientSide()) {
-            SeatEntity seat = new SeatEntity(pLevel, Vec3.atCenterOf(pPos).add(this.seatOffset));
-            pLevel.addFreshEntity(seat);
-            ridingSuccess = pPlayer.startRiding(seat);
+         if (pLevel.isClientSide()) {
+            // Client prediction: the seat entity is only created server-side, so
+            // report success here to keep both sides' interaction results consistent.
+            return ItemInteractionResult.SUCCESS;
          }
-
-         return ridingSuccess ? ItemInteractionResult.sidedSuccess(pLevel.isClientSide()) : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+         SeatEntity seat = new SeatEntity(pLevel, Vec3.atCenterOf(pPos).add(this.seatOffset));
+         pLevel.addFreshEntity(seat);
+         if (!pPlayer.startRiding(seat)) {
+            // Mounting failed; remove the freshly created entity so it does not linger.
+            seat.discard();
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+         }
+         return ItemInteractionResult.SUCCESS;
       } else {
          return super.useItemOn(stack, pState, pLevel, pPos, pPlayer, pHand, pHit);
       }
