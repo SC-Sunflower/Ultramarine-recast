@@ -51,7 +51,10 @@ public class CompositeSmeltingRecipe implements Recipe<Container> {
     }
 
     public boolean matches(Container pContainer, Level pLevel) {
-        return this.primaryIngredient.test(pContainer.getItem(0)) && this.secondaryIngredient.test(pContainer.getItem(1));
+        // Order-insensitive: players may drop materials into either ingredient
+        // slot (e.g. via shift-click), so accept both arrangements.
+        return (this.primaryIngredient.test(pContainer.getItem(0)) && this.secondaryIngredient.test(pContainer.getItem(1)))
+            || (this.primaryIngredient.test(pContainer.getItem(1)) && this.secondaryIngredient.test(pContainer.getItem(0)));
     }
 
     public boolean partialMatch(Container pContainer, Level pLevel) {
