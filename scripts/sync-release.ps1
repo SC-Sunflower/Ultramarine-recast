@@ -19,6 +19,8 @@ param(
     [switch]$OnlySync
 )
 $ErrorActionPreference = 'Stop'
+$root = Split-Path -Parent $PSScriptRoot
+$version = (Select-String -Path (Join-Path $root 'gradle.properties') -Pattern '^mod_version=(.+)$').Matches[0].Groups[1].Value.Trim()
 
 $root = Split-Path -Parent $PSScriptRoot
 $release = Join-Path $root 'release'
@@ -94,7 +96,7 @@ foreach ($entry in $matrix) {
             Sort-Object LastWriteTime -Descending | Select-Object -First 1
         if (-not $jar) { throw "[$mc] no jar produced" }
 
-        $dest = Join-Path $release ("ultramarine-recast-fabric-$mc-0.7.0.jar")
+        $dest = Join-Path $release ("ultramarine-recast-fabric-$mc-$version.jar")
         Copy-Item $jar.FullName $dest -Force
         Write-Host "[$mc] synced -> $dest"
     } finally {
@@ -106,7 +108,7 @@ foreach ($entry in $matrix) {
 # 1.20.1: the main-branch jar must be flattened by fix-1.20-fatjar.ps1 (Loader
 # cannot see classes two nesting levels deep). The script rewrites the 39 bundled
 # module jars flat into META-INF/jars. The flattened jar also serves 1.20.
-$r1201 = Join-Path $release 'ultramarine-recast-fabric-1.20.1-0.7.0.jar'
+$r1201 = Join-Path $release "ultramarine-recast-fabric-1.20.1-$version.jar"
 if (Test-Path $r1201) {
     $libDir = Join-Path $root 'libs/porting-lib'
     if (-not (Test-Path $libDir) -or (Get-ChildItem $libDir -Filter '*.jar' -ErrorAction SilentlyContinue | Measure-Object).Count -lt 39) {
@@ -114,38 +116,38 @@ if (Test-Path $r1201) {
     }
     $buildLibs = Join-Path $root 'build/libs'
     New-Item -ItemType Directory -Force -Path $buildLibs | Out-Null
-    Copy-Item $r1201 (Join-Path $buildLibs 'ultramarine-recast-fabric-1.20.1-0.7.0.jar') -Force
+    Copy-Item $r1201 (Join-Path $buildLibs "ultramarine-recast-fabric-1.20.1-$version.jar") -Force
     & powershell -ExecutionPolicy Bypass -File (Join-Path $root 'scripts/fix-1.20-fatjar.ps1')
-    Copy-Item (Join-Path $buildLibs 'ultramarine-recast-fabric-1.20.1-0.7.0.jar') $r1201 -Force
-    Copy-Item $r1201 (Join-Path $release 'ultramarine-recast-fabric-1.20-0.7.0.jar') -Force
+    Copy-Item (Join-Path $buildLibs "ultramarine-recast-fabric-1.20.1-$version.jar") $r1201 -Force
+    Copy-Item $r1201 (Join-Path $release "ultramarine-recast-fabric-1.20-$version.jar") -Force
     Write-Host '[1.20.1] fatjar flattened (39 modules); [1.20] copied from 1.20.1 jar'
 }
 
-$r1211 = Join-Path $release 'ultramarine-recast-fabric-1.21.1-0.7.0.jar'
+$r1211 = Join-Path $release "ultramarine-recast-fabric-1.21.1-$version.jar"
 if (Test-Path $r1211) {
-    Copy-Item $r1211 (Join-Path $release 'ultramarine-recast-fabric-1.21-0.7.0.jar') -Force
+    Copy-Item $r1211 (Join-Path $release "ultramarine-recast-fabric-1.21-$version.jar") -Force
     Write-Host '[1.21] copied from 1.21.1 jar'
 }
 
-$r1212 = Join-Path $release 'ultramarine-recast-fabric-1.21.2-0.7.0.jar'
+$r1212 = Join-Path $release "ultramarine-recast-fabric-1.21.2-$version.jar"
 if (Test-Path $r1212) {
-    Copy-Item $r1212 (Join-Path $release 'ultramarine-recast-fabric-1.21.3-0.7.0.jar') -Force
+    Copy-Item $r1212 (Join-Path $release "ultramarine-recast-fabric-1.21.3-$version.jar") -Force
     Write-Host '[1.21.3] copied from 1.21.2 jar'
 }
 
-$r1218 = Join-Path $release 'ultramarine-recast-fabric-1.21.8-0.7.0.jar'
+$r1218 = Join-Path $release "ultramarine-recast-fabric-1.21.8-$version.jar"
 if (-not (Test-Path $r1218)) {
     Write-Warning '[1.21.8] jar missing: build it manually per scripts/notes-1.21.8-build.md'
 }
 
-$r261 = Join-Path $release 'ultramarine-recast-fabric-26.1-0.7.0.jar'
+$r261 = Join-Path $release "ultramarine-recast-fabric-26.1-$version.jar"
 if (Test-Path $r261) {
-    Copy-Item $r261 (Join-Path $release 'ultramarine-recast-fabric-26.1.1-0.7.0.jar') -Force
-    Copy-Item $r261 (Join-Path $release 'ultramarine-recast-fabric-26.1.2-0.7.0.jar') -Force
+    Copy-Item $r261 (Join-Path $release "ultramarine-recast-fabric-26.1.1-$version.jar") -Force
+    Copy-Item $r261 (Join-Path $release "ultramarine-recast-fabric-26.1.2-$version.jar") -Force
     Write-Host '[26.1.1/26.1.2] copied from 26.1 jar'
 }
 
-$r262 = Join-Path $release 'ultramarine-recast-fabric-26.2-0.7.0.jar'
+$r262 = Join-Path $release "ultramarine-recast-fabric-26.2-$version.jar"
 if (-not (Test-Path $r262)) {
     Write-Warning '[26.2] jar missing: the 26.2 port is still work in progress'
 }

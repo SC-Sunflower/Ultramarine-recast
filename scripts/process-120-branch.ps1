@@ -6,6 +6,8 @@ param(
     [Parameter(Mandatory = $true)][string]$Msg
 )
 $ErrorActionPreference = 'Stop'
+$root = Split-Path -Parent $PSScriptRoot
+$version = (Select-String -Path (Join-Path $root 'gradle.properties') -Pattern '^mod_version=(.+)$').Matches[0].Groups[1].Value.Trim()
 $gradle = Join-Path $env:USERPROFILE '.gradle\wrapper\dists\gradle-9.4.1-bin\45w7kj7s8jzqenl33wrwa0aoj\gradle-9.4.1\bin\gradle.bat'
 $release = Join-Path (Split-Path $PSScriptRoot -Parent) 'release'
 
@@ -52,7 +54,7 @@ if (Test-Path $log) {
 Write-Host "=== [$Mc] release + commit ==="
 $jar = Get-ChildItem (Join-Path $Wt 'build\libs') -Filter '*.jar' |
     Where-Object { $_.Name -notmatch 'sources' } | Select-Object -First 1
-Copy-Item $jar.FullName (Join-Path $release "ultramarine-recast-fabric-$Mc-0.7.0.jar") -Force
+Copy-Item $jar.FullName (Join-Path $release "ultramarine-recast-fabric-$Mc-$version.jar") -Force
 git add -A
 git -c user.name='Ultramarine Recast' -c user.email='recast@localhost' commit -m $Msg 2>&1 | Select-Object -First 2
 Pop-Location

@@ -1,4 +1,6 @@
 $ErrorActionPreference = 'Stop'
+$root = Split-Path -Parent $PSScriptRoot
+$version = (Select-String -Path (Join-Path $root 'gradle.properties') -Pattern '^mod_version=(.+)$').Matches[0].Groups[1].Value.Trim()
 $cred = ("protocol=https`nhost=github.com`n`n" | git credential fill 2>$null) | Out-String
 $token = ($cred | Select-String 'password=(.+)' | ForEach-Object { $_.Matches[0].Groups[1].Value })
 if (-not $token) { throw 'no github token' }
@@ -7,8 +9,8 @@ $headers = @{ Authorization = "Bearer $token"; 'User-Agent' = 'dsh-release' }
 
 # create the new release (does not touch v0.7.0)
 $body = @{
-    tag_name = 'v0.7.0.1'
-    name = 'Ultramarine: Recast 0.7.0.1'
+    tag_name = "v$version"
+    name = "Ultramarine: Recast $version"
     body = @"
 Second-generation release (0.7.0.1).
 

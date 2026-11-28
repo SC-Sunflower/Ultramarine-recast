@@ -1,5 +1,7 @@
-# Copy each worktree's newest jar into the main repo's release/ directory.
+﻿# Copy each worktree's newest jar into the main repo's release/ directory.
 $ErrorActionPreference = 'Stop'
+$root = Split-Path -Parent $PSScriptRoot
+$version = (Select-String -Path (Join-Path $root 'gradle.properties') -Pattern '^mod_version=(.+)$').Matches[0].Groups[1].Value.Trim()
 $release = 'C:\Users\34324\Desktop\Ultramarine-recast-fabric\release'
 
 $map = @{
@@ -28,13 +30,15 @@ foreach ($entry in $map.GetEnumerator() | Sort-Object Value) {
         Where-Object { $_.Name -notmatch 'sources' } |
         Sort-Object LastWriteTime -Descending | Select-Object -First 1
     if (-not $jar) { Write-Warning "no jar for $($entry.Key)"; continue }
-    $dest = Join-Path $release ("ultramarine-recast-fabric-{0}-0.7.0.1.jar" -f $entry.Value)
+    $dest = Join-Path $release ("ultramarine-recast-fabric-{0}-{1}.jar" -f $entry.Value, $version)
     Copy-Item $jar.FullName $dest -Force
     Write-Host ("{0} -> {1}" -f $entry.Value, $jar.Name)
 }
 
 # 1.20.1 jar also serves 1.20; 26.1 jar serves 26.1.1/26.1.2
-Copy-Item (Join-Path $release 'ultramarine-recast-fabric-1.20.1-0.7.0.jar') (Join-Path $release 'ultramarine-recast-fabric-1.20-0.7.0.jar') -Force
-Copy-Item (Join-Path $release 'ultramarine-recast-fabric-26.1-0.7.0.jar') (Join-Path $release 'ultramarine-recast-fabric-26.1.1-0.7.0.jar') -Force
-Copy-Item (Join-Path $release 'ultramarine-recast-fabric-26.1-0.7.0.jar') (Join-Path $release 'ultramarine-recast-fabric-26.1.2-0.7.0.jar') -Force
+Copy-Item (Join-Path $release "ultramarine-recast-fabric-1.20.1-$version.jar") (Join-Path $release "ultramarine-recast-fabric-1.20-$version.jar") -Force
+Copy-Item (Join-Path $release "ultramarine-recast-fabric-26.1-$version.jar") (Join-Path $release "ultramarine-recast-fabric-26.1.1-$version.jar") -Force
+Copy-Item (Join-Path $release "ultramarine-recast-fabric-26.1-$version.jar") (Join-Path $release "ultramarine-recast-fabric-26.1.2-$version.jar") -Force
+Copy-Item (Join-Path $release "ultramarine-recast-fabric-1.21.1-$version.jar") (Join-Path $release "ultramarine-recast-fabric-1.21-$version.jar") -Force
 Write-Host 'variants synced'
+Write-Host 'NOTE: run scripts/fix-1.20-fatjar.ps1 afterwards so the 1.20/1.20.1 jar ships flat Porting Lib modules'
