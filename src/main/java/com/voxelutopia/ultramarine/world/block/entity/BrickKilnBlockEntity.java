@@ -288,7 +288,11 @@ public class BrickKilnBlockEntity extends BlockEntity implements MenuProvider, R
          Entry<ResourceLocation> entry = (Entry<ResourceLocation>)var4.next();
          pLevel.getRecipeManager().byKey((ResourceLocation)entry.getKey()).ifPresent(p_155023_ -> {
             list.add((Recipe<?>)p_155023_);
-            createExperience(pLevel, pos, entry.getIntValue(), ((AbstractCookingRecipe)p_155023_).getExperience());
+            if (p_155023_ instanceof CompositeSmeltingRecipe smeltingRecipe) {
+               createExperience(pLevel, pos, entry.getIntValue(), smeltingRecipe.getExp());
+            } else if (p_155023_ instanceof AbstractCookingRecipe cookingRecipe) {
+               createExperience(pLevel, pos, entry.getIntValue(), cookingRecipe.getExperience());
+            }
          });
       }
 

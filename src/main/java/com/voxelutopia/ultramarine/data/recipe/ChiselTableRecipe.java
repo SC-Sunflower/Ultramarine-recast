@@ -136,6 +136,9 @@ public class ChiselTableRecipe implements Recipe<Container> {
          Ingredient material = parseIngredient(pJson, "material");
          Ingredient template = parseIngredient(pJson, "template");
          JsonArray colorsJson = GsonHelper.getAsJsonArray(pJson, "colors");
+         if (colorsJson.size() > 4) {
+            throw new JsonSyntaxException("Chisel table recipes support at most 4 colors, got " + colorsJson.size());
+         }
          Ingredient[] colors = new Ingredient[colorsJson.size()];
 
          for (int i = 0; i < colors.length; i++) {

@@ -43,9 +43,11 @@ public class BottleGourdBlockEntity extends BlockEntity {
          this.potion = potion;
          this.charges = 1;
          this.filled = true;
+         this.setChanged();
          return true;
-      } else if (potion.equals(this.potion) && this.charges < 6) {
+      } else if (potion.equals(this.potion) && this.charges < MAX_CHARGE) {
          this.charges++;
+         this.setChanged();
          return true;
       } else {
          return false;
@@ -88,7 +90,9 @@ public class BottleGourdBlockEntity extends BlockEntity {
 
    protected void saveAdditional(CompoundTag pTag) {
       super.saveAdditional(pTag);
-      pTag.putString("Potion", BuiltInRegistries.POTION.getKey(this.potion).toString());
+      if (this.potion != null) {
+         pTag.putString("Potion", BuiltInRegistries.POTION.getKey(this.potion).toString());
+      }
       pTag.putInt("Charges", this.charges);
       pTag.putBoolean("Filled", this.filled);
    }
